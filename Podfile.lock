@@ -1,0 +1,15 @@
+PODS:
+  - Alamofire (4.3.0)
+  - UIDropDown (1.1.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.3)
+  - UIDropDown
+
+SPEC CHECKSUMS:
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  UIDropDown: 22e6e3e22d419884c8f21d95ea9be36aac905ed4
+
+PODFILE CHECKSUM: fa5ae28c4de1cdad0b4f40f16192e8009d3492e6
+
+COCOAPODS: 1.2.0
