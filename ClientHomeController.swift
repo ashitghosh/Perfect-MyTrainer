@@ -10,9 +10,14 @@ import UIKit
 
 class ClientHomeController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+    @IBOutlet var Dropdown_backview: UIView!
+    @IBOutlet var Fitness_type_dropdownBtn: UILabel!
     @IBOutlet var Feed_tableview: UITableView!
+    var drop: UIDropDown!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
 
         // Do any additional setup after loading the view.
     }
@@ -25,11 +30,15 @@ class ClientHomeController: UIViewController,UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : FeedCell! = tableView.dequeueReusableCell(withIdentifier: "Cell") as! FeedCell
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc=self.storyboard!.instantiateViewController(withIdentifier: "ClientAboutController") as! ClientAboutController
+        self.navigationController?.pushViewController(vc, animated: true)
+       /* let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController
+        self.navigationController?.pushViewController(vc, animated: true)*/
     }
     
 
@@ -39,6 +48,12 @@ class ClientHomeController: UIViewController,UITableViewDelegate,UITableViewData
     }
     
 
+    @IBAction func DidTabDrawerBtn(_ sender: Any) {
+        if let drawerController = navigationController?.parent as? KYDrawerController {
+            drawerController.setDrawerState(.opened, animated: true)
+        }
+
+    }
     /*
     // MARK: - Navigation
 

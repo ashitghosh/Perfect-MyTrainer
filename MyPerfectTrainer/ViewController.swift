@@ -59,6 +59,8 @@ class ViewController: UIViewController {
 
 
     @IBAction func didTapLogin(_ sender: Any) {
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController
+            self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
