@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class SignUpViewController: UIViewController ,UITextFieldDelegate{
 
     var user_type = "trainer"
@@ -119,15 +119,15 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
     
         }
         else{
-            var localTimeZoneName: String { return (NSTimeZone.local as NSTimeZone).name }
-            signUpDict = ["username" : (FullName_txt.text)! as AnyObject, "password" : (Password_txt.text)! as AnyObject, "ios" : "gcm_regid" as AnyObject, "time_zone" : (localTimeZoneName) as AnyObject ]
+            signUpDict = ["name" : (FullName_txt.text)! as AnyObject, "password" : (Password_txt.text)! as AnyObject,"email":Email_txt.text as AnyObject,"user_type":user_type as AnyObject, "device_token" : "" as AnyObject ]
             
             
             /* signUpDict=["email":Email_txt.text as AnyObject,"password":Password_txt.text as AnyObject,"full_name":FullName_txt.text as AnyObject,"user_type":user_type as AnyObject]*/
             
             print("signup dict",signUpDict)
+            self.SignUpJson(jsonstring: signUpDict, url: "http://10.1.1.11/findmytrainer/FindMyTrainerApp/registration")
             
-            let poststring = ""
+        /*    let poststring = ""
             if let json = try? JSONSerialization.data(withJSONObject: signUpDict, options: []) {
                 if let postString = String(data: json, encoding: String.Encoding.utf8) {
                     // here `content` is the JSON dictionary containing the String
@@ -164,10 +164,45 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
                 
                 print("responseString = \(responseString)")
             }
-            task.resume()
+            task.resume()*/
             
                     }
         
+    }
+    func SignUpJson(jsonstring : [String:AnyObject],url:String)  {
+        
+        Alamofire.request(url, method: .post, parameters: jsonstring, encoding: JSONEncoding.default)
+            .responseJSON { response in
+              
+                //to get status code
+                if let status = response.response?.statusCode {
+                    print("Status = ",status);
+                    switch(status){
+                    case 200:
+                        print( "Json  return for Sign Up= ",response)
+                        if( response.result.value as AnyObject).value(forKey: "is_error") as? NSNumber==0{
+                            let user_id=(response.result.value as AnyObject).value(forKey: "user_id")
+                            let userDefaults = Foundation.UserDefaults.standard
+                            userDefaults.set( user_id ,  forKey: "user_id")
+                            userDefaults.synchronize()
+                            let value:String = userDefaults.string(forKey: "user_id")!
+                            print("user_id = ",value  )
+                            let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController
+                            self.navigationController?.pushViewController(vc, animated: true)
+
+                        }
+                        
+                    default:
+                        print("error with response status: \(status)")
+                    }
+                }
+                //to get JSON return value
+           /*     if let result = response.result.value {
+                    let JSON = result as! NSDictionary
+                    print("new result",JSON)
+                }*/
+                
+        }
     }
     
     
@@ -217,6 +252,12 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
        user_type="trainer"
         print(user_type)
     }
+    
+    @IBAction func DidTabBackBtn(_ sender: Any) {
+self.navigationController! .popViewController(animated: true)
+    
+    }
+    
     /*
     // MARK: - Navigation
 

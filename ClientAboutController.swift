@@ -121,10 +121,24 @@ fileprivate let reuseIdentifier = "Customcell"
 
     
     @IBAction func DidTabBookNowBtn(_ sender: Any) {
+        let vc = self.storyboard! .instantiateViewController(withIdentifier: "BookNowViewController") as! BookNowViewController
+        self.navigationController?.pushViewController(vc, animated: true);
+        
+        
+        /* let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController
+         self.navigationController?.pushViewController(vc, animated: true)*/
     }
     
-    @IBAction func DidTabDrawerBtn(_ sender: Any) {
+    @IBAction func DidiTabDrawerBtn(_ sender: Any) {
+        if let drawerController = navigationController?.parent as? KYDrawerController {
+            drawerController.setDrawerState(.opened, animated: true)
+        }
+
+        
     }
+    
+        
+ 
     @IBAction func DidTabNotificationBtn(_ sender: Any) {
     }
     
@@ -137,6 +151,21 @@ fileprivate let reuseIdentifier = "Customcell"
         About_lbl.isHidden=true
         timeline_lbl.isHidden=false
     }
+    @IBAction func DidTabCommentBtn(_ sender: Any) {
+        let vc = self.storyboard! .instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
+        self.navigationController?.pushViewController(vc, animated: true);
+
+    }
+    
+    @IBAction func DidTabSchduleBtn(_ sender: Any) {
+        let vc = self.storyboard! .instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
+        self.navigationController?.pushViewController(vc, animated: true);
+        
+    }
+    
+  
+    
+    
     /*
     // MARK: - Navigation
 

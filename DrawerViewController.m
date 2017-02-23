@@ -8,6 +8,7 @@
 
 #import "DrawerViewController.h"
 
+
 @interface DrawerViewController ()
 
 @end
@@ -39,7 +40,36 @@
     return cell;
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)newIndexPath{
+    [tableView deselectRowAtIndexPath:newIndexPath animated:YES];
+    
+    KYDrawerController  *elDrawer = (KYDrawerController*)self.navigationController.parentViewController;
+    
+    
+    switch ([newIndexPath row]) {
+        case 0:{
+            ClientHomeController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ClientHomeController"];
+            UINavigationController *navController=[[UINavigationController alloc]initWithRootViewController:viewController];
+            elDrawer.ViewController=navController;
+            [elDrawer setDrawerState:DrawerStateClosed animated:YES];
+            break;
+        }
+            
+       
+            
+        default:{
+//            [viewController.view setBackgroundColor:[UIColor whiteColor]];
+//            elDrawer.mainViewController=navController;
+//            [elDrawer setDrawerState:DrawerStateClosed animated:YES];
+            break;
+        }
+            
+            
+            
+            
+    }
+}
+ - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

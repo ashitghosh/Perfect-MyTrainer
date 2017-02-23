@@ -10,15 +10,24 @@ import UIKit
 
 class ClientHomeController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
+    @IBOutlet var Small_group_btn: UIButton!
+    @IBOutlet var Classes_btn: UIButton!
+    @IBOutlet var Training_type_two_view: UIView!
+    @IBOutlet var personal_training_btn: UIButton!
+    @IBOutlet var Training_type_view: UIView!
+    @IBOutlet var Training_type_backview: UIView!
     @IBOutlet var Dropdown_backview: UIView!
     @IBOutlet var Fitness_type_dropdownBtn: UILabel!
     @IBOutlet var Feed_tableview: UITableView!
     var drop: UIDropDown!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-
+        Training_type_backview.isHidden=true;
+      Small_group_btn.setBottomBorder()
+      Classes_btn.setBottomBorder()
+      personal_training_btn.setBottomBorder()
+      Training_type_view.ViewRoundCorner(Roundview: Training_type_view, radious: 15.0)
+        Training_type_two_view.ViewRoundCorner(Roundview: Training_type_two_view, radious: 10.0)
         // Do any additional setup after loading the view.
     }
     
@@ -40,6 +49,20 @@ class ClientHomeController: UIViewController,UITableViewDelegate,UITableViewData
        /* let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController
         self.navigationController?.pushViewController(vc, animated: true)*/
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        
+//        // Show the navigation bar on other view controllers
+//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+//    }
     
 
     override func didReceiveMemoryWarning() {
@@ -63,5 +86,28 @@ class ClientHomeController: UIViewController,UITableViewDelegate,UITableViewData
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func DidTabTrainingTypeViewHideBtn(_ sender: Any) {
+        
+        Training_type_backview.isHidden=true;
+    }
+    @IBAction func DidTabTrainingTypeBtn(_ sender: Any) {
+        Training_type_backview.isHidden=false;
+    }
+    @IBAction func DidTabPersonalTraining(_ sender: Any) {
+        let vc = self.storyboard! .instantiateViewController(withIdentifier: "ClientTrainingTypeController") as! ClientTrainingTypeController
+        self.navigationController?.pushViewController(vc, animated: true);
+    }
 
+    @IBAction func DidTabClassesBtn(_ sender: Any) {
+        let vc = self.storyboard! .instantiateViewController(withIdentifier: "ClientTrainingTypeController") as! ClientTrainingTypeController
+        self.navigationController?.pushViewController(vc, animated: true);
+        
+    }
+    @IBAction func DidTabSmallGrouBtn(_ sender: Any) {
+        
+        let vc = self.storyboard! .instantiateViewController(withIdentifier: "ClientTrainingTypeController") as! ClientTrainingTypeController
+        self.navigationController?.pushViewController(vc, animated: true);
+    }
+    
 }
+

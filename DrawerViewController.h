@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "DrawerCell.h"
-@interface DrawerViewController : UIViewController{
+#import "MyPerfectTrainer-Swift.h"
+
+
+@interface DrawerViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     NSMutableArray *arrDrawer, *arrImage;
 }
 @property (strong, nonatomic) IBOutlet UITableView *Drawer_table_view;

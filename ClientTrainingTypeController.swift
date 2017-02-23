@@ -12,14 +12,32 @@ class ClientTrainingTypeController: UIViewController,UITableViewDataSource,UITab
     var isAnimating: Bool = false
     var dropDownViewIsDisplayed: Bool = false
     @IBOutlet var Search_background_view: UIView!
+    @IBOutlet var Place_select_btn: UIButton!
     @IBOutlet var search_btn: UIButton!
     @IBOutlet var SearchView_dropdown: UIView!
+    @IBOutlet var Date_place_select_btn: UIButton!
     @IBOutlet var Search_here: UIView!
     @IBOutlet var Skill_tableview: UITableView!
+    @IBOutlet var date_distence_select_btn: UIButton!
+    @IBOutlet var Distence_select_btn: UIButton!
+    var Newview: UIView! = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Search_background_view.isHidden=true;
-        Skill_tableview.isHidden=true;
+        Skill_tableview.isHidden=true
+      //  Skill_tableview.frame=CGRect.init(x: 0, y: 0, width: 0, height: 0);
+        Skill_tableview.backgroundColor = UIColor.white
+        Skill_tableview.layer.shadowColor = UIColor.darkGray.cgColor
+        Skill_tableview.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        Skill_tableview.layer.shadowOpacity = 1.0
+        Skill_tableview.layer.shadowRadius = 2
+        
+        Skill_tableview.layer.cornerRadius = 10
+         Skill_tableview.layer.borderWidth = 1.0
+        Skill_tableview.layer.borderColor=UIColor.gray.cgColor
+        Skill_tableview.layer.masksToBounds = true
+        
         
     }
     override func didReceiveMemoryWarning() {
@@ -31,8 +49,17 @@ class ClientTrainingTypeController: UIViewController,UITableViewDataSource,UITab
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell : TrainingTypeCell! = tableView.dequeueReusableCell(withIdentifier: "TypeCell") as! TrainingTypeCell
-        return cell
+        if tableView==Skill_tableview{
+ let cell = tableView.dequeueReusableCell(withIdentifier: "TypeCell", for: indexPath)
+            cell.textLabel?.text="Yoga"
+            return cell
+
+        }
+        else{
+            let cell : TrainingTypeCell! = tableView.dequeueReusableCell(withIdentifier: "TypeCell") as! TrainingTypeCell
+            return cell
+        }
+       
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -99,7 +126,96 @@ class ClientTrainingTypeController: UIViewController,UITableViewDataSource,UITab
     }
 
     @IBAction func DidTabSkillDeleteBtn(_ sender: Any) {
+        
     }
+   
+    @IBAction func DidTabDistenceSelectBtn(_ sender: Any) {
+        
+        
+        Distence_select_btn.isSelected  = !Distence_select_btn.isSelected
+        
+        if Distence_select_btn.isSelected {
+            print("Selected")
+             Skill_tableview.isHidden=false
+            Distence_select_btn.isSelected=true
+            Skill_tableview.frame=CGRect.init(x: Distence_select_btn.frame.origin.x-10, y: Distence_select_btn.frame.origin.y+Distence_select_btn.frame.size.height, width: Distence_select_btn.frame.size.width, height: 200)
+            
+        }
+        else{
+            print("Not Selected")
+            Distence_select_btn.isSelected=false
+            Skill_tableview.frame=CGRect.init(x: Distence_select_btn.frame.origin.x, y: Distence_select_btn.frame.origin.y+Distence_select_btn.frame.size.height, width: Distence_select_btn.frame.size.width, height: 0)
+        }
+
+        
+    }
+    
+    @IBAction func DidTabPlaceSelecteBtn(_ sender: Any) {
+        Place_select_btn.isSelected  = !Place_select_btn.isSelected
+        
+        if Place_select_btn.isSelected {
+            print("Selected")
+            Skill_tableview.isHidden=false
+            Place_select_btn.isSelected=true
+            Skill_tableview.frame=CGRect.init(x: Place_select_btn.frame.origin.x+10, y: Place_select_btn.frame.origin.y+Distence_select_btn.frame.size.height, width: Place_select_btn.frame.size.width, height: 200)
+            
+        }
+        else{
+            print("Not Selected")
+            Place_select_btn.isSelected=false
+            Skill_tableview.frame=CGRect.init(x: Place_select_btn.frame.origin.x, y: Place_select_btn.frame.origin.y+Place_select_btn.frame.size.height, width: Place_select_btn.frame.size.width, height: 0)
+        }
+
+        
+    }
+   
+    @IBAction func DidTabDatePlaceSelectBtn(_ sender: Any) {
+        Date_place_select_btn.isSelected  = !Date_place_select_btn.isSelected
+        
+        if Date_place_select_btn.isSelected {
+            print("Selected")
+             Skill_tableview.isHidden=false
+            Date_place_select_btn.isSelected=true
+            Skill_tableview.frame=CGRect.init(x: Date_place_select_btn.frame.origin.x+10, y: Date_place_select_btn.frame.origin.y+Date_place_select_btn.frame.size.height, width: Date_place_select_btn.frame.size.width, height: 200)
+            
+        }
+        else{
+            print("Not Selected")
+            Date_place_select_btn.isSelected=false
+            Skill_tableview.frame=CGRect.init(x: Date_place_select_btn.frame.origin.x, y: Date_place_select_btn.frame.origin.y+Date_place_select_btn.frame.size.height, width: Date_place_select_btn.frame.size.width, height: 0)
+        }
+
+        
+    }
+    
+    @IBAction func DidTabDateDistenceSelectBtn(_ sender: Any) {
+        date_distence_select_btn.isSelected  = !date_distence_select_btn.isSelected
+        
+        if date_distence_select_btn.isSelected {
+            print("Selected")
+             Skill_tableview.isHidden=false
+            date_distence_select_btn.isSelected=true
+            Skill_tableview.frame=CGRect.init(x: date_distence_select_btn.frame.origin.x-10, y: date_distence_select_btn.frame.origin.y+date_distence_select_btn.frame.size.height, width: date_distence_select_btn.frame.size.width, height: 200)
+            
+        }
+        else{
+            print("Not Selected")
+            date_distence_select_btn.isSelected=false
+            Skill_tableview.frame=CGRect.init(x: date_distence_select_btn.frame.origin.x, y: date_distence_select_btn.frame.origin.y+date_distence_select_btn.frame.size.height, width: date_distence_select_btn.frame.size.width, height: 0)
+        }
+
+        
+    }
+
+    @IBAction func DidTabDraweBtn(_ sender: Any) {
+        if let drawerController = navigationController?.parent as? KYDrawerController {
+            drawerController.setDrawerState(.opened, animated: true)
+        }
+
+    }
+
+    
+    
     /*
     // MARK: - Navigation
 
