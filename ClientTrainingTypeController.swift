@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ClientTrainingTypeController: UIViewController,UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource {
+class ClientTrainingTypeController: UIViewController,UITableViewDataSource,UITableViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UITextFieldDelegate {
     var isAnimating: Bool = false
     var dropDownViewIsDisplayed: Bool = false
     @IBOutlet var Search_background_view: UIView!
@@ -40,6 +40,11 @@ class ClientTrainingTypeController: UIViewController,UITableViewDataSource,UITab
         
         
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder()
+        return true
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,18 +57,22 @@ class ClientTrainingTypeController: UIViewController,UITableViewDataSource,UITab
         if tableView==Skill_tableview{
  let cell = tableView.dequeueReusableCell(withIdentifier: "TypeCell", for: indexPath)
             cell.textLabel?.text="Yoga"
+            cell.selectionStyle = UITableViewCellSelectionStyle.none;
             return cell
 
         }
         else{
             let cell : TrainingTypeCell! = tableView.dequeueReusableCell(withIdentifier: "TypeCell") as! TrainingTypeCell
+            cell.selectionStyle = UITableViewCellSelectionStyle.none;
             return cell
         }
        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if tableView==Skill_tableview {
+            Skill_tableview.isHidden=true
+        }
     }
    
 //Collectview method implement

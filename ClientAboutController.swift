@@ -8,7 +8,7 @@
 
 import UIKit
 import QuartzCore
-class ClientAboutController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDelegate,UITableViewDataSource,FloatRatingViewDelegate {
+class ClientAboutController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDelegate,UITableViewDataSource,FloatRatingViewDelegate,UITextFieldDelegate {
 fileprivate let reuseIdentifier = "Customcell"
 //fileprivate let reuseIdentifier = "Customcell"
     @IBOutlet var video_collectionview: UICollectionView!
@@ -30,6 +30,10 @@ fileprivate let reuseIdentifier = "Customcell"
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder()
+        return true
     }
     
     func ReadyViewCustomize(){
@@ -64,7 +68,14 @@ fileprivate let reuseIdentifier = "Customcell"
     
     override func viewWillLayoutSubviews(){
         super.viewWillLayoutSubviews()
-        Client_scorllview.contentSize = CGSize(width: 320   , height: 1000)
+        Client_scorllview.layoutIfNeeded()
+        if self.view.frame.size.width==320 {
+           Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+650)
+        }
+        else{
+         Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+200)
+        }
+        
     }
     
     
@@ -74,6 +85,7 @@ fileprivate let reuseIdentifier = "Customcell"
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : CertificateCell! = tableView.dequeueReusableCell(withIdentifier: "CertificateCell") as! CertificateCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.none;
         return cell
     }
     

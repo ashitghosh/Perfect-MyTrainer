@@ -39,7 +39,7 @@ class ClientHomeController: UIViewController,UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : FeedCell! = tableView.dequeueReusableCell(withIdentifier: "Cell") as! FeedCell
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.none;
         return cell
     }
     

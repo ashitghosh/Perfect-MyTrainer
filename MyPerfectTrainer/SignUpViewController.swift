@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import SVProgressHUD
+
 class SignUpViewController: UIViewController ,UITextFieldDelegate{
 
     var user_type = "trainer"
@@ -37,6 +39,7 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
         self.textplaceholderColor(getTextName: Email_txt, getplaceholderText: "Email")
         self.textplaceholderColor(getTextName: Password_txt, getplaceholderText: "Password")
         self.textplaceholderColor(getTextName: FullName_txt, getplaceholderText: "Fullname")
+        
         
     }
 
@@ -70,6 +73,7 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
         self.animateViewMoving(up: true, moveValue: 200.0)
         }
     }
+    @available(iOS 10.0, *)
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         if textField==Email_txt{
             self.animateViewMoving(up: false, moveValue: 150.0)
@@ -100,7 +104,6 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
         }
     }
     func CheckRegistration (){
-        
 
         if FullName_txt.text=="" {
             
@@ -125,7 +128,7 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
             /* signUpDict=["email":Email_txt.text as AnyObject,"password":Password_txt.text as AnyObject,"full_name":FullName_txt.text as AnyObject,"user_type":user_type as AnyObject]*/
             
             print("signup dict",signUpDict)
-            self.SignUpJson(jsonstring: signUpDict, url: "http://10.1.1.11/findmytrainer/FindMyTrainerApp/registration")
+            self.SignUpJson(jsonstring: signUpDict, url: "http://ogmaconceptions.com/demo/my_perfect_trainer/MyPerfectTrainerApp/registration")
             
         /*    let poststring = ""
             if let json = try? JSONSerialization.data(withJSONObject: signUpDict, options: []) {
@@ -171,6 +174,9 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
     }
     func SignUpJson(jsonstring : [String:AnyObject],url:String)  {
         
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+    
         Alamofire.request(url, method: .post, parameters: jsonstring, encoding: JSONEncoding.default)
             .responseJSON { response in
               
@@ -180,16 +186,29 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
                     switch(status){
                     case 200:
                         print( "Json  return for Sign Up= ",response)
+                        SVProgressHUD.dismiss()
                         if( response.result.value as AnyObject).value(forKey: "is_error") as? NSNumber==0{
-                            let user_id=(response.result.value as AnyObject).value(forKey: "user_id")
+                            let user_type:String=(response.result.value as AnyObject).value(forKey: "user_type") as! String
+                            let user_id=(response.result.value as AnyObject).value(forKey: "user_id") 
                             let userDefaults = Foundation.UserDefaults.standard
                             userDefaults.set( user_id ,  forKey: "user_id")
+                             userDefaults.set( user_type ,  forKey: "user_type")
                             userDefaults.synchronize()
                             let value:String = userDefaults.string(forKey: "user_id")!
                             print("user_id = ",value  )
-                            let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController
-                            self.navigationController?.pushViewController(vc, animated: true)
+                            if user_type=="trainer"{
+                                let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerViewController") as! TrainerViewController
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                            else{
+                                let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                            
 
+                        }
+                        else{
+                         SVProgressHUD.dismiss()
                         }
                         
                     default:

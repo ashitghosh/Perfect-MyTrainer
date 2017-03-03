@@ -8,14 +8,21 @@
 
 import UIKit
 
-class CommentViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class CommentViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
 
+    @IBOutlet var Comment_txt: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+    textField.resignFirstResponder()
+        return true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

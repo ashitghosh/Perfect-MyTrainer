@@ -28,6 +28,10 @@ extension UIButton{
 
 }
 
+struct Constants {
+    static let Base_url = "http://ogmaconceptions.com/demo/my_perfect_trainer/MyPerfectTrainerApp/"
+}
+
 extension UIView{
     func ViewRoundCorner(Roundview:UIView,radious:Float)  {
         Roundview.layer.cornerRadius = CGFloat(radious);

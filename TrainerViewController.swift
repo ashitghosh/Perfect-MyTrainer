@@ -8,13 +8,37 @@
 
 import UIKit
 
-class TrainerViewController: UIViewController {
+class TrainerViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
-    override func viewDidLoad() {
+    @IBOutlet var Time_lbl: UILabel!
+    @IBOutlet var about_lbl: UILabel!
+    @IBOutlet var Profile_image: UIImageView!
+    @IBOutlet var BookNow_lbl: UILabel!
+      override func viewDidLoad() {
         super.viewDidLoad()
-
+  self.ReadyViewCustomize()
         // Do any additional setup after loading the view.
     }
+    
+    func ReadyViewCustomize(){
+        Time_lbl.isHidden=true
+        Profile_image.layoutIfNeeded()
+        Profile_image.layer.borderWidth = 1
+        Profile_image.layer.masksToBounds = true
+        Profile_image.layer.borderColor = UIColor.white.cgColor
+        Profile_image.layer.cornerRadius = Profile_image.frame.height/2
+        Profile_image.clipsToBounds = true
+        BookNow_lbl.layoutIfNeeded()
+        BookNow_lbl.layer.borderWidth = 1
+        BookNow_lbl.layer.masksToBounds = true
+        BookNow_lbl.layer.borderColor = UIColor.white.cgColor
+        BookNow_lbl.layer.cornerRadius = BookNow_lbl.frame.width/2
+        BookNow_lbl.clipsToBounds = true
+        
+        
+    }
+    
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -32,6 +56,23 @@ class TrainerViewController: UIViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+    @IBAction func DidTabDrawerBtn(_ sender: Any) {
+        if let drawerController = navigationController?.parent as? KYDrawerController {
+            drawerController.setDrawerState(.opened, animated: true)
+        }
+    }
+    
+    @IBAction func AboutBtn(_ sender: Any) {
+        about_lbl.isHidden=false
+        Time_lbl.isHidden=true
+    }
+    @IBAction func TimeLinebtn(_ sender: Any) {
+        about_lbl.isHidden=true
+        Time_lbl.isHidden=false
+
+    }
+   
+
     
 
     /*
