@@ -133,6 +133,7 @@
 		58B403311E55C13A007D77DE /* listing@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58B403301E55C13A007D77DE /* listing@3x.png */; };
 		58B403341E55CB63007D77DE /* ClientTrainingTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B403331E55CB63007D77DE /* ClientTrainingTypeController.swift */; };
 		58B403361E55CC06007D77DE /* TrainingTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B403351E55CC06007D77DE /* TrainingTypeCell.swift */; };
+		58B7E7311E6D4BBF00AF88DD /* AdditionalSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B7E7301E6D4BBF00AF88DD /* AdditionalSkillCell.swift */; };
 		58CBA9111E5ACE2D008A5926 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58CBA9101E5ACE2D008A5926 /* QuartzCore.framework */; };
 		58CBA9131E5AEBCE008A5926 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CBA9121E5AEBCE008A5926 /* FloatRatingView.swift */; };
 		58CBA91A1E5AEFCD008A5926 /* orengestar.png in Resources */ = {isa = PBXBuildFile; fileRef = 58CBA9141E5AEFCD008A5926 /* orengestar.png */; };
@@ -350,6 +351,7 @@
 		58B403301E55C13A007D77DE /* listing@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "listing@3x.png"; sourceTree = "<group>"; };
 		58B403331E55CB63007D77DE /* ClientTrainingTypeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTrainingTypeController.swift; sourceTree = "<group>"; };
 		58B403351E55CC06007D77DE /* TrainingTypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingTypeCell.swift; sourceTree = "<group>"; };
+		58B7E7301E6D4BBF00AF88DD /* AdditionalSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalSkillCell.swift; sourceTree = "<group>"; };
 		58CBA9101E5ACE2D008A5926 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		58CBA9121E5AEBCE008A5926 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		58CBA9141E5AEFCD008A5926 /* orengestar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orengestar.png; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 			children = (
 				588047671E6044D2008ADBC6 /* TrainerCreateController.swift */,
 				58DBC0C31E6999B400121A01 /* SkillCell.swift */,
+				58B7E7301E6D4BBF00AF88DD /* AdditionalSkillCell.swift */,
 			);
 			name = "Trainer Create Profile";
 			sourceTree = "<group>";
@@ -1283,6 +1286,7 @@
 				589065CB1E4DCCDB001BC5A3 /* DrawerCell.m in Sources */,
 				589065B91E4DA751001BC5A3 /* DrawerViewController.m in Sources */,
 				584D049E1E37539F0025755E /* SignUpViewController.swift in Sources */,
+				58B7E7311E6D4BBF00AF88DD /* AdditionalSkillCell.swift in Sources */,
 				58B403141E557F95007D77DE /* CertificateCell.swift in Sources */,
 				58F072701E5DAA5C00FB5F63 /* BookNowViewController.swift in Sources */,
 				587903791E534DAE004D9E6D /* TrainerViewController.swift in Sources */,
