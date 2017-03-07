@@ -25,7 +25,47 @@ extension UIButton{
        self.layer.borderWidth = 1
        self.layer.borderColor = UIColor.clear.cgColor
     }
+    func CircleBtn(BorderColour:UIColor,Radious:CGFloat)  {
+        self.layoutIfNeeded()
+        self.layer.borderWidth = Radious
+        self.layer.masksToBounds = true
+        self.layer.borderColor = BorderColour.cgColor
+        self.layer.cornerRadius = self.frame.height/2
+        self.clipsToBounds = true
+    }
 
+}
+extension UITextField{
+//    func textplaceholderColor(TextColour: UIColor, getplaceholderText: String, GetTextfield:UITextField){
+//        
+//        GetTextfield.attributedPlaceholder = NSAttributedString(string: getplaceholderText,
+//                                                               attributes: [NSForegroundColorAttributeName: TextColour.cgColor])
+//    }
+}
+
+extension UIViewController {
+    
+    func presentAlertWithTitle(title: String, message : String)
+    {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) {
+            (action: UIAlertAction) in print("Youve pressed OK Button")
+        }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+}
+
+
+extension UIImageView{
+    func CircleImageView(BorderColour:UIColor,Radious:CGFloat)  {
+        self.layoutIfNeeded()
+        self.layer.borderWidth = Radious
+        self.layer.masksToBounds = true
+        self.layer.borderColor = BorderColour.cgColor
+        self.layer.cornerRadius = self.frame.height/2
+        self.clipsToBounds = true
+    }
 }
 
 struct Constants {
@@ -40,12 +80,7 @@ extension UIView{
         Roundview.layer.borderColor = UIColor.white.cgColor;
         Roundview.layer.borderWidth = 0.5;
         
-//        Roundview.layer.contentsScale = UIScreen.main.scale;
-//        Roundview.layer.shadowColor = UIColor.black.cgColor;
-//        Roundview.layer.shadowRadius = 5.0;
-//        Roundview.layer.shadowOpacity = 0.5;
-//        Roundview.layer.masksToBounds = false;
-//        Roundview.clipsToBounds = false;
     }
+
     
     }
