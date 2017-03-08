@@ -302,8 +302,8 @@ class ViewController: UIViewController {
             let data = self.FbDict["picture"] as?[String:Any]
             let newdata = data!["data"] as? [String:Any]
             let picture:String = (newdata!["url"] as! String?)!
-              print(picture)
-               print(email)
+            print(picture)
+            print(email)
             let profile_url:String="https://www.facebook.com/"+fbid
             print("fb details",self.FbDict)
             var Fbdetails:[String:AnyObject]=[:]

@@ -56,6 +56,16 @@ extension UIViewController {
     }
 }
 
+extension Array where Element: Equatable {
+    
+    // Remove first collection element that is equal to the given `object`:
+    mutating func Delete(object: Element) {
+        if let index = index(of: object) {
+            remove(at: index)
+        }
+    }
+}
+
 
 extension UIImageView{
     func CircleImageView(BorderColour:UIColor,Radious:CGFloat)  {

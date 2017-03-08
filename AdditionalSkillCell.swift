@@ -10,6 +10,7 @@ import UIKit
 
 class AdditionalSkillCell: UITableViewCell {
 
+    @IBOutlet var CertificateCross_Btn: UIButton!
     @IBOutlet var CrossBtn: UIButton!
     @IBOutlet var name_lbl: UILabel!
     override func awakeFromNib() {

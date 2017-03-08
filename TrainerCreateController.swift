@@ -8,8 +8,9 @@
 
 import UIKit
 import Alamofire
+
 import SVProgressHUD
-class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate {
+class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     @IBOutlet var ProfileBtn: UIButton!
     @IBOutlet var GroupImageview: UIImageView!
@@ -33,9 +34,11 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     var arrskill = [[String:AnyObject]]()
     var ArradditionalSkill = [String]()
      var arrCertificateSkill = [String]()
+    var arrSelectedSkill = [String]()
     var Training_type:String = ""
     var Liability_insurence:String = ""
-    
+     var CreateDict:[String:AnyObject]=[:]
+    var ImageData : NSData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +48,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         
         self.JsonForSkill()
         Skill_table.isHidden=true
-        Liability_insurence="yes"
+        Liability_insurence="Y"
         profile_image.CircleImageView(BorderColour: UIColor.white, Radious: 1.0)
         Additional_skill_btn.CircleBtn(BorderColour: UIColor.white, Radious: 1.0)
          CertificateBtn.CircleBtn(BorderColour: UIColor.white, Radious: 1.0)
@@ -184,6 +187,98 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
         UIView.commitAnimations()
     }
+    
+    func CreateFunctionCheck()  {
+        if arrSelectedSkill.isEmpty==true {
+            presentAlertWithTitle(title: "alert", message: "Select your Skill")
+        }
+        else if ArradditionalSkill.isEmpty==true{
+        presentAlertWithTitle(title: "alert", message: "Select your Additional Skill")
+        }
+        else if arrCertificateSkill.isEmpty==true{
+            presentAlertWithTitle(title: "alert", message: "Select your Certificate")
+        }
+        else if Training_type == ""{
+            presentAlertWithTitle(title: "alert", message: "Select your Training Type")
+        }
+        else{
+            // Fbdetails = ["email" : email as AnyObject, "facebook_id" :fbid as AnyObject, "device_token" : "" as AnyObject ,"login_type" :"facebook"  as AnyObject,"name" :name as AnyObject,"fb_image" :picture as AnyObject,"fb_link" :profile_url as AnyObject,"user_type" :user_type as AnyObject ]
+            let userDefaults = Foundation.UserDefaults.standard
+            let User_id:String = userDefaults.string(forKey: "user_id")!
+
+            CreateDict = ["skill" : arrSelectedSkill as AnyObject,"additionalSkill" : ArradditionalSkill as AnyObject,"certificate" : arrCertificateSkill as AnyObject,"liability_insurance" : Liability_insurence as AnyObject,"trainer_type" : Training_type as AnyObject,"user_id" : User_id as AnyObject]
+            let URL:String = Constants.Base_url+"profileOneCreate"
+            self.CreateTrainerJson(jsonString: CreateDict, url: URL)
+        }
+
+
+    }
+    func CreateTrainerJson(jsonString:[String:AnyObject],url:String)  {
+        print(jsonString)
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        var poststring:String=""
+        
+        if let json = try? JSONSerialization.data(withJSONObject: jsonString, options: []) {
+            poststring = String(data: json, encoding: String.Encoding.utf8)!
+           // print(poststring)
+            if  poststring == String(data: json, encoding: String.Encoding.utf8)! {
+                // here `content` is the JSON dictionary containing the String
+                print(poststring)
+            }
+        }
+       SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        Alamofire.request(url, method:.post, parameters: jsonString, encoding: JSONEncoding.default)
+            .responseJSON { response in
+
+                
+                //to get status code
+                if let status = response.response?.statusCode {
+                    print("Status = ",status);
+                    switch(status){
+                    case 200:
+                        print( "Json  return for Login= ",response)
+                        //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
+                        
+                        if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
+                            
+                            SVProgressHUD.dismiss()
+                            
+                        }
+                        else{
+                            
+                            SVProgressHUD.dismiss()
+                        }
+                        
+                    default:
+                        print("error with response status: \(status)")
+                        SVProgressHUD.dismiss()
+                    }
+                }
+        }
+
+    }
+    
+    //For image Picker Function controller++++++++++++++++++*************************************
+     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            profile_image.contentMode = .scaleToFill
+            profile_image.image = pickedImage
+            self.CallingForImageUpload()
+            //            if ImageData == nil {
+            //                ImageData = UIImageJPEGRepresentation(pickedImage, 1) as NSData?
+            //            }
+            
+        }
+        
+        
+        dismiss(animated: true, completion: nil)
+    }
+         func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+     dismiss(animated: true, completion:nil)
+    }
+    
 
     
     // For Tableview+++++++++++++++++++++++++++++++++++
@@ -229,6 +324,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             cell.CrossBtn.layoutIfNeeded()
               cell.CrossBtn.CircleBtn(BorderColour: UIColor.white, Radious: 1.0)
+            cell.CrossBtn.tag=indexPath.row
             cell.contentView.layer.cornerRadius = 8.0
             cell.contentView.layer.borderWidth = 1.0
             cell.contentView.layer.borderColor = UIColor.clear.cgColor;
@@ -240,8 +336,9 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         else{
             let cell : AdditionalSkillCell! = tableView.dequeueReusableCell(withIdentifier: "CertificateSkill") as! AdditionalSkillCell
             cell.selectionStyle = UITableViewCellSelectionStyle.none
-            cell.CrossBtn.layoutIfNeeded()
-            cell.CrossBtn.CircleBtn(BorderColour: UIColor.white, Radious: 1.0)
+            cell.CertificateCross_Btn.layoutIfNeeded()
+            cell.CertificateCross_Btn.CircleBtn(BorderColour: UIColor.white, Radious: 1.0)
+            cell.CertificateCross_Btn.tag=indexPath.row
             cell.contentView.layer.cornerRadius = 8.0
             cell.contentView.layer.borderWidth = 1.0
             cell.contentView.layer.borderColor = UIColor.clear.cgColor;
@@ -273,6 +370,26 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         return cell
         
     }
+    
+     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+    let selectedCell = collectionView.cellForItem(at: indexPath) as? SkillCell
+       print("Details",arrskill[(indexPath as NSIndexPath).row])
+         print("",(arrskill[indexPath.row] as AnyObject).value(forKey: "skill_id") as! NSNumber)
+    
+      let SelectedId:NSInteger=(arrskill[indexPath.row] as AnyObject).value(forKey: "skill_id") as! NSInteger
+        let  Id:String = String(SelectedId)
+        
+        if arrSelectedSkill.contains(Id) {
+           print("not available")
+            selectedCell?.Skill_selected_image.image=UIImage.init(named: "radio-unselect.png")
+            arrSelectedSkill.Delete(object: Id)
+        }
+        else{
+        arrSelectedSkill.append(Id)
+            selectedCell?.Skill_selected_image.image=UIImage.init(named: "radio-select.png")
+        }
+        print("",arrSelectedSkill)
+    }
 
     
     
@@ -280,6 +397,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
   // WebService Calling++++++++++++++++++++++++++++++++++++
     
     func JsonForSkill () {
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
         let url:String=Constants.Base_url+"skills"
         print(url)
       // let url = URL(string: Constants.Base_url+"skill")
@@ -300,6 +419,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                             self.arrskill=(response.result.value as AnyObject).value(forKey: "Skill") as! [[String:AnyObject]]
                             print("arr skills",self.arrskill)
                             self.skill_collectionview.reloadData()
+                            SVProgressHUD.dismiss()
                         }
                         else{
                             SVProgressHUD.dismiss()
@@ -312,6 +432,44 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         }
  
     }
+    func CallingForImageUpload()  {
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        let Url:String=Constants.Base_url+"trainerProfileImage"
+        let userDefaults = Foundation.UserDefaults.standard
+        let User_id:String = userDefaults.string(forKey: "user_id")!
+        let parameters = [
+            "user_id":User_id
+        ]
+        
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            multipartFormData.append(UIImageJPEGRepresentation(self.profile_image.image!, 1)!, withName: "photo", fileName: "Ashit.jpeg", mimeType: "image/jpeg")
+            for (key, value) in parameters {
+                multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+            }
+        }, to:Url)
+        { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    //Print progress
+                    print(progress)
+                    
+                })
+                
+                upload.responseJSON { response in
+                    //print response.result
+                    print(response.result)
+                    SVProgressHUD.dismiss()
+                }
+                
+            case .failure(let encodingError): break
+                //print encodingError.description
+                print(encodingError)
+            }
+        }
+    }
     
     @IBAction func DidTabAdditionalSkillBtn(_ sender: Any) {
         if (Additional_skill_text.text?.characters.count)! > 0 {
@@ -321,7 +479,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
             //   self.UITableView_Auto_Height()
             Skill_table .reloadData()
             self.ViewReCoordination()
-
+         Additional_skill_text.text=""
         }
         else{
           presentAlertWithTitle(title: "Alert", message: "Write your Additional skill")
@@ -330,19 +488,27 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     }
 
     @IBAction func DidTabCrossBtn(_ sender: Any) {
-        
+        let SelectedIndex:NSInteger = (sender as AnyObject).tag
+        print(SelectedIndex)
+        ArradditionalSkill.remove(at: SelectedIndex)
+        Skill_table.reloadData()
+        if Skill_table.contentSize.height<111.0 {
+            self.ViewReCoordination()
+        }
     }
     
     @IBAction func DidTabCertificateCellBtn(_ sender: Any) {
        
-        if (Additional_skill_text.text?.characters.count)!  > 0 && (Additional_skill_text.text?.characters.count)! > 0 {
+        if (CertificateName_txt.text?.characters.count)!  > 0 && (Instuite_name.text?.characters.count)! > 0 {
             
             let arrayobject:String=self.CertificateName_txt.text!+","+self.Instuite_name.text!
-            ArradditionalSkill.append(arrayobject)
-            print("AdditionalSkill",ArradditionalSkill)
+            arrCertificateSkill.append(arrayobject)
+            print("AdditionalSkill",arrCertificateSkill)
             //   self.UITableView_Auto_Height()
-            Skill_table .reloadData()
+            Certificate_tableview .reloadData()
             self.ViewReCoordination()
+            CertificateName_txt.text = ""
+            Instuite_name.text = ""
         }
         else{
             if (CertificateName_txt.text?.characters.count)!   == 0  {
@@ -362,6 +528,13 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     }
     
     @IBAction func DidTabInsurenceBtn(_ sender: Any) {
+        if ((sender as AnyObject).isOn == true){
+            Liability_insurence="Y"
+        }
+        else{
+            Liability_insurence="N"
+        }
+    
     }
     @IBAction func DidTabGroupBtn(_ sender: Any) {
         Training_type="group"
@@ -387,12 +560,52 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     }
     
     @IBAction func DidTabRightArrowBtn(_ sender: Any) {
-        if ((sender as AnyObject).isOn == true){
-            Liability_insurence="yes"
+        self.CreateFunctionCheck()
+        
         }
-        else{
-             Liability_insurence="off" 
+ 
+    @IBAction func DidTabCertificateCrossBtn(_ sender: Any) {
+        let SelectedIndex:NSInteger = (sender as AnyObject).tag
+        print(SelectedIndex)
+        arrCertificateSkill.remove(at: SelectedIndex)
+        Certificate_tableview.reloadData()
+        if Certificate_tableview.contentSize.height<111.0 {
+            self.ViewReCoordination()
         }
+
+    }
+    @IBAction func DidTabProfileImageSelect(_ sender: Any) {
+        let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "Please select", message: "Option to select", preferredStyle: .actionSheet)
+        
+        let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { void in
+            print("Cancel")
+        }
+        actionSheetControllerIOS8.addAction(cancelActionButton)
+        
+        let saveActionButton: UIAlertAction = UIAlertAction(title: "Camera", style: .default)
+        { void in
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
+                imagePicker.allowsEditing = false
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+        actionSheetControllerIOS8.addAction(saveActionButton)
+        
+        let deleteActionButton: UIAlertAction = UIAlertAction(title: "Gallery", style: .default)
+        { void in
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+        actionSheetControllerIOS8.addAction(deleteActionButton)
+        self.present(actionSheetControllerIOS8, animated: true, completion: nil)
     }
     /*    // MARK: - Navigation
 
