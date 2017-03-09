@@ -38,7 +38,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     var Training_type:String = ""
     var Liability_insurence:String = ""
      var CreateDict:[String:AnyObject]=[:]
-    var ImageData : NSData?
+    var ProfileImageData : NSData?
+    var picked_image:UIImage?=nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -265,10 +266,11 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profile_image.contentMode = .scaleToFill
             profile_image.image = pickedImage
-            self.CallingForImageUpload()
-            //            if ImageData == nil {
-            //                ImageData = UIImageJPEGRepresentation(pickedImage, 1) as NSData?
-            //            }
+           // self.CallingForImageUpload()
+            self.uploadWithAlamofire()
+                        if ProfileImageData == nil {
+                            ProfileImageData = UIImageJPEGRepresentation(pickedImage, 1) as NSData?
+                        }
             
         }
         
@@ -432,43 +434,50 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         }
  
     }
-    func CallingForImageUpload()  {
+    
+    func uploadWithAlamofire() {
+     
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
         SVProgressHUD.show()
-        let Url:String=Constants.Base_url+"trainerProfileImage"
+        // define parameters
+        
         let userDefaults = Foundation.UserDefaults.standard
         let User_id:String = userDefaults.string(forKey: "user_id")!
-        let parameters = [
-            "user_id":User_id
-        ]
-        
-        Alamofire.upload(multipartFormData: { (multipartFormData) in
-            multipartFormData.append(UIImageJPEGRepresentation(self.profile_image.image!, 1)!, withName: "photo", fileName: "Ashit.jpeg", mimeType: "image/jpeg")
+       
+                let parameters = ["trainer_id": User_id]
+         let Url:String=Constants.Base_url+"trainerProfileImage"
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            if let imageData = UIImageJPEGRepresentation(self.profile_image.image!, 1) {
+                multipartFormData.append(imageData, withName: "photo", fileName: "file.jpeg", mimeType: "image/jpeg")
+            }
+            
             for (key, value) in parameters {
-                multipartFormData.append(value.data(using: String.Encoding.utf8)!, withName: key)
+                multipartFormData.append((value.data(using: .utf8))!, withName: key)
             }
-        }, to:Url)
-        { (result) in
-            switch result {
-            case .success(let upload, _, _):
-                
-                upload.uploadProgress(closure: { (progress) in
-                    //Print progress
-                    print(progress)
-                    
-                })
-                
-                upload.responseJSON { response in
-                    //print response.result
-                    print(response.result)
-                    SVProgressHUD.dismiss()
-                }
-                
-            case .failure(let encodingError): break
-                //print encodingError.description
-                print(encodingError)
-            }
-        }
+        }, to:Url, method: .post, headers: ["Authorization": "auth_token"],
+                encodingCompletion: { encodingResult in
+                    switch encodingResult {
+                    case .success(let upload, _, _):
+                       
+                        print("Upload success")
+                        upload.responseJSON { response in
+                            print("Response",response.result.value!)
+                             SVProgressHUD.dismiss()
+                          
+                           
+                            let Message=(response.result.value as AnyObject).value(forKey: "message")
+                            print(Message as! String)
+                           self.presentAlertWithTitle(title: "Success", message: Message as! String)
+                            
+                        }
+                        
+
+                    case .failure(let encodingError):
+                        print("error:\(encodingError)")
+                         SVProgressHUD.dismiss()
+                    }
+        })
+       
     }
     
     @IBAction func DidTabAdditionalSkillBtn(_ sender: Any) {

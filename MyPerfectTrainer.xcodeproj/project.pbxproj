@@ -116,6 +116,8 @@
 		589541E31E57168A00E862D1 /* SelectedSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589541E21E57168900E862D1 /* SelectedSkillCell.swift */; };
 		589541E61E57430600E862D1 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589541E51E57430600E862D1 /* CommentViewController.swift */; };
 		589541E81E57435B00E862D1 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589541E71E57435B00E862D1 /* CommentCell.swift */; };
+		58B2F5C31E719F40008EC988 /* TrainerCreateProfileTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B2F5C21E719F40008EC988 /* TrainerCreateProfileTwo.swift */; };
+		58B2F5C51E719F8E008EC988 /* UploadImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B2F5C41E719F8E008EC988 /* UploadImageCell.swift */; };
 		58B403141E557F95007D77DE /* CertificateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B403131E557F95007D77DE /* CertificateCell.swift */; };
 		58B403161E558455007D77DE /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B403151E558455007D77DE /* GalleryCell.swift */; };
 		58B403181E55847F007D77DE /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B403171E55847F007D77DE /* VideoCell.swift */; };
@@ -334,6 +336,8 @@
 		589541E21E57168900E862D1 /* SelectedSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSkillCell.swift; sourceTree = "<group>"; };
 		589541E51E57430600E862D1 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		589541E71E57435B00E862D1 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		58B2F5C21E719F40008EC988 /* TrainerCreateProfileTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerCreateProfileTwo.swift; sourceTree = "<group>"; };
+		58B2F5C41E719F8E008EC988 /* UploadImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadImageCell.swift; sourceTree = "<group>"; };
 		58B403131E557F95007D77DE /* CertificateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateCell.swift; sourceTree = "<group>"; };
 		58B403151E558455007D77DE /* GalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
 		58B403171E55847F007D77DE /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
@@ -614,8 +618,10 @@
 			isa = PBXGroup;
 			children = (
 				588047671E6044D2008ADBC6 /* TrainerCreateController.swift */,
+				58B2F5C41E719F8E008EC988 /* UploadImageCell.swift */,
 				58DBC0C31E6999B400121A01 /* SkillCell.swift */,
 				58B7E7301E6D4BBF00AF88DD /* AdditionalSkillCell.swift */,
+				58B2F5C21E719F40008EC988 /* TrainerCreateProfileTwo.swift */,
 			);
 			name = "Trainer Create Profile";
 			sourceTree = "<group>";
@@ -1282,6 +1288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58B2F5C31E719F40008EC988 /* TrainerCreateProfileTwo.swift in Sources */,
 				588047681E6044D2008ADBC6 /* TrainerCreateController.swift in Sources */,
 				589065CB1E4DCCDB001BC5A3 /* DrawerCell.m in Sources */,
 				589065B91E4DA751001BC5A3 /* DrawerViewController.m in Sources */,
@@ -1292,6 +1299,7 @@
 				587903791E534DAE004D9E6D /* TrainerViewController.swift in Sources */,
 				58DBC0C41E6999B500121A01 /* SkillCell.swift in Sources */,
 				58B403181E55847F007D77DE /* VideoCell.swift in Sources */,
+				58B2F5C51E719F8E008EC988 /* UploadImageCell.swift in Sources */,
 				588560B81E5C603F00F8647B /* File.swift in Sources */,
 				589541E31E57168A00E862D1 /* SelectedSkillCell.swift in Sources */,
 				58B403341E55CB63007D77DE /* ClientTrainingTypeController.swift in Sources */,
