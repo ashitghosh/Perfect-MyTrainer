@@ -25,7 +25,25 @@ extension UIButton{
        self.layer.borderWidth = 1
        self.layer.borderColor = UIColor.clear.cgColor
     }
+    func BtnRoundCorner(radious:Float,colour:UIColor)  {
+        // self.layer.backgroundColor = .clear
+        self.layer.cornerRadius = CGFloat(radious)
+        self.layer.borderWidth = 1
+        self.layer.borderColor = colour.cgColor
+    }
+    
     func CircleBtn(BorderColour:UIColor,Radious:CGFloat)  {
+        self.layoutIfNeeded()
+        self.layer.borderWidth = Radious
+        self.layer.masksToBounds = true
+        self.layer.borderColor = BorderColour.cgColor
+        self.layer.cornerRadius = self.frame.size.height/2
+        self.clipsToBounds = true
+    }
+
+}
+extension UILabel{
+    func Circlelabel(BorderColour:UIColor,Radious:CGFloat)  {
         self.layoutIfNeeded()
         self.layer.borderWidth = Radious
         self.layer.masksToBounds = true
@@ -33,6 +51,14 @@ extension UIButton{
         self.layer.cornerRadius = self.frame.height/2
         self.clipsToBounds = true
     }
+    
+    func LabelRoundCorner(radious:Float)  {
+        // self.layer.backgroundColor = .clear
+        self.layer.cornerRadius = CGFloat(radious)
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.clear.cgColor
+    }
+
 
 }
 extension UITextField{

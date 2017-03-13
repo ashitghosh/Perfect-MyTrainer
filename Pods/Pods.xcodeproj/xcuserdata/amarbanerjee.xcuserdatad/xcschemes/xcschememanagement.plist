@@ -14,6 +14,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CameraManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>DKImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MyPerfectTrainer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +47,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>64B2CDBB12527A98348E773714853BAB</key>
+		<key>620E9E8EBB753F128BDD8BDD52DB5701</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>765786B6B24EF97087064CD695D4283E</key>
+		<key>7CC687275F36D8D0DC307BD96AB5262E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,7 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8FEADC3B4CC9222AC2372C95C2A7BB30</key>
+		<key>9516E5793117D9828DABE45B68BEFAB5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +72,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AD4C9164BF741E6D090CA0D043F296F2</key>
+		<key>D29ECE69EF439D1FF5B5E9EB40FDFFE0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D88A56E20D0A48E33FD682DBF85508EA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FFBE657764C9F6D8E01DDE2949BD2E64</key>
 		<dict>
 			<key>primary</key>
 			<true/>

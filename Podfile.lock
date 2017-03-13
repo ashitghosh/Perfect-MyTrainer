@@ -2,6 +2,12 @@ PODS:
   - Alamofire (4.3.0)
   - AlamofireImage (3.2.0):
     - Alamofire (~> 4.1)
+  - CameraManager (3.1.0)
+  - DKImagePickerController (3.5.1):
+    - DKImagePickerController/Camera (= 3.5.1)
+    - DKImagePickerController/ImageManager (= 3.5.1)
+  - DKImagePickerController/Camera (3.5.1)
+  - DKImagePickerController/ImageManager (3.5.1)
   - SVProgressHUD (2.1.2)
   - Toast-Swift (2.0.0)
   - UIDropDown (1.1.1)
@@ -9,6 +15,8 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.3)
   - AlamofireImage (~> 3.1)
+  - CameraManager (~> 3.1)
+  - DKImagePickerController
   - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
   - Toast-Swift (~> 2.0.0)
   - UIDropDown
@@ -25,10 +33,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  CameraManager: 8ef2dfb1bb11c38ef3cc0a236076096dfa8a5d8e
+  DKImagePickerController: 8db7e76a88a7a66a893ba30e935cc4c9bb7ed335
   SVProgressHUD: d65371a8e4482380deddb9fe60e14e59ddb30eb3
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
   UIDropDown: 22e6e3e22d419884c8f21d95ea9be36aac905ed4
 
-PODFILE CHECKSUM: e59f32e392dcdccc8fdfcd043e1dc82a220b5223
+PODFILE CHECKSUM: 9f1b24c17bf056d24aa1b4c0a34598ea6ae1e9d4
 
 COCOAPODS: 1.2.0
