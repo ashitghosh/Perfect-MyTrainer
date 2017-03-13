@@ -24,8 +24,8 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     @IBOutlet var About_txt_view: UITextView!
     @IBOutlet var Tagline_txtView: UITextView!
     
-    
-    var arrImage = [[String:AnyObject]]()
+    var arrVideo: [NSData] = []
+    var arrImage: [NSData] = []
     var UploadImageData:NSData? = nil
     var UploadVideodata:NSData? = nil
     let cameraManager = CameraManager()
@@ -84,23 +84,13 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
             print("didSelectAssets")
             self.assets = assets
         
+            
             let asset = self.assets?[0]
             asset?.fetchImageDataForAsset(true, completeBlock: {UploadImageData ,info in
-                if UploadImageData==nil{
-               
-                }
+              self.arrImage.append((UploadImageData as AnyObject) as! NSData)
             })
-            /* asset.fetchImageWithSize(layout.itemSize.toPixel(), completeBlock: { image, info in
-                if cell.tag == tag {
-                    imageView.image = image
-                }
-            })*/
-          /*   let pickedImage = self.assets
-            if self.UploadImageData == nil {
-                self.UploadImageData = UIImageJPEGRepresentation(pickedImage, 1) as NSData?
-                
-            }*/
-            print(self.assets as AnyObject)
+           
+           
         }
         
         if UI_USER_INTERFACE_IDIOM() == .pad {
