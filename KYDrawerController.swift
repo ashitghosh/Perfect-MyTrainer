@@ -263,8 +263,8 @@ open class KYDrawerController: UIViewController, UIGestureRecognizerDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         let viewDictionary = ["_containerView": _containerView]
         
-        view.addGestureRecognizer(screenEdgePanGesture)
-        view.addGestureRecognizer(panGesture)
+      //  view.addGestureRecognizer(screenEdgePanGesture)
+      //  view.addGestureRecognizer(panGesture)
         view.addSubview(_containerView)
         view.addConstraints(
             NSLayoutConstraint.constraints(

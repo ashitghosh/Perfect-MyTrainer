@@ -10,6 +10,8 @@ import UIKit
 import Photos
 import AVKit
 import DKImagePickerController
+import Alamofire
+import SVProgressHUD
 class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet var Upload_image_view: UIView!
@@ -23,7 +25,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     @IBOutlet var Upload_image_plus_lbl: UILabel!
     @IBOutlet var About_txt_view: UITextView!
     @IBOutlet var Tagline_txtView: UITextView!
-    
+      var ProfileCreateTwoDict:[String:AnyObject] = [:]
     var arrVideo: [NSData] = []
     var arrImage: [NSData] = []
     var UploadImageData:NSData? = nil
@@ -33,6 +35,8 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     var assets: [DKAsset]?
     var IsVideo:Bool = false
     var uploadImage:UIImageView? = nil
+    var Wheel_chair:String = "Y"
+    
     
     
     // MARK: - @IBOutlets
@@ -77,19 +81,34 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         else{
          pickerController.assetType = .allPhotos
         }
-       
-     
-        
-        pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
+           pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
             print("didSelectAssets")
             self.assets = assets
-        
+            print(assets)
+         
+           for  index in stride(from: 0, to:  (self.assets?.count)!, by: 1){
+             let asset = self.assets![index]
+         
             
-            let asset = self.assets?[0]
-            asset?.fetchImageDataForAsset(true, completeBlock: {UploadImageData ,info in
-              self.arrImage.append((UploadImageData as AnyObject) as! NSData)
-            })
-           
+                if self.IsVideo==true {
+                    asset.fetchAVAssetWithCompleteBlock({(avAsset,info) in
+                        let urlAsset = avAsset as? AVURLAsset
+                       let video = try? Data(contentsOf: (urlAsset?.url)!)
+                   //    print(video as AnyObject)
+                     self.arrVideo.append((video as AnyObject) as! NSData)
+                        
+                    })
+                   
+                    
+           }
+                else{
+                    asset.fetchImageDataForAsset(true, completeBlock: {Data ,info in
+                        self.arrImage.append((Data as AnyObject) as! NSData)
+                    })
+           }
+            }
+            
+        
            
         }
         
@@ -171,6 +190,99 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     }
     
     
+    func uploadWithAlamofire() {
+        
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        // define parameters
+        
+        let userDefaults = Foundation.UserDefaults.standard
+          let User_id:String = userDefaults.string(forKey: "user_id")!
+        let photo_count = String(self.arrImage.count)
+        let video_count = String(self.arrVideo.count)
+        print(photo_count)
+        
+        let parameters = ["trainer_id": User_id,"trainer_info_id": "2","tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": "Y","photo_count": photo_count,"video_count": video_count]
+        let Url:String=Constants.Base_url+"profileTwoCreate"
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            
+            if self.arrImage.isEmpty==false{
+                
+                for  index in stride(from: 0, to:  (self.arrImage.count), by: 1){
+                    
+                    let data:NSData = self.arrImage[index]
+                    
+                    // let asset = self.assets![index]
+                    // self.uploadImage?.image=UIImage.init(data: data as Data)
+                    if let imageData = UIImageJPEGRepresentation(UIImage.init(data: data as Data)!, 1) {
+                        
+                        let file_name : String="file"+String(index+1)+".jpeg"
+                        let Photo : String="photo_"+String(index+1)
+                        print(Photo)
+                        print(file_name)
+                        multipartFormData.append(imageData, withName: Photo, fileName: file_name, mimeType: "image/jpeg")
+                        print("New Image")
+                        
+                        
+                        //  multipartFormData.append(ImageData, withName: "photo", fileName:"file.jpeg" , mimeType: "image/jpeg")
+                    }
+                }
+            }
+            if self.arrVideo.isEmpty==false{
+                for  index in stride(from: 0, to:  (self.arrVideo.count), by: 1){
+                    
+                    let data:Data = self.arrVideo[index] as Data
+                    // let asset = self.assets![index]
+                    // self.uploadImage?.image=UIImage.init(data: data as Data)
+                    var movieData:Data?
+                    movieData=data as Data
+                    
+                    let file_name : String="file"+String(index+1)+".mp4"
+                    let Photo : String="video_"+String(index+1)
+                    print(Photo)
+                    print(file_name)
+                    multipartFormData.append(movieData!, withName: Photo, fileName: file_name, mimeType: "video/mp4")
+                    print("New video")
+                }
+            }
+            
+            
+            
+            
+            
+            
+            for (key, value) in parameters {
+                multipartFormData.append((value.data(using: .utf8))!, withName: key)
+            }
+        },
+                         to:Url, method: .post, headers: ["Authorization": "auth_token"],
+                         encodingCompletion: { encodingResult in
+                            switch encodingResult {
+                            case .success(let upload, _, _):
+                                
+                                print("Upload success")
+                                upload.responseJSON { response in
+                                    print("Response",response.result.value!)
+                                    SVProgressHUD.dismiss()
+                                    
+                                    
+                                    //   let Message=(response.result.value as AnyObject).value(forKey: "message")
+                                    // print(Message as! String)
+                                    //  self.presentAlertWithTitle(title: "Success", message: Message as! String)
+                                    
+                                }
+                                
+                                
+                            case .failure(let encodingError):
+                                print("error:\(encodingError)")
+                                SVProgressHUD.dismiss()
+                            }
+        })
+        
+    }
+
+    
+    
     // For collection View+++++++++++++++++++++++++++++***********************++++++++++++++++++++++++++
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -189,14 +301,11 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     //For image Picker Function controller++++++++++++++++++*************************************
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        print(pickedImage)
+     UploadImageData = UIImageJPEGRepresentation(pickedImage, 1) as NSData?
+        self.arrImage.append((UploadImageData as AnyObject) as! NSData)
+        print(self.arrImage.count)
         
-            // self.CallingForImageUpload()
-          //  self.uploadWithAlamofire()
-            if UploadImageData == nil {
-                UploadImageData = UIImageJPEGRepresentation(pickedImage, 1) as NSData?
-              
-            }
-            
         }
         
         
@@ -267,6 +376,14 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
 
         
     }
+    @IBAction func DidTabWheelChairSwitchBtn(_ sender: Any) {
+        if ((sender as AnyObject).isOn == true){
+            Wheel_chair="Y"
+        }
+        else{
+            Wheel_chair="N"
+        }
+    }
     @IBAction func DidTabTwitterConnectBtn(_ sender: Any) {
     }
     @IBAction func DidTabFacebookConnectBtn(_ sender: Any) {
@@ -279,8 +396,32 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         cameraManager.stopCaptureSession()
     }
     @IBAction func DidTabOkBtn(_ sender: Any) {
-      
+        
+        if Tagline_txtView.text==""{
+        self.presentAlertWithTitle(title: "Alert", message: "Write your tagline")
+        }
+        else if About_txt_view.text==""{
+            self.presentAlertWithTitle(title: "Alert", message: "Write about you")
+
+        }
+        else if About_txt_view.text==""{
+            self.presentAlertWithTitle(title: "Alert", message: "Write about you")
+            
+        }
+        else if self.arrVideo.isEmpty==true || self.arrImage.isEmpty==false{
+            self.presentAlertWithTitle(title: "Alert", message: "Upload your video or images")
+            
+        }
+        else{
+         self.uploadWithAlamofire()
+        }
+    
+       
     }
+    
+   
+    
+    
     
     @IBAction func DidTabRecordBtn(_ sender: Any) {
         cameraButton.isSelected = !cameraButton.isSelected
@@ -289,8 +430,35 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         if cameraButton.isSelected {
             cameraManager.startRecordingVideo()
         } else {
-            cameraManager.stopVideoRecording({ (videoURL, error) -> Void in
+                      cameraManager.stopVideoRecording({ (videoURL, error) -> Void in
               print("video url",videoURL as AnyObject)
+           //     self.arrVideo.append(videoURL!)
+         //       let catPictureURL = URL(string: "http://i.imgur.com/w5rkSIj.jpg")!
+                        let session = URLSession(configuration: .default)
+                        
+                     
+                        
+                        // Define a download task. The download task will download the contents of the URL as a Data object and then you can do what you wish with that data.
+                        let downloadPicTask = session.dataTask(with: videoURL!) { (data, response, error) in
+                            // The download has finished.
+                            
+                            if let e = error {
+                                print("Error downloading cat picture: \(e)")
+                            } else {
+                                // No errors found.
+                                // It would be weird if we didn't have a response, so check for that too.
+                                if let res = response as? HTTPURLResponse {
+                                    print("Downloaded cat picture with response code \(res.statusCode)")
+                                     self.arrVideo.append((data as AnyObject) as! NSData)
+                                   
+                                } else {
+                                    print("Couldn't get response code for some reason")
+                                }
+                            }
+                        }
+                        
+                        downloadPicTask.resume()
+                
                 if let errorOccured = error {
                     self.cameraManager.showErrorBlock("Error occurred", errorOccured.localizedDescription)
                 }

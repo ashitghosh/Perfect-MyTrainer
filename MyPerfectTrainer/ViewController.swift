@@ -12,7 +12,7 @@ import SVProgressHUD
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,KYDrawerControllerDelegate {
     var user_type = "trainer"
     var messgae = ""
 
@@ -33,7 +33,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        Trainer_select_view.isHidden=true
+      
+               Trainer_select_view.isHidden=true
         self.labelMultiColor(getLabelName: lbl_forgot_password)
         self.ButtonCorner(getViewName: btn_login)
         self.ButtonCorner(getViewName: CreateAccount)
