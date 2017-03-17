@@ -31,15 +31,19 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     @IBOutlet var Skill_table: UITableView!
     var SKillTableHeight:CGSize = CGSize.init(width: 0, height: 0)
     var CertificateTableHeight:CGSize = CGSize.init(width: 0, height: 0)
+    var AdditonalskillDict = [String:String]()
+    var CertificateDict = [String:String]()
     var arrskill = [[String:AnyObject]]()
-    var ArradditionalSkill = [String]()
-     var arrCertificateSkill = [String]()
+    var ArradditionalSkill = [[String:AnyObject]]()
+    var arrCertificateSkill = [[String:AnyObject]]()
+    var arrnewSelectedskill = [[String:AnyObject]]()
     var arrSelectedSkill = [String]()
     var Training_type:String = ""
     var Liability_insurence:String = ""
      var CreateDict:[String:AnyObject]=[:]
     var ProfileImageData : NSData?
     var picked_image:UIImage?=nil
+    var traine_profile_id:String="0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +51,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         // Do any additional setup after loading the view.
     // self.CallFetchStates()
         
-        self.JsonForSkill()
+      //  self.JsonForSkill()
+        self.JsonForFetch()
         Skill_table.isHidden=true
         Liability_insurence="Y"
         profile_image.CircleImageView(BorderColour: UIColor.white, Radious: 1.0)
@@ -62,6 +67,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                                                                          attributes: [NSForegroundColorAttributeName: UIColor.white])
 
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -189,77 +195,6 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         UIView.commitAnimations()
     }
     
-    func CreateFunctionCheck()  {
-        if arrSelectedSkill.isEmpty==true {
-            presentAlertWithTitle(title: "alert", message: "Select your Skill")
-        }
-        else if ArradditionalSkill.isEmpty==true{
-        presentAlertWithTitle(title: "alert", message: "Select your Additional Skill")
-        }
-        else if arrCertificateSkill.isEmpty==true{
-            presentAlertWithTitle(title: "alert", message: "Select your Certificate")
-        }
-        else if Training_type == ""{
-            presentAlertWithTitle(title: "alert", message: "Select your Training Type")
-        }
-        else{
-            // Fbdetails = ["email" : email as AnyObject, "facebook_id" :fbid as AnyObject, "device_token" : "" as AnyObject ,"login_type" :"facebook"  as AnyObject,"name" :name as AnyObject,"fb_image" :picture as AnyObject,"fb_link" :profile_url as AnyObject,"user_type" :user_type as AnyObject ]
-            let userDefaults = Foundation.UserDefaults.standard
-            let User_id:String = userDefaults.string(forKey: "user_id")!
-
-            CreateDict = ["skill" : arrSelectedSkill as AnyObject,"additionalSkill" : ArradditionalSkill as AnyObject,"certificate" : arrCertificateSkill as AnyObject,"liability_insurance" : Liability_insurence as AnyObject,"trainer_type" : Training_type as AnyObject,"user_id" : User_id as AnyObject]
-            let URL:String = Constants.Base_url+"profileOneCreate"
-            self.CreateTrainerJson(jsonString: CreateDict, url: URL)
-        }
-
-
-    }
-    func CreateTrainerJson(jsonString:[String:AnyObject],url:String)  {
-        print(jsonString)
-        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
-        SVProgressHUD.show()
-        var poststring:String=""
-        
-        if let json = try? JSONSerialization.data(withJSONObject: jsonString, options: []) {
-            poststring = String(data: json, encoding: String.Encoding.utf8)!
-           // print(poststring)
-            if  poststring == String(data: json, encoding: String.Encoding.utf8)! {
-                // here `content` is the JSON dictionary containing the String
-                print(poststring)
-            }
-        }
-       SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
-        SVProgressHUD.show()
-        Alamofire.request(url, method:.post, parameters: jsonString, encoding: JSONEncoding.default)
-            .responseJSON { response in
-
-                
-                //to get status code
-                if let status = response.response?.statusCode {
-                    print("Status = ",status);
-                    switch(status){
-                    case 200:
-                        print( "Json  return for Login= ",response)
-                        //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
-                        
-                        if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
-                            
-                            SVProgressHUD.dismiss()
-                            
-                        }
-                        else{
-                            
-                            SVProgressHUD.dismiss()
-                        }
-                        
-                    default:
-                        print("error with response status: \(status)")
-                        SVProgressHUD.dismiss()
-                    }
-                }
-        }
-
-    }
     
     //For image Picker Function controller++++++++++++++++++*************************************
      public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
@@ -331,7 +266,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
             cell.contentView.layer.borderWidth = 1.0
             cell.contentView.layer.borderColor = UIColor.clear.cgColor;
             cell.contentView.layer.masksToBounds = true;
-            cell.name_lbl.text=(ArradditionalSkill[indexPath.row] as AnyObject) as? String
+            cell.name_lbl.text=(ArradditionalSkill[indexPath.row] as AnyObject).value(forKey: "name") as? String
             
             return cell
         }
@@ -345,7 +280,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
             cell.contentView.layer.borderWidth = 1.0
             cell.contentView.layer.borderColor = UIColor.clear.cgColor;
             cell.contentView.layer.masksToBounds = true;
-            cell.name_lbl.text=(arrCertificateSkill[indexPath.row] as AnyObject) as? String
+            cell.name_lbl.text=(arrCertificateSkill[indexPath.row] as AnyObject).value(forKey: "certificate_name") as? String
             return cell
         }
       
@@ -367,8 +302,16 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SkillCell", for: indexPath)as! SkillCell
         cell.layer.cornerRadius=10
+        let SelectedId:NSInteger=(arrskill[indexPath.row] as AnyObject).value(forKey: "skill_id") as! NSInteger
+        let  Id:String = String(SelectedId)
+        if arrSelectedSkill.contains(Id){
+        cell.Skill_selected_image.image = UIImage.init(named: "radio-select.png")
+        }
+        else{
+          cell.Skill_selected_image.image = UIImage.init(named: "radio-unselect.png")
+        }
         cell.Skill_name_lbl.text=(arrskill[indexPath.row] as AnyObject).value(forKey: "skill_name") as? String
-        cell.Skill_selected_image.image = UIImage.init(named: "radio-unselect.png")
+        //cell.Skill_selected_image.image = UIImage.init(named: "radio-unselect.png")
         return cell
         
     }
@@ -398,6 +341,225 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     
   // WebService Calling++++++++++++++++++++++++++++++++++++
     
+    func JsonForFetch()  {
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        let userDefaults = Foundation.UserDefaults.standard
+        let User_id:String = userDefaults.string(forKey: "user_id")!
+        var poststring:String?
+        
+        let parameters = ["trainer_id": User_id,"action": "get","trainer_info_id": self.traine_profile_id]
+        let Url:String=Constants.Base_url+"profileOneCreate"
+
+        if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
+            poststring = String(data: json, encoding: String.Encoding.utf8)!
+            // print(poststring)
+            if  poststring == String(data: json, encoding: String.Encoding.utf8)! {
+                // here `content` is the JSON dictionary containing the String
+                print(poststring as AnyObject)
+            }
+        }
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        Alamofire.request(Url, method:.post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                
+                
+                //to get status code
+                if let status = response.response?.statusCode {
+                    print("Status = ",status);
+                    switch(status){
+                    case 200:
+                        print( "Json  return for Fetch= ",response)
+                        //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
+                        
+                        if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0  {
+                            SVProgressHUD.dismiss()
+                            
+                            self.arrnewSelectedskill=(response.result.value as AnyObject).value(forKey: "skill") as! [[String:AnyObject]]
+                           // print((self.arrnewSelectedskill[0] as AnyObject).value(forKey: "id") as! String)
+                          //  print("seletced Arr",self.arrnewSelectedskill)
+                            for  index in stride(from: 0, to:  (self.arrnewSelectedskill.count), by: 1){
+                                let selectedId:String = (self.arrnewSelectedskill[index] as AnyObject).value(forKey: "id") as! String
+                                self.arrSelectedSkill.append(selectedId)
+                            }
+                            print("Selected Skill list",self.arrSelectedSkill)
+                            
+                            self.JsonForSkill()
+                            
+                              let liability_insurance:String=((response.result.value as AnyObject).value(forKey: "liability_insurance") as? String)!
+                            if liability_insurance=="Y"{
+                            self.Switch_btn.setOn(true, animated: true)
+                            }
+                            else{
+                            self.Switch_btn.setOn(false, animated: false)
+                            }
+                            let trainer_type:String=((response.result.value as AnyObject).value(forKey: "trainer_type") as? String)!
+                            let user_id:NSInteger=(response.result.value as AnyObject).value(forKey: "trainer_info_id") as! NSInteger
+                            let profile_id:String=String(user_id)
+                            self.traine_profile_id=profile_id
+                            print(user_id as AnyObject)
+                           
+                            if trainer_type=="individual"{
+                            self.Invidual_selectBtn.image=UIImage.init(named: "radio-select.png")
+                                self.Training_type="individual"
+                            }
+                            if trainer_type=="tandem"{
+                               self.Tandem_selectBtn.image=UIImage.init(named: "radio-select.png")
+                                self.Training_type="tandem"
+                            }
+                            if trainer_type=="group"{
+                                self.GroupImageview.image=UIImage.init(named: "radio-select.png")
+                                self.Training_type="group"
+                            }
+                            
+                            self.arrCertificateSkill=(response.result.value as AnyObject).value(forKey: "certificate") as! [[String:AnyObject]]
+                             //self.arrSelectedSkill=(response.result.value as! String).value(forKey: "skill") as! String
+                            self.ArradditionalSkill=(response.result.value as AnyObject).value(forKey: "trainerOtherSkill") as! [[String:AnyObject]]
+                            print("certificateSkill",self.arrCertificateSkill)
+                             print("arr selected skill",self.arrSelectedSkill)
+                             print("Additional skill",self.ArradditionalSkill)
+                            self.Certificate_tableview.reloadData()
+                            self.Skill_table.reloadData()
+                            self.ViewReCoordination()
+                        }
+                        else{
+                            SVProgressHUD.dismiss()
+                        }
+                        
+                    default:
+                        print("error with response status: \(status)")
+                        SVProgressHUD.dismiss()
+                    }
+                }
+        }
+ 
+    }
+    
+    func CreateFunctionCheck()  {
+        if arrSelectedSkill.isEmpty==true {
+            presentAlertWithTitle(title: "alert", message: "Select your Skill")
+        }
+        else if ArradditionalSkill.isEmpty==true{
+            presentAlertWithTitle(title: "alert", message: "Select your Additional Skill")
+        }
+        else if arrCertificateSkill.isEmpty==true{
+            presentAlertWithTitle(title: "alert", message: "Select your Certificate")
+        }
+        else if Training_type == ""{
+            presentAlertWithTitle(title: "alert", message: "Select your Training Type")
+        }
+        else{
+            // Fbdetails = ["email" : email as AnyObject, "facebook_id" :fbid as AnyObject, "device_token" : "" as AnyObject ,"login_type" :"facebook"  as AnyObject,"name" :name as AnyObject,"fb_image" :picture as AnyObject,"fb_link" :profile_url as AnyObject,"user_type" :user_type as AnyObject ]
+            let userDefaults = Foundation.UserDefaults.standard
+            let User_id:String = userDefaults.string(forKey: "user_id")!
+            
+            CreateDict = ["skill" : arrSelectedSkill as AnyObject,"additionalSkill" : ArradditionalSkill as AnyObject,"certificate" : arrCertificateSkill as AnyObject,"liability_insurance" : Liability_insurence as AnyObject,"trainer_type" : Training_type as AnyObject,"trainer_id" : User_id as AnyObject,"trainer_info_id" : self.traine_profile_id as AnyObject,"action" : "insert" as AnyObject ]
+            let URL:String = Constants.Base_url+"profileOneCreate"
+            self.CreateTrainerJson(jsonString: CreateDict, url: URL)
+        }
+        
+        
+    }
+    func CreateTrainerJson(jsonString:[String:AnyObject],url:String)  {
+        print(jsonString)
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        var poststring:String=""
+        
+        if let json = try? JSONSerialization.data(withJSONObject: jsonString, options: []) {
+            poststring = String(data: json, encoding: String.Encoding.utf8)!
+            // print(poststring)
+            if  poststring == String(data: json, encoding: String.Encoding.utf8)! {
+                // here `content` is the JSON dictionary containing the String
+                print(poststring)
+            }
+        }
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        Alamofire.request(url, method:.post, parameters: jsonString, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                
+                
+                //to get status code
+                if let status = response.response?.statusCode {
+                    print("Status = ",status);
+                    switch(status){
+                    case 200:
+                        print( "Json  return for Login= ",response)
+                        //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
+                        
+                        
+                        
+                        
+                        if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
+                            
+                        /*    self.arrnewSelectedskill=(response.result.value as AnyObject).value(forKey: "skill") as! [[String:AnyObject]]
+                            // print((self.arrnewSelectedskill[0] as AnyObject).value(forKey: "id") as! String)
+                            //  print("seletced Arr",self.arrnewSelectedskill)
+                            for  index in stride(from: 0, to:  (self.arrnewSelectedskill.count), by: 1){
+                                let selectedId:String = (self.arrnewSelectedskill[index] as AnyObject).value(forKey: "id") as! String
+                                self.arrSelectedSkill.append(selectedId)
+                            }
+                            print("Selected Skill list",self.arrSelectedSkill)
+                            
+                          
+                            
+                            let liability_insurance:String=((response.result.value as AnyObject).value(forKey: "liability_insurance") as? String)!
+                            if liability_insurance=="Y"{
+                                self.Switch_btn.setOn(true, animated: true)
+                            }
+                            else{
+                                self.Switch_btn.setOn(false, animated: false)
+                            }
+                            let trainer_type:String=((response.result.value as AnyObject).value(forKey: "trainer_type") as? String)!
+                            if trainer_type=="individual"{
+                                self.Invidual_selectBtn.image=UIImage.init(named: "radio-select.png")
+                                self.Training_type="individual"
+                            }
+                            if trainer_type=="tandem"{
+                                self.Tandem_selectBtn.image=UIImage.init(named: "radio-select.png")
+                                self.Training_type="tandem"
+                            }
+                            if trainer_type=="group"{
+                                self.GroupImageview.image=UIImage.init(named: "radio-select.png")
+                                self.Training_type="group"
+                            }
+                            
+                            self.arrCertificateSkill=(response.result.value as AnyObject).value(forKey: "certificate") as! [[String:AnyObject]]
+                            //self.arrSelectedSkill=(response.result.value as! String).value(forKey: "skill") as! String
+                            self.ArradditionalSkill=(response.result.value as AnyObject).value(forKey: "trainerOtherSkill") as! [[String:AnyObject]]
+                            print("certificateSkill",self.arrCertificateSkill)
+                            print("arr selected skill",self.arrSelectedSkill)
+                            print("Additional skill",self.ArradditionalSkill)
+                            self.Certificate_tableview.reloadData()
+                            self.Skill_table.reloadData()
+                            self.ViewReCoordination()*/
+                            let user_id:NSInteger=(response.result.value as AnyObject).value(forKey: "trainer_info_id") as! NSInteger
+                            let profile_id:String=String(user_id)
+                            self.traine_profile_id=profile_id
+                            print("profile_id",self.traine_profile_id)
+                            let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerCreateProfileTwo") as! TrainerCreateProfileTwo
+                            vc.Trainer_profile_id=self.traine_profile_id
+                            self.navigationController?.pushViewController(vc, animated: true)
+                            SVProgressHUD.dismiss()
+                            
+                        }
+                        else{
+                            
+                            SVProgressHUD.dismiss()
+                        }
+                        
+                    default:
+                        print("error with response status: \(status)")
+                        SVProgressHUD.dismiss()
+                    }
+                }
+        }
+        
+    }
+
+    
     func JsonForSkill () {
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
         SVProgressHUD.show()
@@ -424,6 +586,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                             SVProgressHUD.dismiss()
                         }
                         else{
+                            
                             SVProgressHUD.dismiss()
                         }
                         
@@ -482,8 +645,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     
     @IBAction func DidTabAdditionalSkillBtn(_ sender: Any) {
         if (Additional_skill_text.text?.characters.count)! > 0 {
-            let arrayobject:String=Additional_skill_text.text!
-            ArradditionalSkill.append(arrayobject)
+            let arrayobject:[String:String]=["name":Additional_skill_text.text!,"id":""]
+            ArradditionalSkill.append(arrayobject as [String : AnyObject])
             print("arr certificate ",arrCertificateSkill)
             //   self.UITableView_Auto_Height()
             Skill_table .reloadData()
@@ -510,8 +673,10 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
        
         if (CertificateName_txt.text?.characters.count)!  > 0 && (Instuite_name.text?.characters.count)! > 0 {
             
-            let arrayobject:String=self.CertificateName_txt.text!+","+self.Instuite_name.text!
-            arrCertificateSkill.append(arrayobject)
+            let arrayobject:[String:String]=["certificate_name":self.CertificateName_txt.text!+","+self.Instuite_name.text!,"id":""]
+           
+            
+            arrCertificateSkill.append(arrayobject as [String : AnyObject])
             print("AdditionalSkill",arrCertificateSkill)
             //   self.UITableView_Auto_Height()
             Certificate_tableview .reloadData()

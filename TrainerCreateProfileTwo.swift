@@ -12,7 +12,7 @@ import AVKit
 import DKImagePickerController
 import Alamofire
 import SVProgressHUD
-class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate {
 
     @IBOutlet var Upload_image_view: UIView!
     @IBOutlet var OkBtn: UIButton!
@@ -25,7 +25,11 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     @IBOutlet var Upload_image_plus_lbl: UILabel!
     @IBOutlet var About_txt_view: UITextView!
     @IBOutlet var Tagline_txtView: UITextView!
-      var ProfileCreateTwoDict:[String:AnyObject] = [:]
+    var placeholderLabel : UILabel!
+    var ProfileCreateTwoDict:[String:AnyObject] = [:]
+     var arrCollectionImages = [[String:AnyObject]] ()
+     var arrCollectionVideo = [[String:AnyObject]] ()
+    var Trainer_profile_id:String!
     var arrVideo: [NSData] = []
     var arrImage: [NSData] = []
     var UploadImageData:NSData? = nil
@@ -57,6 +61,8 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        About_txt_view.text="Type Here"
+        Tagline_txtView.text="Type Here"
         OkBtn.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
          cameraButton.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
         Upload_image_btn.BtnRoundCorner(radious: 5.0, colour: UIColor.white)
@@ -65,13 +71,33 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         Upload_video_plusBtn.Circlelabel(BorderColour: UIColor.clear, Radious: 0.0)
         self.addDoneButtonOnKeyboard()
         self.Camera_background_view.isHidden=true
-
-        
-        
+        self.JsonForFetch()
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView==About_txt_view {
+            
+        About_txt_view.text=""
+        }
+        if textView==Tagline_txtView {
+             Tagline_txtView.text=""
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView==About_txt_view {
+            if About_txt_view.text.isEmpty==true{
+            About_txt_view.text="Type Here"
+            }
+        }
+        if textView==Tagline_txtView {
+            if Tagline_txtView.text.isEmpty==true{
+                Tagline_txtView.text="Type Here"
+            }
+        }
+    }
+  
     func showImagePicker() {
-        
+       
         //	 pickerController.assetType = .allPhotos
         let pickerController = DKImagePickerController()
        // pickerController.maxSelectableCount=5
@@ -190,6 +216,71 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     }
     
     
+    func JsonForFetch()  {
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        let userDefaults = Foundation.UserDefaults.standard
+        let User_id:String = userDefaults.string(forKey: "user_id")!
+        var poststring:String?
+        
+        let parameters = ["trainer_id": User_id,"action": "get","trainer_info_id": self.Trainer_profile_id]
+        let Url:String=Constants.Base_url+"profileTwoCreate"
+        
+        if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
+            poststring = String(data: json, encoding: String.Encoding.utf8)!
+            // print(poststring)
+            if  poststring == String(data: json, encoding: String.Encoding.utf8)! {
+                // here `content` is the JSON dictionary containing the String
+                print(poststring as AnyObject)
+            }
+        }
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        Alamofire.request(Url, method:.post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                
+                
+                //to get status code
+                if let status = response.response?.statusCode {
+                    print("Status = ",status);
+                    switch(status){
+                    case 200:
+                        print( "Json  return for Login= ",response)
+                        //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
+                        
+                        if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
+                            SVProgressHUD.dismiss()
+                            if (response.result.value as AnyObject).value(forKey: "about") as! String==""{
+                            self.About_txt_view.text="Type Here"
+                            }
+                            else{
+                            self.About_txt_view.text=(response.result.value as AnyObject).value(forKey: "about") as! String
+                            }
+                            if (response.result.value as AnyObject).value(forKey: "tagline") as! String==""{
+                                self.About_txt_view.text="Type Here"
+                            }
+                            else{
+                                self.About_txt_view.text=(response.result.value as AnyObject).value(forKey: "tagline") as! String
+                            }
+                            self.arrCollectionImages=(response.result.value as AnyObject).value(forKey: "trainer_images") as! [[String:AnyObject]]
+                              self.arrCollectionVideo=(response.result.value as AnyObject).value(forKey: "trainer_videos") as! [[String:AnyObject]]
+                        }
+                        else{
+                            SVProgressHUD.dismiss()
+                        }
+                        
+                    default:
+                        print("error with response status: \(status)")
+                        SVProgressHUD.dismiss()
+                    }
+                }
+        }
+        
+    }
+    func UploadWithoutImage()  {
+        
+    }
+    
     func uploadWithAlamofire() {
         
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
@@ -202,57 +293,57 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         let video_count = String(self.arrVideo.count)
         print(photo_count)
         
-        let parameters = ["trainer_id": User_id,"trainer_info_id": "2","tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": "Y","photo_count": photo_count,"video_count": video_count]
+        let parameters = ["trainer_id": User_id,"trainer_info_id": self.Trainer_profile_id,"tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": "Y","photo_count": photo_count,"video_count": video_count]
         let Url:String=Constants.Base_url+"profileTwoCreate"
         Alamofire.upload(multipartFormData: { multipartFormData in
+            if self.arrImage.isEmpty==true && self.arrVideo.isEmpty==true{
             
-            if self.arrImage.isEmpty==false{
-                
-                for  index in stride(from: 0, to:  (self.arrImage.count), by: 1){
+            }
+            else{
+                if self.arrImage.isEmpty==false{
                     
-                    let data:NSData = self.arrImage[index]
-                    
-                    // let asset = self.assets![index]
-                    // self.uploadImage?.image=UIImage.init(data: data as Data)
-                    if let imageData = UIImageJPEGRepresentation(UIImage.init(data: data as Data)!, 1) {
+                    for  index in stride(from: 0, to:  (self.arrImage.count), by: 1){
                         
-                        let file_name : String="file"+String(index+1)+".jpeg"
-                        let Photo : String="photo_"+String(index+1)
-                        print(Photo)
-                        print(file_name)
-                        multipartFormData.append(imageData, withName: Photo, fileName: file_name, mimeType: "image/jpeg")
-                        print("New Image")
+                        let data:NSData = self.arrImage[index]
                         
-                        
-                        //  multipartFormData.append(ImageData, withName: "photo", fileName:"file.jpeg" , mimeType: "image/jpeg")
+                        // let asset = self.assets![index]
+                        // self.uploadImage?.image=UIImage.init(data: data as Data)
+                        if let imageData = UIImageJPEGRepresentation(UIImage.init(data: data as Data)!, 1) {
+                            
+                            let file_name : String="file"+String(index+1)+".jpeg"
+                            let Photo : String="photo_"+String(index+1)
+                            print(Photo)
+                            print(file_name)
+                            multipartFormData.append(imageData, withName: Photo, fileName: file_name, mimeType: "image/jpeg")
+                            print("New Image")
+                            
+                            
+                            //  multipartFormData.append(ImageData, withName: "photo", fileName:"file.jpeg" , mimeType: "image/jpeg")
+                        }
                     }
                 }
-            }
-            if self.arrVideo.isEmpty==false{
-                for  index in stride(from: 0, to:  (self.arrVideo.count), by: 1){
-                    
-                    let data:Data = self.arrVideo[index] as Data
-                    // let asset = self.assets![index]
-                    // self.uploadImage?.image=UIImage.init(data: data as Data)
-                    var movieData:Data?
-                    movieData=data as Data
-                    
-                    let file_name : String="file"+String(index+1)+".mp4"
-                    let Photo : String="video_"+String(index+1)
-                    print(Photo)
-                    print(file_name)
-                    multipartFormData.append(movieData!, withName: Photo, fileName: file_name, mimeType: "video/mp4")
-                    print("New video")
+                if self.arrVideo.isEmpty==false{
+                    for  index in stride(from: 0, to:  (self.arrVideo.count), by: 1){
+                        
+                        let data:Data = self.arrVideo[index] as Data
+                        // let asset = self.assets![index]
+                        // self.uploadImage?.image=UIImage.init(data: data as Data)
+                        var movieData:Data?
+                        movieData=data as Data
+                        
+                        let file_name : String="file"+String(index+1)+".mp4"
+                        let Photo : String="video_"+String(index+1)
+                        print(Photo)
+                        print(file_name)
+                        multipartFormData.append(movieData!, withName: Photo, fileName: file_name, mimeType: "video/mp4")
+                        print("New video")
+                    }
                 }
+
             }
-            
-            
-            
-            
-            
             
             for (key, value) in parameters {
-                multipartFormData.append((value.data(using: .utf8))!, withName: key)
+                multipartFormData.append((value?.data(using: .utf8))!, withName: key)
             }
         },
                          to:Url, method: .post, headers: ["Authorization": "auth_token"],
@@ -266,10 +357,26 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                                     SVProgressHUD.dismiss()
                                     
                                     
-                                    //   let Message=(response.result.value as AnyObject).value(forKey: "message")
-                                    // print(Message as! String)
-                                    //  self.presentAlertWithTitle(title: "Success", message: Message as! String)
-                                    
+                                    if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
+                                        SVProgressHUD.dismiss()
+                                        if (response.result.value as AnyObject).value(forKey: "about") as! String==""{
+                                            self.About_txt_view.text="Type Here"
+                                        }
+                                        else{
+                                            self.About_txt_view.text=(response.result.value as AnyObject).value(forKey: "about") as! String
+                                        }
+                                        if (response.result.value as AnyObject).value(forKey: "tagline") as! String==""{
+                                            self.About_txt_view.text="Type Here"
+                                        }
+                                        else{
+                                            self.About_txt_view.text=(response.result.value as AnyObject).value(forKey: "tagline") as! String
+                                        }
+                                        self.arrCollectionImages=(response.result.value as AnyObject).value(forKey: "trainer_images") as! [[String:AnyObject]]
+                                        self.arrCollectionVideo=(response.result.value as AnyObject).value(forKey: "trainer_videos") as! [[String:AnyObject]]
+                                    }
+                                    else{
+                                        SVProgressHUD.dismiss()
+                                    }
                                 }
                                 
                                 
@@ -406,10 +513,6 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         }
         else if About_txt_view.text==""{
             self.presentAlertWithTitle(title: "Alert", message: "Write about you")
-            
-        }
-        else if self.arrVideo.isEmpty==true || self.arrImage.isEmpty==false{
-            self.presentAlertWithTitle(title: "Alert", message: "Upload your video or images")
             
         }
         else{

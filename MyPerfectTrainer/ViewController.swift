@@ -222,7 +222,7 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
         SVProgressHUD.show()
         
         
-       /* Alamofire.request(url, method: .post, parameters: jsonstring, encoding: JSONEncoding.default)
+      Alamofire.request(url, method: .post, parameters: jsonstring, encoding: JSONEncoding.default)
             .responseJSON { response in
                 
                 //to get status code
@@ -236,6 +236,7 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
                        
                      if (response.result.value as AnyObject).value(forKey: "is_error") as? NSNumber == 0 {
                             let user_type:String=(response.result.value as AnyObject).value(forKey: "user_type") as! String
+                         let Is_profile:String=(response.result.value as AnyObject).value(forKey: "is_profile_complete") as! String
                             let user_id=(response.result.value as AnyObject).value(forKey: "user_id") 
                             let userDefaults = Foundation.UserDefaults.standard
                             userDefaults.set( user_id ,  forKey: "user_id")
@@ -248,8 +249,16 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
                             SVProgressHUD.dismiss()
                             
                             if user_type=="trainer"{
-                                let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerViewController") as! TrainerViewController
-                                self.navigationController?.pushViewController(vc, animated: true)
+                                if Is_profile=="Y"{
+                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerViewController") as! TrainerViewController
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                                else{
+                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerCreateController") as! TrainerCreateController
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                                
+                                
                             }
                             else{
                                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController
@@ -259,13 +268,15 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
                             
                         }
                         else{
+                        self.presentAlertWithTitle(title: "Alert", message: "Wrong email or password")
                             SVProgressHUD.dismiss()
                         }
                         
                     default:
                         print("error with response status: \(status)")
                     }
-                }*/
+                }
+        }
               /*  //to get JSON return value
                      if let result = response.result.value {
                  let JSON = result as! NSDictionary
@@ -314,7 +325,7 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
 self.facebookLoginJson(jsonString: Fbdetails, Url: "http://ogmaconceptions.com/demo/my_perfect_trainer/MyPerfectTrainerApp/facebookLogin")
         }
         else{
-            LoginDict = ["email" : (txt_email.text)! as AnyObject, "password" : (txt_password.text)! as AnyObject, "device_token" : "" as AnyObject,"user_type" : "user_type" as AnyObject ]
+            LoginDict = ["email" : (txt_email.text)! as AnyObject, "password" : (txt_password.text)! as AnyObject, "device_token" : "" as AnyObject,"user_type" : user_type as AnyObject ]
             Trainer_select_view.isHidden=true
             self.LoginJsonCheck(jsonstring: LoginDict, url: "http://ogmaconceptions.com/demo/my_perfect_trainer/MyPerfectTrainerApp/login")
         }
