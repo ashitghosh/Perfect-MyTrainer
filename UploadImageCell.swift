@@ -10,4 +10,6 @@ import UIKit
 
 class UploadImageCell: UICollectionViewCell {
     
+    @IBOutlet var Upload_image: UIImageView!
+    @IBOutlet var VideoImage: UIImageView!
 }

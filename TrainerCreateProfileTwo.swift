@@ -11,7 +11,9 @@ import Photos
 import AVKit
 import DKImagePickerController
 import Alamofire
+import AlamofireImage
 import SVProgressHUD
+import AVFoundation
 class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate {
 
     @IBOutlet var Upload_image_view: UIView!
@@ -40,6 +42,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     var IsVideo:Bool = false
     var uploadImage:UIImageView? = nil
     var Wheel_chair:String = "Y"
+    var player:AVPlayer?
     
     
     
@@ -182,7 +185,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.isHidden = true
-        cameraManager.resumeCaptureSession()
+        cameraManager.stopCaptureSession()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -224,6 +227,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         var poststring:String?
         
         let parameters = ["trainer_id": User_id,"action": "get","trainer_info_id": self.Trainer_profile_id]
+        print("new parameter",parameters)
         let Url:String=Constants.Base_url+"profileTwoCreate"
         
         if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
@@ -257,17 +261,40 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                             self.About_txt_view.text=(response.result.value as AnyObject).value(forKey: "about") as! String
                             }
                             if (response.result.value as AnyObject).value(forKey: "tagline") as! String==""{
-                                self.About_txt_view.text="Type Here"
+                                self.Tagline_txtView.text="Type Here"
                             }
                             else{
-                                self.About_txt_view.text=(response.result.value as AnyObject).value(forKey: "tagline") as! String
+                                self.Tagline_txtView.text=(response.result.value as AnyObject).value(forKey: "tagline") as! String
                             }
                             self.arrCollectionImages=(response.result.value as AnyObject).value(forKey: "trainer_images") as! [[String:AnyObject]]
                               self.arrCollectionVideo=(response.result.value as AnyObject).value(forKey: "trainer_videos") as! [[String:AnyObject]]
+                            if self.arrCollectionVideo.isEmpty==true{
+                                self.VideoCollectionView.isHidden=true
+                            }
+                            else{
+                             self.VideoCollectionView.isHidden=false
+                                self.VideoCollectionView.reloadData()
+                            }
+                            if self.arrCollectionImages.isEmpty==true{
+                                self.Image_collectionView.isHidden=true
+                            }
+                            else{
+                                self.Image_collectionView.isHidden=false
+                                self.Image_collectionView.reloadData()
+                            }
+                            
+                            self.Wheel_chair=(response.result.value as AnyObject).value(forKey: "iswheelchair") as! String
+                            if self.Wheel_chair=="N"{
+                             self.wheelchair_access_switch.setOn(false, animated: true)
+                                
+                            }
+                            else{
+                              self.wheelchair_access_switch.setOn(true, animated: true)
+                            }
                         }
-                        else{
+              else{
                             SVProgressHUD.dismiss()
-                        }
+                    }
                         
                     default:
                         print("error with response status: \(status)")
@@ -277,24 +304,23 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         }
         
     }
-    func UploadWithoutImage()  {
-        
-    }
+    
     
     func uploadWithAlamofire() {
         
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
         SVProgressHUD.show()
         // define parameters
-        
         let userDefaults = Foundation.UserDefaults.standard
           let User_id:String = userDefaults.string(forKey: "user_id")!
         let photo_count = String(self.arrImage.count)
         let video_count = String(self.arrVideo.count)
         print(photo_count)
         
-        let parameters = ["trainer_id": User_id,"trainer_info_id": self.Trainer_profile_id,"tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": "Y","photo_count": photo_count,"video_count": video_count]
-        let Url:String=Constants.Base_url+"profileTwoCreate"
+        // let parameters = ["trainer_id": "7" ,"trainer_info_id": "3","tagline": "new tagline","about": "now about","iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
+        let parameters = ["trainer_id": User_id ,"trainer_info_id": self.Trainer_profile_id,"tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
+        print("parameter",parameters)
+        let Url:String=Constants.Base_url+"profileCreateTwoInsert"
         Alamofire.upload(multipartFormData: { multipartFormData in
             if self.arrImage.isEmpty==true && self.arrVideo.isEmpty==true{
             
@@ -357,7 +383,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                                     SVProgressHUD.dismiss()
                                     
                                     
-                                    if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
+                               if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
                                         SVProgressHUD.dismiss()
                                         if (response.result.value as AnyObject).value(forKey: "about") as! String==""{
                                             self.About_txt_view.text="Type Here"
@@ -366,13 +392,15 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                                             self.About_txt_view.text=(response.result.value as AnyObject).value(forKey: "about") as! String
                                         }
                                         if (response.result.value as AnyObject).value(forKey: "tagline") as! String==""{
-                                            self.About_txt_view.text="Type Here"
+                                            self.Tagline_txtView.text="Type Here"
                                         }
                                         else{
-                                            self.About_txt_view.text=(response.result.value as AnyObject).value(forKey: "tagline") as! String
+                                            self.Tagline_txtView.text=(response.result.value as AnyObject).value(forKey: "tagline") as! String
                                         }
                                         self.arrCollectionImages=(response.result.value as AnyObject).value(forKey: "trainer_images") as! [[String:AnyObject]]
                                         self.arrCollectionVideo=(response.result.value as AnyObject).value(forKey: "trainer_videos") as! [[String:AnyObject]]
+                                self.Image_collectionView.reloadData()
+                                self.VideoCollectionView.reloadData()
                                     }
                                     else{
                                         SVProgressHUD.dismiss()
@@ -394,16 +422,66 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         
-       return 12
+        if collectionView==Image_collectionView{
+        return arrCollectionImages.count
+        }
+        else{
+         return arrCollectionVideo.count
+        }
+      
         
     }
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UploadImageCell", for: indexPath) as! UploadImageCell
         cell.layer.cornerRadius=10
+        if collectionView==VideoCollectionView{
+            let Url:String = ((self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "video_image") as? String)!
+            
+            Alamofire.request(Url).responseImage { response in
+                debugPrint(response)
+                
+                
+                //debugPrint(response.result)
+                
+                if let image = response.result.value {
+                    cell.VideoImage.image=image
+                    
+                }
+            }
+        }
+        else{
+            let Url:String = ((self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "name") as? String)!
+            
+            Alamofire.request(Url).responseImage { response in
+                debugPrint(response)
+                
+                
+               // debugPrint(response.result)
+                
+                if let image = response.result.value {
+                    cell.Upload_image.image=image
+                    
+                }
+            }
+
+        }
         return cell
     
     }
     
+ 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        if collectionView==VideoCollectionView{
+        
+            let url:String = (self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "name") as! String
+            let videoURL = URL(string: url)
+            player = AVPlayer(url: videoURL!)
+            let playerLayer = AVPlayerLayer(player: player)
+            playerLayer.frame = self.view.bounds
+            self.view.layer.addSublayer(playerLayer)
+            player?.play()
+        }
+    }
     
     //For image Picker Function controller++++++++++++++++++*************************************
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
@@ -504,17 +582,14 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     }
     @IBAction func DidTabOkBtn(_ sender: Any) {
         
-        if Tagline_txtView.text==""{
+        if Tagline_txtView.text=="" || Tagline_txtView.text=="Type Here" {
         self.presentAlertWithTitle(title: "Alert", message: "Write your tagline")
         }
-        else if About_txt_view.text==""{
+        else if About_txt_view.text=="" || About_txt_view.text=="Type Here" {
             self.presentAlertWithTitle(title: "Alert", message: "Write about you")
 
         }
-        else if About_txt_view.text==""{
-            self.presentAlertWithTitle(title: "Alert", message: "Write about you")
-            
-        }
+       
         else{
          self.uploadWithAlamofire()
         }

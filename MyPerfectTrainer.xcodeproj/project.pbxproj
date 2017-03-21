@@ -133,6 +133,11 @@
 		589065ED1E4DD15C001BC5A3 /* schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 589065DB1E4DD15C001BC5A3 /* schedule.png */; };
 		589065EE1E4DD15C001BC5A3 /* schedule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 589065DC1E4DD15C001BC5A3 /* schedule@2x.png */; };
 		589065EF1E4DD15C001BC5A3 /* schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 589065DD1E4DD15C001BC5A3 /* schedule@3x.png */; };
+		5890BE041E7FBC8000CAD8F6 /* TrainerAboutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890BE031E7FBC8000CAD8F6 /* TrainerAboutController.swift */; };
+		5890BE061E80069000CAD8F6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5890BE051E80069000CAD8F6 /* AVFoundation.framework */; };
+		5890BE0A1E80225200CAD8F6 /* cross@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5890BE091E80225200CAD8F6 /* cross@3x.png */; };
+		5890BE0C1E80227900CAD8F6 /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = 5890BE0B1E80227900CAD8F6 /* cross.png */; };
+		5890BE0E1E8022BA00CAD8F6 /* cross@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5890BE0D1E8022BA00CAD8F6 /* cross@2x.png */; };
 		589541E31E57168A00E862D1 /* SelectedSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589541E21E57168900E862D1 /* SelectedSkillCell.swift */; };
 		589541E61E57430600E862D1 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589541E51E57430600E862D1 /* CommentViewController.swift */; };
 		589541E81E57435B00E862D1 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589541E71E57435B00E862D1 /* CommentCell.swift */; };
@@ -374,6 +379,11 @@
 		589065DB1E4DD15C001BC5A3 /* schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schedule.png; sourceTree = "<group>"; };
 		589065DC1E4DD15C001BC5A3 /* schedule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@2x.png"; sourceTree = "<group>"; };
 		589065DD1E4DD15C001BC5A3 /* schedule@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@3x.png"; sourceTree = "<group>"; };
+		5890BE031E7FBC8000CAD8F6 /* TrainerAboutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerAboutController.swift; sourceTree = "<group>"; };
+		5890BE051E80069000CAD8F6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5890BE091E80225200CAD8F6 /* cross@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross@3x.png"; sourceTree = "<group>"; };
+		5890BE0B1E80227900CAD8F6 /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
+		5890BE0D1E8022BA00CAD8F6 /* cross@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross@2x.png"; sourceTree = "<group>"; };
 		589541E21E57168900E862D1 /* SelectedSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSkillCell.swift; sourceTree = "<group>"; };
 		589541E51E57430600E862D1 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		589541E71E57435B00E862D1 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -505,6 +515,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5890BE061E80069000CAD8F6 /* AVFoundation.framework in Frameworks */,
 				58821E781E793C8B00CE40BA /* CoreMedia.framework in Frameworks */,
 				587CF9E41E76CDFB003645CB /* AlamofireImage.framework in Frameworks */,
 				587CF9E51E76CDFB003645CB /* CameraManager.framework in Frameworks */,
@@ -687,6 +698,9 @@
 		5880474E1E60376B008ADBC6 /* Trainer Create Profile */ = {
 			isa = PBXGroup;
 			children = (
+				5890BE0D1E8022BA00CAD8F6 /* cross@2x.png */,
+				5890BE0B1E80227900CAD8F6 /* cross.png */,
+				5890BE091E80225200CAD8F6 /* cross@3x.png */,
 				585AF11F1E727F2A00220785 /* facebook_connect.png */,
 				585AF1201E727F2A00220785 /* facebook_connect@2x.png */,
 				585AF1211E727F2A00220785 /* facebook_connect@3x.png */,
@@ -744,6 +758,14 @@
 				589065BF1E4DC9A5001BC5A3 /* homeicon@3x.png */,
 			);
 			name = Drawer;
+			sourceTree = "<group>";
+		};
+		5890BE021E7FBC4E00CAD8F6 /* Trainer About */ = {
+			isa = PBXGroup;
+			children = (
+				5890BE031E7FBC8000CAD8F6 /* TrainerAboutController.swift */,
+			);
+			name = "Trainer About";
 			sourceTree = "<group>";
 		};
 		589541E41E5742D400E862D1 /* Comment view controller */ = {
@@ -864,6 +886,7 @@
 		A857568E086161932B4ECA4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5890BE051E80069000CAD8F6 /* AVFoundation.framework */,
 				58821E771E793C8B00CE40BA /* CoreMedia.framework */,
 				587CF9DF1E76CDFB003645CB /* AlamofireImage.framework */,
 				587CF9E01E76CDFB003645CB /* CameraManager.framework */,
@@ -882,6 +905,7 @@
 		E82605E01E36300B0074E4FE = {
 			isa = PBXGroup;
 			children = (
+				5890BE021E7FBC4E00CAD8F6 /* Trainer About */,
 				585AF1371E728DC300220785 /* Extension File */,
 				580B72A11E645B1100DCF0D1 /* Facebook LoginKit */,
 				5880474D1E603741008ADBC6 /* Trainer Create Profile */,
@@ -1171,6 +1195,7 @@
 				585AF12C1E727F2A00220785 /* facebook_connect@2x.png in Resources */,
 				58B4031D1E55B646007D77DE /* ic_arrow_drop_down_18pt_2x.png in Resources */,
 				587903641E531F02004D9E6D /* post@2x.png in Resources */,
+				5890BE0E1E8022BA00CAD8F6 /* cross@2x.png in Resources */,
 				589065E61E4DD15C001BC5A3 /* logout@3x.png in Resources */,
 				5880475D1E603789008ADBC6 /* radio-select@3x.png in Resources */,
 				584D04AB1E3755680025755E /* Selected_image@3x.png in Resources */,
@@ -1198,6 +1223,7 @@
 				585AF1361E727F2A00220785 /* twitter_connect@3x.png in Resources */,
 				588047441E600FDE008ADBC6 /* facebook_about.png in Resources */,
 				588031E81E54946D005D0A67 /* certification@2x.png in Resources */,
+				5890BE0A1E80225200CAD8F6 /* cross@3x.png in Resources */,
 				58F072881E5DB7DE00FB5F63 /* comment_about@2x.png in Resources */,
 				588047581E603789008ADBC6 /* blue-arrow.png in Resources */,
 				585AF1351E727F2A00220785 /* twitter_connect@2x.png in Resources */,
@@ -1258,6 +1284,7 @@
 				E852B0EC1E3730DC00EEBC83 /* facebook.png in Resources */,
 				584D04A91E3755680025755E /* Selected_image.png in Resources */,
 				58F0728F1E5DB88600FB5F63 /* edit_about@3x.png in Resources */,
+				5890BE0C1E80227900CAD8F6 /* cross.png in Resources */,
 				589065EF1E4DD15C001BC5A3 /* schedule@3x.png in Resources */,
 				584D03D61E5ECF71005F091E /* facebook_login@2x.png in Resources */,
 				5880475E1E603789008ADBC6 /* radio-unselect.png in Resources */,
@@ -1386,6 +1413,7 @@
 				58B7E7311E6D4BBF00AF88DD /* AdditionalSkillCell.swift in Sources */,
 				58B403141E557F95007D77DE /* CertificateCell.swift in Sources */,
 				58F072701E5DAA5C00FB5F63 /* BookNowViewController.swift in Sources */,
+				5890BE041E7FBC8000CAD8F6 /* TrainerAboutController.swift in Sources */,
 				587903791E534DAE004D9E6D /* TrainerViewController.swift in Sources */,
 				58DBC0C41E6999B500121A01 /* SkillCell.swift in Sources */,
 				58B403181E55847F007D77DE /* VideoCell.swift in Sources */,

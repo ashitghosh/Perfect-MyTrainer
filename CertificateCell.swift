@@ -10,6 +10,8 @@ import UIKit
 
 class CertificateCell: UITableViewCell {
 
+    @IBOutlet var Insitute_name: UILabel!
+    @IBOutlet var Name_lbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

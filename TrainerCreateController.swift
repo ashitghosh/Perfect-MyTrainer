@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-
+import AlamofireImage
 import SVProgressHUD
 class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -92,21 +92,21 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                 Skill_table.isHidden=false
              Certificate_tableview.isHidden=false
                 if Skill_table.contentSize.height>111.0 {
-                  Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Additional_Skill_view.frame.size.width, height: 111.0)
+                  Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x+15, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Skill_table.frame.size.width, height: 111.0)
                 }
                 else{
-                Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Additional_Skill_view.frame.size.width, height: Skill_table.contentSize.height)
+                Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x+15, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Skill_table.frame.size.width, height: Skill_table.contentSize.height)
                 }
               
-                CertificateView.frame=CGRect.init(x: Skill_table.frame.origin.x, y: Skill_table.frame.origin.y+Skill_table.frame.size.height+5, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
+                CertificateView.frame=CGRect.init(x: 0, y: Skill_table.frame.origin.y+Skill_table.frame.size.height+5, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
                 if Certificate_tableview.contentSize.height>111.0 {
-                   Certificate_tableview.frame=CGRect.init(x: CertificateView.frame.origin.x, y: CertificateView.frame.origin.y+CertificateView.frame.size.height, width: CertificateView.frame.size.width, height: 111.0)
+                   Certificate_tableview.frame=CGRect.init(x:12, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+5, width: Skill_table.frame.size.width, height: 111.0)
                 }
                 else{
-                    Certificate_tableview.frame=CGRect.init(x: CertificateView.frame.origin.x, y: CertificateView.frame.origin.y+CertificateView.frame.size.height, width: CertificateView.frame.size.width, height: Certificate_tableview.contentSize.height)
+                    Certificate_tableview.frame=CGRect.init(x:12, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+5, width: Skill_table.frame.size.width, height: Certificate_tableview.contentSize.height)
                 }
                
-                 Training_type_view.frame=CGRect.init(x: Certificate_tableview.frame.origin.x, y: Certificate_tableview.frame.origin.y+Certificate_tableview.frame.size.height+5, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
+                 Training_type_view.frame=CGRect.init(x: 0, y: Certificate_tableview.frame.origin.y+Certificate_tableview.frame.size.height, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
                 
             }
             else{
@@ -115,27 +115,27 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                     Certificate_tableview.isHidden=false
                     CertificateView.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height+5, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
                     if Certificate_tableview.contentSize.height>111.0 {
-                        Certificate_tableview.frame=CGRect.init(x: CertificateView.frame.origin.x, y: CertificateView.frame.origin.y+CertificateView.frame.size.height, width: CertificateView.frame.size.width, height: 111.0)
+                        Certificate_tableview.frame=CGRect.init(x: CertificateView.frame.origin.x+15, y: CertificateView.frame.origin.y+CertificateView.frame.size.height, width: Certificate_tableview.frame.size.width, height: 111.0)
                     }
                     else{
-                        Certificate_tableview.frame=CGRect.init(x: CertificateView.frame.origin.x, y: CertificateView.frame.origin.y+CertificateView.frame.size.height, width: CertificateView.frame.size.width, height: Certificate_tableview.contentSize.height)
+                        Certificate_tableview.frame=CGRect.init(x: CertificateView.frame.origin.x+15, y: CertificateView.frame.origin.y+CertificateView.frame.size.height, width: Certificate_tableview.frame.size.width, height: Certificate_tableview.contentSize.height)
                     }
 
-                    Training_type_view.frame=CGRect.init(x: Certificate_tableview.frame.origin.x, y: Certificate_tableview.frame.origin.y+Certificate_tableview.frame.size.height+5, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
+                    Training_type_view.frame=CGRect.init(x: 0, y: Certificate_tableview.frame.origin.y+Certificate_tableview.frame.size.height+5, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
                 }
                 if ArradditionalSkill.isEmpty==false {
                     Skill_table.isHidden=false
                     Certificate_tableview.isHidden=true
                     if Skill_table.contentSize.height>111.0 {
-                        Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Additional_Skill_view.frame.size.width, height: 111.0)
+                        Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x+15, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Skill_table.frame.size.width, height: 111.0)
                     }
                     else{
-                        Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Additional_Skill_view.frame.size.width, height: Skill_table.contentSize.height)
+                        Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x+15, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Skill_table.frame.size.width, height: Skill_table.contentSize.height)
                     }
 
-                    CertificateView.frame=CGRect.init(x: Skill_table.frame.origin.x, y: Skill_table.frame.origin.y+Skill_table.frame.size.height+5, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
+                    CertificateView.frame=CGRect.init(x: 0, y: Skill_table.frame.origin.y+Skill_table.frame.size.height+5, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
                     
-                    Training_type_view.frame=CGRect.init(x: CertificateView.frame.origin.x, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+5, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
+                    Training_type_view.frame=CGRect.init(x: 0, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+5, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
                 }
 
             }
@@ -259,8 +259,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         if tableView==Skill_table {
             let cell : AdditionalSkillCell! = tableView.dequeueReusableCell(withIdentifier: "AdditionalSkill") as! AdditionalSkillCell
             cell.selectionStyle = UITableViewCellSelectionStyle.none
-            cell.CrossBtn.layoutIfNeeded()
-              cell.CrossBtn.CircleBtn(BorderColour: UIColor.white, Radious: 1.0)
+           
             cell.CrossBtn.tag=indexPath.row
             cell.contentView.layer.cornerRadius = 8.0
             cell.contentView.layer.borderWidth = 1.0
@@ -273,8 +272,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         else{
             let cell : AdditionalSkillCell! = tableView.dequeueReusableCell(withIdentifier: "CertificateSkill") as! AdditionalSkillCell
             cell.selectionStyle = UITableViewCellSelectionStyle.none
-            cell.CertificateCross_Btn.layoutIfNeeded()
-            cell.CertificateCross_Btn.CircleBtn(BorderColour: UIColor.white, Radious: 1.0)
+            
             cell.CertificateCross_Btn.tag=indexPath.row
             cell.contentView.layer.cornerRadius = 8.0
             cell.contentView.layer.borderWidth = 1.0
@@ -286,14 +284,10 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
       
     }
     
-    
-
-    
-    
+      
 // For collection view+++++++++++++++++++++++++++++
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        
    return arrskill.count
     }
 
@@ -393,6 +387,18 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                             }
                             else{
                             self.Switch_btn.setOn(false, animated: false)
+                            }
+                            
+                            Alamofire.request("https://httpbin.org/image/png").responseImage { response in
+                                debugPrint(response)
+                                
+                              
+                                debugPrint(response.result)
+                                
+                                if let image = response.result.value {
+                                    print("image downloaded: \(image)")
+                                    self.profile_image.image=image
+                                }
                             }
                             let trainer_type:String=((response.result.value as AnyObject).value(forKey: "trainer_type") as? String)!
                             let user_id:NSInteger=(response.result.value as AnyObject).value(forKey: "trainer_info_id") as! NSInteger

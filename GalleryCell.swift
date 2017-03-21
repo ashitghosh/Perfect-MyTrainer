@@ -10,4 +10,5 @@ import UIKit
 
 class GalleryCell: UICollectionViewCell {
     
+    @IBOutlet var gallery_ImageView: UIImageView!
 }
