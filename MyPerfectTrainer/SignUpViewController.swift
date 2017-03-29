@@ -39,8 +39,14 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
         self.textplaceholderColor(getTextName: Email_txt, getplaceholderText: "Email")
         self.textplaceholderColor(getTextName: Password_txt, getplaceholderText: "Password")
         self.textplaceholderColor(getTextName: FullName_txt, getplaceholderText: "Fullname")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+             view.addGestureRecognizer(tap)
         
-        
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,6 +110,7 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
         }
     }
     func CheckRegistration (){
+        view.endEditing(true)
 
         if FullName_txt.text=="" {
             
@@ -187,7 +194,8 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
                     case 200:
                         print( "Json  return for Sign Up= ",response)
                         SVProgressHUD.dismiss()
-                        if( response.result.value as AnyObject).value(forKey: "is_error") as? NSNumber==0{
+                        if( response.result.value as AnyObject).value(forKey: "status") as? NSNumber==0{
+                             let Is_profile:String=(response.result.value as AnyObject).value(forKey: "is_profile_complete") as! String
                             let user_type:String=(response.result.value as AnyObject).value(forKey: "user_type") as! String
                             let user_id=(response.result.value as AnyObject).value(forKey: "user_id") 
                             let userDefaults = Foundation.UserDefaults.standard
@@ -197,8 +205,15 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
                             let value:String = userDefaults.string(forKey: "user_id")!
                             print("user_id = ",value  )
                             if user_type=="trainer"{
-                                let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerViewController") as! TrainerViewController
-                                self.navigationController?.pushViewController(vc, animated: true)
+                                if Is_profile=="N"{
+                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerCreateController") as! TrainerCreateController
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                                else{
+                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerAboutController") as! TrainerAboutController
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                                
                             }
                             else{
                                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController

@@ -36,17 +36,15 @@
     
     cell.Name_lbl.text = [arrDrawer objectAtIndex:indexPath.row];
     cell.Drawer_icon.image=[UIImage imageNamed:[arrImage objectAtIndex:indexPath.row]];
-    //cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    UIView *selectedView = [[UIView alloc]init];
-    selectedView.backgroundColor = [UIColor clearColor];
-    cell.selectedBackgroundView =  selectedView;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+   
     return cell;
 }
 -(void)viewWillAppear:(BOOL)animated{
     NSString *user_type=[NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"user_type"]];
     NSLog(@"user_type = %@",user_type);
     if ([user_type isEqualToString:@"trainer"]) {
-        arrDrawer=[[NSMutableArray alloc]initWithObjects:@"Home",@"View Profile",@"My Package",@"My Schdule",@"Work Schdule",@"Message",@"Logout", nil];
+        arrDrawer=[[NSMutableArray alloc]initWithObjects:@"Home",@"View Profile",@"My Package",@"My Schdule",@"My Post",@"Work Schdule",@"Message",@"Logout", nil];
         arrImage=[[NSMutableArray alloc]initWithObjects:@"homeicon.png",@"profileicon.png",@"invoice.png.png",@"search.png",@"schedule.png",@"massage.png",@"invoice.png",@"logout.png", nil];
     }
     else{
@@ -68,7 +66,10 @@
     switch ([newIndexPath row]) {
         case 0:{
             if ([user_type isEqualToString:@"trainer"]) {
-                
+                TrainerAboutController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"TrainerAboutController"];
+                UINavigationController *navController=[[UINavigationController alloc]initWithRootViewController:viewController];
+                elDrawer.ViewController=navController;
+                [elDrawer setDrawerState:DrawerStateClosed animated:YES];
             }
             else{
                 ClientHomeController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ClientHomeController"];
@@ -79,9 +80,9 @@
             
             break;
         }
-        case 6:{
+        case 4:{
             if ([user_type isEqualToString:@"trainer"]) {
-                ViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainController"];
+                TrainerMyPostController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"TrainerMyPostController"];
                 UINavigationController *navController=[[UINavigationController alloc]initWithRootViewController:viewController];
                 elDrawer.ViewController=navController;
                 [elDrawer setDrawerState:DrawerStateClosed animated:YES];
@@ -89,11 +90,31 @@
             else{
                 
             }
+            
+            break;
+        }
+        case 6:{
+            
             break;
         }
         case 7:{
             if ([user_type isEqualToString:@"trainer"]) {
+                ViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainController"];
+                UINavigationController *navController=[[UINavigationController alloc]initWithRootViewController:viewController];
+                elDrawer.ViewController=navController;
+                [elDrawer setDrawerState:DrawerStateClosed animated:YES];
+            }
+            else{
                 
+            }
+            break;
+        }
+        case 8:{
+            if ([user_type isEqualToString:@"trainer"]) {
+                ViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainController"];
+                UINavigationController *navController=[[UINavigationController alloc]initWithRootViewController:viewController];
+                elDrawer.ViewController=navController;
+                [elDrawer setDrawerState:DrawerStateClosed animated:YES];
             }
             else{
                 ViewController *viewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MainController"];
@@ -103,6 +124,7 @@
             }
             break;
         }
+
             
        
             

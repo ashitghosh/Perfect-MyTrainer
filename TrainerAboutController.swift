@@ -19,10 +19,16 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     @IBOutlet var Client_scorllview: UIScrollView!
     @IBOutlet var Rating_view: FloatRatingView!
     @IBOutlet var Profile_image: UIImageView!
+    @IBOutlet var About_txt: UITextView!
+    @IBOutlet var other_txt: UITextView!
     var arrCollectionImages = [[String:AnyObject]] ()
     var arrCollectionVideo = [[String:AnyObject]] ()
     var arrCertificateSkill = [[String:AnyObject]]()
-
+     
+    @IBOutlet var Video_lbl: UILabel!
+    
+    @IBOutlet var Image_lbl: UILabel!
+    @IBOutlet var Taglbl: UILabel!
     @IBOutlet var Name_lbl: UILabel!
     @IBOutlet var Certificate_lbl: UILabel!
     @IBOutlet var wheel_chair_lbl: UILabel!
@@ -30,12 +36,20 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         self.ReadyViewCustomize()
-      self.JsonForFetch()
-
+      
 
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.JsonForFetch()
+
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -66,6 +80,8 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         self.Rating_view.editable = false
         self.Rating_view.halfRatings = true
         self.Rating_view.floatRatings = false
+        self.Image_lbl.isHidden=true
+        self.Video_lbl.isHidden=true
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -77,10 +93,10 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         super.viewWillLayoutSubviews()
         Client_scorllview.layoutIfNeeded()
         if self.view.frame.size.width==320 {
-            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+150)
+            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+260)
         }
         else{
-            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+100)
+            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+170)
         }
         
     }
@@ -127,14 +143,29 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
                             self.arrCollectionVideo=(response.result.value as AnyObject).value(forKey: "TrainerVideo") as! [[String:AnyObject]]
                             if self.arrCollectionVideo.isEmpty==false{
                                 self.video_collectionview.reloadData()
+                                self.video_collectionview.isHidden=false
+                                self.Video_lbl.isHidden=true
+                            }
+                            else{
+                            self.video_collectionview.isHidden=true
+                                self.Video_lbl.isHidden=false
                             }
                             
                             if self.arrCollectionImages.isEmpty==false{
                                 self.Galaery_collection.reloadData()
+                                self.Galaery_collection.isHidden=false
+                                self.Image_lbl.isHidden=true
+                            }
+                            else{
+                                self.Galaery_collection.isHidden=true
+                                self.Image_lbl.isHidden=false
                             }
                            
                             
                             let liability_insurance:String=((response.result.value as AnyObject).value(forKey: "liability_insurance") as? String)!
+                            self.About_txt.text=((response.result.value as AnyObject).value(forKey: "about") as? String)!
+                             self.other_txt.text=((response.result.value as AnyObject).value(forKey: "other_skill") as? String)!
+                            self.Taglbl.text=((response.result.value as AnyObject).value(forKey: "tagline") as? String)!
                             if liability_insurance=="Y"{
                                self.liablity_insurence.text="Yes"
                             }
@@ -152,6 +183,8 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
                             }
                             
                              let Name:String=((response.result.value as AnyObject).value(forKey: "name") as? String)!
+                            let Certificate:String=((response.result.value as AnyObject).value(forKey: "skills") as? String)!
+                            self.Certificate_lbl.text=Certificate
                             self.Name_lbl.text=Name
                             
                              let url:String=((response.result.value as AnyObject).value(forKey: "profile_image") as? String)!
@@ -277,26 +310,17 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
          self.navigationController?.pushViewController(vc, animated: true)*/
     }
     
-    @IBAction func DidiTabDrawerBtn(_ sender: Any) {
+   
+    @IBAction func DidTabDrawerBtn(_ sender: Any) {
         if let drawerController = navigationController?.parent as? KYDrawerController {
             drawerController.setDrawerState(.opened, animated: true)
         }
-        
-        
     }
     
+  
     
     
-    @IBAction func DidTabNotificationBtn(_ sender: Any) {
-    }
-    
-    @IBAction func DidTabAboutBtn(_ sender: Any) {
-        
-    }
-    
-    @IBAction func DidTAbTimelineBtn(_ sender: Any) {
-        
-    }
+   
     @IBAction func DidTabCommentBtn(_ sender: Any) {
         let vc = self.storyboard! .instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
         self.navigationController?.pushViewController(vc, animated: true);
@@ -308,7 +332,14 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         self.navigationController?.pushViewController(vc, animated: true);
         
     }
+    
 
+    @IBAction func DidTabEditBtn(_ sender: Any) {
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerCreateController") as! TrainerCreateController
+        vc.TrainerEdit="yes"
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
     
 
     /*

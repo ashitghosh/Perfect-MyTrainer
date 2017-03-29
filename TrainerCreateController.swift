@@ -27,7 +27,9 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     @IBOutlet var CertificateView: UIView!
     @IBOutlet var Additional_Skill_view: UIView!
        @IBOutlet var Additional_skill_text: UITextField!
+    @IBOutlet var Back_btn: UIButton!
     @IBOutlet var skill_collectionview: UICollectionView!
+    @IBOutlet var Back_image: UIImageView!
     @IBOutlet var Skill_table: UITableView!
     var SKillTableHeight:CGSize = CGSize.init(width: 0, height: 0)
     var CertificateTableHeight:CGSize = CGSize.init(width: 0, height: 0)
@@ -44,15 +46,14 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     var ProfileImageData : NSData?
     var picked_image:UIImage?=nil
     var traine_profile_id:String="0"
-    
+    var TrainerEdit:String=""
+    @IBOutlet var create_scorllview: UIScrollView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         self.ViewReCoordination()
         // Do any additional setup after loading the view.
-    // self.CallFetchStates()
-        
-      //  self.JsonForSkill()
-        self.JsonForFetch()
         Skill_table.isHidden=true
         Liability_insurence="Y"
         profile_image.CircleImageView(BorderColour: UIColor.white, Radious: 1.0)
@@ -64,8 +65,33 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         CertificateName_txt.attributedPlaceholder = NSAttributedString(string: "Certificate Name",
                                                                          attributes: [NSForegroundColorAttributeName: UIColor.white])
         Instuite_name.attributedPlaceholder = NSAttributedString(string: "Institute Name",
-                                                                         attributes: [NSForegroundColorAttributeName: UIColor.white])
+                                                                        attributes: [NSForegroundColorAttributeName: UIColor.white])
+        print("Trainer Edit=",self.TrainerEdit)
+        if self.TrainerEdit=="yes"{
+        Back_btn.isHidden=false
+            Back_image.isHidden=false
+        }
+        else{
+            Back_btn.isHidden=true
+            Back_image.isHidden=true
+        }
+    /*    let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        self.skill_collectionview.collectionViewLayout = layout*/
 
+    }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.JsonForFetch()
+        
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
 
@@ -78,68 +104,98 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         GetTextfield.attributedPlaceholder = NSAttributedString(string: getplaceholderText,
                                                                 attributes: [NSForegroundColorAttributeName: TextColour.cgColor])
     }
+    override func viewWillLayoutSubviews(){
+        super.viewWillLayoutSubviews()
+        create_scorllview.layoutIfNeeded()
+}
     
     func ViewReCoordination()  {
-        
+        var Size:CGSize=CGSize.init(width: 0, height: 0)
+          var skill_table:CGSize=CGSize.init(width: 0, height: 0)
+        var Certificate_table:CGSize=CGSize.init(width: 0, height: 0)
         if arrCertificateSkill.isEmpty&&ArradditionalSkill.isEmpty==true {
             Skill_table.isHidden=true
             Certificate_tableview.isHidden=true
-             CertificateView.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height+5, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
-             Training_type_view.frame=CGRect.init(x: CertificateView.frame.origin.x, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+5, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
+             CertificateView.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height+15, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
+             Training_type_view.frame=CGRect.init(x: CertificateView.frame.origin.x, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+15, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
+            Size.height=(Additional_Skill_view.frame.size.height+CertificateView.frame.size.height+Training_type_view.frame.size.height+80.0)
+            print("Height",Size.height)
         }
         else{
             if arrCertificateSkill.isEmpty==false && ArradditionalSkill.isEmpty==false {
                 Skill_table.isHidden=false
              Certificate_tableview.isHidden=false
                 if Skill_table.contentSize.height>111.0 {
+                    skill_table.height=111.0
                   Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x+15, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Skill_table.frame.size.width, height: 111.0)
                 }
                 else{
+                    
                 Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x+15, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Skill_table.frame.size.width, height: Skill_table.contentSize.height)
+                    skill_table.height=Skill_table.contentSize.height
                 }
               
-                CertificateView.frame=CGRect.init(x: 0, y: Skill_table.frame.origin.y+Skill_table.frame.size.height+5, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
+                CertificateView.frame=CGRect.init(x: 0, y: Skill_table.frame.origin.y+Skill_table.frame.size.height+15, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
                 if Certificate_tableview.contentSize.height>111.0 {
+                    Certificate_table.height=111.0
                    Certificate_tableview.frame=CGRect.init(x:12, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+5, width: Skill_table.frame.size.width, height: 111.0)
                 }
                 else{
                     Certificate_tableview.frame=CGRect.init(x:12, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+5, width: Skill_table.frame.size.width, height: Certificate_tableview.contentSize.height)
+             Certificate_table.height=Certificate_tableview.contentSize.height
                 }
                
-                 Training_type_view.frame=CGRect.init(x: 0, y: Certificate_tableview.frame.origin.y+Certificate_tableview.frame.size.height, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
-                
+                 Training_type_view.frame=CGRect.init(x: 0, y: Certificate_tableview.frame.origin.y+Certificate_tableview.frame.size.height+15, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
+                 Size.height=(Additional_Skill_view.frame.size.height+CertificateView.frame.size.height+Training_type_view.frame.size.height+100.0+skill_table.height+Certificate_table.height)
+                print("Height",Size.height)
             }
             else{
                 if arrCertificateSkill.isEmpty==false {
                     Skill_table.isHidden=true
                     Certificate_tableview.isHidden=false
-                    CertificateView.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height+5, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
+                    CertificateView.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height+15, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
                     if Certificate_tableview.contentSize.height>111.0 {
+                        Certificate_table.height=111.0
                         Certificate_tableview.frame=CGRect.init(x: CertificateView.frame.origin.x+15, y: CertificateView.frame.origin.y+CertificateView.frame.size.height, width: Certificate_tableview.frame.size.width, height: 111.0)
                     }
                     else{
                         Certificate_tableview.frame=CGRect.init(x: CertificateView.frame.origin.x+15, y: CertificateView.frame.origin.y+CertificateView.frame.size.height, width: Certificate_tableview.frame.size.width, height: Certificate_tableview.contentSize.height)
+                          Certificate_table.height=Certificate_tableview.contentSize.height
                     }
 
-                    Training_type_view.frame=CGRect.init(x: 0, y: Certificate_tableview.frame.origin.y+Certificate_tableview.frame.size.height+5, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
+                    Training_type_view.frame=CGRect.init(x: 0, y: Certificate_tableview.frame.origin.y+Certificate_tableview.frame.size.height+15, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
+                    Size.height=(Additional_Skill_view.frame.size.height+CertificateView.frame.size.height+Training_type_view.frame.size.height+100.0+Certificate_table.height)
+                    
                 }
                 if ArradditionalSkill.isEmpty==false {
                     Skill_table.isHidden=false
                     Certificate_tableview.isHidden=true
                     if Skill_table.contentSize.height>111.0 {
+                        skill_table.height=111.0
                         Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x+15, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Skill_table.frame.size.width, height: 111.0)
                     }
                     else{
                         Skill_table.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x+15, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height, width: Skill_table.frame.size.width, height: Skill_table.contentSize.height)
+                        skill_table.height=Skill_table.contentSize.height
                     }
 
-                    CertificateView.frame=CGRect.init(x: 0, y: Skill_table.frame.origin.y+Skill_table.frame.size.height+5, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
+                    CertificateView.frame=CGRect.init(x: 0, y: Skill_table.frame.origin.y+Skill_table.frame.size.height+15, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
                     
-                    Training_type_view.frame=CGRect.init(x: 0, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+5, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
-                }
+                    Training_type_view.frame=CGRect.init(x: 0, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+15, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
+                     Size.height=(Additional_Skill_view.frame.size.height+CertificateView.frame.size.height+Training_type_view.frame.size.height+100.0+skill_table.height)
+                    print("Height=",Size.height)
+                              }
 
             }
                    }
+        
+      if Skill_table.contentSize.height>111.0 || Certificate_tableview.contentSize.height>111.0{
+         create_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height:820.0)
+         }
+         else{
+         create_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height:700.0)
+         }
+      
     }
     
    
@@ -304,8 +360,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         else{
           cell.Skill_selected_image.image = UIImage.init(named: "radio-unselect.png")
         }
-        cell.Skill_name_lbl.text=(arrskill[indexPath.row] as AnyObject).value(forKey: "skill_name") as? String
-        //cell.Skill_selected_image.image = UIImage.init(named: "radio-unselect.png")
+       cell.Skill_name_lbl.text=(arrskill[indexPath.row] as AnyObject).value(forKey: "skill_name") as? String
+        //cell.Skill_selected_image.image = UIImage.init(named: "radio-unselect.png")*/
         return cell
         
     }
@@ -388,8 +444,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                             else{
                             self.Switch_btn.setOn(false, animated: false)
                             }
-                            
-                            Alamofire.request("https://httpbin.org/image/png").responseImage { response in
+                              let url:String=((response.result.value as AnyObject).value(forKey: "profile_image") as? String)!
+                            Alamofire.request(url).responseImage { response in
                                 debugPrint(response)
                                 
                               
@@ -443,6 +499,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     }
     
     func CreateFunctionCheck()  {
+         self.view.endEditing(true)
         if arrSelectedSkill.isEmpty==true {
             presentAlertWithTitle(title: "alert", message: "Select your Skill")
         }
@@ -636,7 +693,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                            
                             let Message=(response.result.value as AnyObject).value(forKey: "message")
                             print(Message as! String)
-                           self.presentAlertWithTitle(title: "Success", message: Message as! String)
+                         //  self.presentAlertWithTitle(title: "Success", message: Message as! String)
                             
                         }
                         
@@ -650,6 +707,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     }
     
     @IBAction func DidTabAdditionalSkillBtn(_ sender: Any) {
+        self.view.endEditing(true)
         if (Additional_skill_text.text?.characters.count)! > 0 {
             let arrayobject:[String:String]=["name":Additional_skill_text.text!,"id":""]
             ArradditionalSkill.append(arrayobject as [String : AnyObject])
@@ -676,7 +734,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     }
     
     @IBAction func DidTabCertificateCellBtn(_ sender: Any) {
-       
+        self.view.endEditing(true)
         if (CertificateName_txt.text?.characters.count)!  > 0 && (Instuite_name.text?.characters.count)! > 0 {
             
             let arrayobject:[String:String]=["certificate_name":self.CertificateName_txt.text!+","+self.Instuite_name.text!,"id":""]
@@ -708,6 +766,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     }
     
     @IBAction func DidTabInsurenceBtn(_ sender: Any) {
+         self.view.endEditing(true)
         if ((sender as AnyObject).isOn == true){
             Liability_insurence="Y"
         }
@@ -717,6 +776,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     
     }
     @IBAction func DidTabGroupBtn(_ sender: Any) {
+        
+        self.view.endEditing(true)
         Training_type="group"
         GroupImageview.image=UIImage.init(named: "radio-select.png")
          Tandem_selectBtn.image=UIImage.init(named: "radio-unselect.png")
@@ -724,6 +785,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         
     }
     @IBAction func DidTabIndividualBtn(_ sender: Any) {
+         self.view.endEditing(true)
          Training_type="individual"
         GroupImageview.image=UIImage.init(named: "radio-unselect.png")
         Tandem_selectBtn.image=UIImage.init(named: "radio-unselect.png")
@@ -732,6 +794,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         
     }
     @IBAction func DidTabTandemBtn(_ sender: Any) {
+         self.view.endEditing(true)
         Training_type="tandem"
         GroupImageview.image=UIImage.init(named: "radio-unselect.png")
         Tandem_selectBtn.image=UIImage.init(named: "radio-select.png")
@@ -786,6 +849,9 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         }
         actionSheetControllerIOS8.addAction(deleteActionButton)
         self.present(actionSheetControllerIOS8, animated: true, completion: nil)
+    }
+    @IBAction func DidTabBackBtn(_ sender: Any) {
+       self.navigationController! .popViewController(animated: true) 
     }
     /*    // MARK: - Navigation
 

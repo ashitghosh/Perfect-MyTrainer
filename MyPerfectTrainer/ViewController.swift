@@ -42,9 +42,19 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
         self.ViewCorner(getViewName: view_login_password)
         self.textplaceholderColor(getTextName: txt_email, getplaceholderText: "Email")
         self.textplaceholderColor(getTextName: txt_password, getplaceholderText: "Password")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        //tap.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view, typically from a nib.
        
        
+    }
+    func dismissKeyboard() {
+    //Causes the view (or one of its embedded text fields) to resign the first responder status.
+    view.endEditing(true)
     }
     func ViewCorner(getViewName: UIView)  {
         getViewName.layer.cornerRadius = 12;
@@ -106,6 +116,7 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
         
     }
     func CheckLogin () {
+        view.endEditing(true)
         if txt_email.text=="" {
             
             self.ShowAlert(MessageName: "Please write your Email")
@@ -182,6 +193,7 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
                         //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
                         
                         if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
+                             let Is_profile:String=(response.result.value as AnyObject).value(forKey: "is_profile_complete") as! String
                             let user_type:String=(response.result.value as AnyObject).value(forKey: "user_type") as! String
                             let user_id=(response.result.value as AnyObject).value(forKey: "user_id")
                             let userDefaults = Foundation.UserDefaults.standard
@@ -193,10 +205,17 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
                             print("usertype = ",usertype  )
                             print("user_id = ",value  )
                             SVProgressHUD.dismiss()
-                            
+                            print("Is_profile==",Is_profile)
                             if user_type=="trainer"{
-                                let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerViewController") as! TrainerViewController
-                                self.navigationController?.pushViewController(vc, animated: true)
+                                
+                                if Is_profile=="N"{
+                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerCreateController") as! TrainerCreateController
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                                else{
+                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerAboutController") as! TrainerAboutController
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
                             }
                             else{
                                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "ClientHomeController") as! ClientHomeController
@@ -234,7 +253,7 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
                   //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
                         
                        
-                     if (response.result.value as AnyObject).value(forKey: "is_error") as? NSNumber == 0 {
+                     if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
                             let user_type:String=(response.result.value as AnyObject).value(forKey: "user_type") as! String
                          let Is_profile:String=(response.result.value as AnyObject).value(forKey: "is_profile_complete") as! String
                             let user_id=(response.result.value as AnyObject).value(forKey: "user_id") 
@@ -249,12 +268,12 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
                             SVProgressHUD.dismiss()
                             
                             if user_type=="trainer"{
-                                if Is_profile=="Y"{
-                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerViewController") as! TrainerViewController
+                                if Is_profile=="N"{
+                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerCreateController") as! TrainerCreateController
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
                                 else{
-                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerCreateController") as! TrainerCreateController
+                                    let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerAboutController") as! TrainerAboutController
                                     self.navigationController?.pushViewController(vc, animated: true)
                                 }
                                 
@@ -353,8 +372,7 @@ self.facebookLoginJson(jsonString: FbDict, Url: "http://ogmaconceptions.com/demo
     }
    
     @IBAction func DidTabFacebookBtn(_ sender: Any) {
-        
-        let login: FBSDKLoginManager = FBSDKLoginManager()
+                let login: FBSDKLoginManager = FBSDKLoginManager()
         // Make login and request permissions
        login.logOut()
         login.logIn(withReadPermissions: ["email"], from: self, handler: {(result, error) -> Void in
@@ -367,6 +385,9 @@ self.facebookLoginJson(jsonString: FbDict, Url: "http://ogmaconceptions.com/demo
                 NSLog("Cancelled")
             }
             else {
+                SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+                SVProgressHUD.show()
+
                 // Parameters for Graph Request
                 let parameters = ["fields": "email, name,picture,gender"]
                 
@@ -375,7 +396,7 @@ self.facebookLoginJson(jsonString: FbDict, Url: "http://ogmaconceptions.com/demo
                         NSLog(error.debugDescription)
                         return
                     }
-                    
+                    SVProgressHUD.dismiss()
                     // Result
                    // print("Result: " ,result! )
                self.IsFacebook=true

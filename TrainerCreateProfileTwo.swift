@@ -28,7 +28,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     @IBOutlet var About_txt_view: UITextView!
     @IBOutlet var Tagline_txtView: UITextView!
     var placeholderLabel : UILabel!
-    var ProfileCreateTwoDict:[String:AnyObject] = [:]
+    var Imagedict:[String:AnyObject] = [:]
      var arrCollectionImages = [[String:AnyObject]] ()
      var arrCollectionVideo = [[String:AnyObject]] ()
     var Trainer_profile_id:String!
@@ -43,6 +43,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     var uploadImage:UIImageView? = nil
     var Wheel_chair:String = "Y"
     var player:AVPlayer?
+    var Upload:String=""
     
     
     
@@ -66,7 +67,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         // Do any additional setup after loading the view.
         About_txt_view.text="Type Here"
         Tagline_txtView.text="Type Here"
-        OkBtn.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
+     //   OkBtn.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
          cameraButton.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
         Upload_image_btn.BtnRoundCorner(radious: 5.0, colour: UIColor.white)
         Upload_videoBtn.BtnRoundCorner(radious: 5.0, colour: UIColor.white)
@@ -74,18 +75,29 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         Upload_video_plusBtn.Circlelabel(BorderColour: UIColor.clear, Radious: 0.0)
         self.addDoneButtonOnKeyboard()
         self.Camera_background_view.isHidden=true
-        self.JsonForFetch()
+         self.JsonForFetch()
+     
     }
+    
+    func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView==About_txt_view {
-            
-        About_txt_view.text=""
+            if About_txt_view.text=="Type Here"{
+             About_txt_view.text=""
+            }
         }
         if textView==Tagline_txtView {
-             Tagline_txtView.text=""
+            if Tagline_txtView.text=="Type Here"{
+                Tagline_txtView.text=""
+            }
         }
     }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView==About_txt_view {
             if About_txt_view.text.isEmpty==true{
@@ -102,14 +114,19 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     func showImagePicker() {
        
         //	 pickerController.assetType = .allPhotos
+        
         let pickerController = DKImagePickerController()
        // pickerController.maxSelectableCount=5
-        if IsVideo==true{
+        if Upload=="ImageFromCamera"{
+        pickerController.sourceType = .camera
+        }
+        if Upload=="VideoFromGallery"{
          pickerController.assetType = .allVideos
         }
-        else{
-         pickerController.assetType = .allPhotos
+        if Upload=="ImageFromGallery"{
+           pickerController.assetType = .allPhotos
         }
+       
            pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
             print("didSelectAssets")
             self.assets = assets
@@ -117,27 +134,34 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
          
            for  index in stride(from: 0, to:  (self.assets?.count)!, by: 1){
              let asset = self.assets![index]
-         
+           
+        // signUpDict = ["name" : (FullName_txt.text)! as AnyObject, "password" : (Password_txt.text)! as AnyObject,"email":Email_txt.text as AnyObject,"user_type":user_type as AnyObject, "device_token" : "" as AnyObject ]
             
-                if self.IsVideo==true {
+                if asset.isVideo {
                     asset.fetchAVAssetWithCompleteBlock({(avAsset,info) in
                         let urlAsset = avAsset as? AVURLAsset
                        let video = try? Data(contentsOf: (urlAsset?.url)!)
                    //    print(video as AnyObject)
+                        self.VideoCollectionView.isHidden=false
                      self.arrVideo.append((video as AnyObject) as! NSData)
-                        
-                    })
+                        self.Imagedict = ["sample" : "upload" as AnyObject, "trainer_video" : asset as AnyObject]
+                        self.arrCollectionVideo.append(self.Imagedict)
+                                          })
                    
                     
            }
                 else{
                     asset.fetchImageDataForAsset(true, completeBlock: {Data ,info in
                         self.arrImage.append((Data as AnyObject) as! NSData)
+                          self.Imagedict = ["sample" : "upload" as AnyObject, "trainer_images" : asset as AnyObject]
+                        self.arrCollectionImages.append(self.Imagedict)
                     })
            }
             }
-            
-        
+           print("images",self.arrCollectionImages)
+           print("Video",self.arrCollectionVideo)
+            self.VideoCollectionView.reloadData()
+            self.Image_collectionView.reloadData()
            
         }
         
@@ -183,8 +207,10 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+       
         
-        navigationController?.navigationBar.isHidden = true
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         cameraManager.stopCaptureSession()
     }
     
@@ -254,6 +280,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                         
                         if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
                             SVProgressHUD.dismiss()
+                          
                             if (response.result.value as AnyObject).value(forKey: "about") as! String==""{
                             self.About_txt_view.text="Type Here"
                             }
@@ -385,23 +412,11 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                                     
                                if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
                                         SVProgressHUD.dismiss()
-                                        if (response.result.value as AnyObject).value(forKey: "about") as! String==""{
-                                            self.About_txt_view.text="Type Here"
-                                        }
-                                        else{
-                                            self.About_txt_view.text=(response.result.value as AnyObject).value(forKey: "about") as! String
-                                        }
-                                        if (response.result.value as AnyObject).value(forKey: "tagline") as! String==""{
-                                            self.Tagline_txtView.text="Type Here"
-                                        }
-                                        else{
-                                            self.Tagline_txtView.text=(response.result.value as AnyObject).value(forKey: "tagline") as! String
-                                        }
-                                        self.arrCollectionImages=(response.result.value as AnyObject).value(forKey: "trainer_images") as! [[String:AnyObject]]
-                                        self.arrCollectionVideo=(response.result.value as AnyObject).value(forKey: "trainer_videos") as! [[String:AnyObject]]
-                                self.Image_collectionView.reloadData()
-                                self.VideoCollectionView.reloadData()
-                                    }
+                                self.arrCollectionVideo.removeAll()
+                                self.arrCollectionImages.removeAll()
+                                let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerAboutController") as! TrainerAboutController
+                                self.navigationController?.pushViewController(vc, animated: true)
+                               }
                                     else{
                                         SVProgressHUD.dismiss()
                                     }
@@ -435,36 +450,75 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UploadImageCell", for: indexPath) as! UploadImageCell
         cell.layer.cornerRadius=10
         if collectionView==VideoCollectionView{
-            let Url:String = ((self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "video_image") as? String)!
+            let Id:String = ((self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "sample") as? String)!
             
-            Alamofire.request(Url).responseImage { response in
-                debugPrint(response)
-                
-                
-                //debugPrint(response.result)
-                
-                if let image = response.result.value {
-                    cell.VideoImage.image=image
+            if Id == "upload"{
+                 let url:String = "http://ogmaconceptions.com/demo/my_perfect_trainer/img/offwhite-video.png"
+                Alamofire.request(url).responseImage { response in
+                   // debugPrint(response)
+                    
+                    
+                    //debugPrint(response.result)
+                    
+                    if let image = response.result.value {
+                        cell.VideoImage.image=image
+                        
+                    }
                     
                 }
+
+                
             }
+            else{
+                    let url:String = ((self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "video_image") as? String)!
+                    print("video image",url)
+                    Alamofire.request(url).responseImage { response in
+                       // debugPrint(response)
+                        
+                        
+                        //debugPrint(response.result)
+                        
+                        if let image = response.result.value {
+                            cell.VideoImage.image=image
+                            
+                    }
+
+                }
+               
+            }
+           
         }
         else{
-            let Url:String = ((self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "name") as? String)!
             
-            Alamofire.request(Url).responseImage { response in
-                debugPrint(response)
-                
-                
-               // debugPrint(response.result)
-                
-                if let image = response.result.value {
+            
+            let Id:String = ((self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "sample") as? String)!
+            
+            if Id == "upload"{
+                let Assest:DKAsset = (self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "trainer_images") as! DKAsset
+                let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+                Assest.fetchImageWithSize(layout.itemSize.toPixel(), completeBlock: { image, info in
                     cell.Upload_image.image=image
-                    
-                }
+                })
+                
+                
             }
+            else{
+                let url:String = ((self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "name") as? String)!
+                print("Upload image",url)
+                Alamofire.request(url).responseImage { response in
+                   // debugPrint(response)
+                    // debugPrint(response.result)
+                    
+                    if let image = response.result.value {
+                        cell.Upload_image.image=image
+                        
+                    }
+                }
+                
 
-        }
+            }
+            
+                    }
         return cell
     
     }
@@ -493,7 +547,6 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         
         }
         
-        
         dismiss(animated: true, completion: nil)
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
@@ -503,6 +556,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     
     
     @IBAction func DidTabUploadVideoButton(_ sender: UIButton) {
+        self.view.endEditing(true)
         let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "Please select", message: "Option to select", preferredStyle: .actionSheet)
         
         let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { void in
@@ -512,14 +566,14 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         
         let saveActionButton: UIAlertAction = UIAlertAction(title: "Recording", style: .default)
         { void in
-           
+           self.Upload="VideoRecording"
             self.CameraPermission()
         }
         actionSheetControllerIOS8.addAction(saveActionButton)
         
         let deleteActionButton: UIAlertAction = UIAlertAction(title: "Video From Gallery", style: .default)
         { void in
-        self.IsVideo=true
+         self.Upload="VideoFromGallery"
             self.showImagePicker()
         }
         actionSheetControllerIOS8.addAction(deleteActionButton)
@@ -530,6 +584,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     
    
     @IBAction func DidTabUploadImageBtn(_ sender: Any) {
+        self.view.endEditing(true)
         let actionSheetControllerIOS8: UIAlertController = UIAlertController(title: "Please select", message: "Option to select", preferredStyle: .actionSheet)
         
         let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { void in
@@ -539,21 +594,17 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         
         let saveActionButton: UIAlertAction = UIAlertAction(title: "Camera", style: .default)
         { void in
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.delegate = self
-                imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
-                imagePicker.allowsEditing = false
-                self.present(imagePicker, animated: true, completion: nil)
-            }
+            self.Upload="ImageFromCamera"
+             self.showImagePicker()
+           
         }
         actionSheetControllerIOS8.addAction(saveActionButton)
         
         let deleteActionButton: UIAlertAction = UIAlertAction(title: "Gallery", style: .default)
         { void in
-            self.IsVideo=false
-            self.showImagePicker()
             
+            self.Upload="ImageFromGallery"
+            self.showImagePicker()
          
         }
         actionSheetControllerIOS8.addAction(deleteActionButton)
@@ -562,6 +613,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         
     }
     @IBAction func DidTabWheelChairSwitchBtn(_ sender: Any) {
+        self.view.endEditing(true)
         if ((sender as AnyObject).isOn == true){
             Wheel_chair="Y"
         }
@@ -570,18 +622,22 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         }
     }
     @IBAction func DidTabTwitterConnectBtn(_ sender: Any) {
+        self.view.endEditing(true)
     }
     @IBAction func DidTabFacebookConnectBtn(_ sender: Any) {
+        self.view.endEditing(true)
     }
     @IBAction func DidTabInstragramBtn(_ sender: Any) {
+        self.view.endEditing(true)
     }
     
     @IBAction func DidTabCameraCancelBtn(_ sender: Any) {
+        self.view.endEditing(true)
         self.Camera_background_view.isHidden=true
         cameraManager.stopCaptureSession()
     }
     @IBAction func DidTabOkBtn(_ sender: Any) {
-        
+        self.view.endEditing(true)
         if Tagline_txtView.text=="" || Tagline_txtView.text=="Type Here" {
         self.presentAlertWithTitle(title: "Alert", message: "Write your tagline")
         }
@@ -602,6 +658,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     
     
     @IBAction func DidTabRecordBtn(_ sender: Any) {
+        self.view.endEditing(true)
         cameraButton.isSelected = !cameraButton.isSelected
         cameraButton.setTitle(" ", for: UIControlState.selected)
         cameraButton.backgroundColor = cameraButton.isSelected ? UIColor.red : UIColor.green
@@ -647,9 +704,11 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     }
 
     @IBAction func DidTabChangeCameraBtn(_ sender: Any) {
+        self.view.endEditing(true)
     }
     
     @IBAction func DidTabFlashBtn(_ sender: Any) {
+        self.view.endEditing(true)
         cameraManager.cameraDevice = cameraManager.cameraDevice == CameraDevice.front ? CameraDevice.back : CameraDevice.front
         switch (cameraManager.cameraDevice) {
         case .front:
@@ -658,6 +717,11 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
             flashModeButton.setTitle("Back", for: UIControlState())
         }
 
+    }
+    
+    @IBAction func DidTabBackBtn(_ sender: Any) {
+        self.view.endEditing(true)
+        self.navigationController! .popViewController(animated: true)
     }
     /*
     // MARK: - Navigation
