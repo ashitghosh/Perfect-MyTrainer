@@ -10,9 +10,25 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import SVProgressHUD
-class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDelegate,UITableViewDataSource,FloatRatingViewDelegate,UITextFieldDelegate{
+import MapKit
+import CoreLocation
+import AVFoundation
+import MediaPlayer
+import MobilePlayer
+class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDelegate,UITableViewDataSource,FloatRatingViewDelegate,UITextFieldDelegate,CLLocationManagerDelegate{
+    var locationManager = CLLocationManager()
+    var myLocations: [CLLocation] = []
     fileprivate let reuseIdentifier = "Customcell"
     //fileprivate let reuseIdentifier = "Customcell"
+   
+    @IBOutlet var Other_skill_view: UIView!
+    @IBOutlet var About_view: UIView!
+    @IBOutlet var Social_Connection_View: UIView!
+    @IBOutlet var Certificate_view: UIView!
+    @IBOutlet var Liability_view: UIView!
+    @IBOutlet var Wheelchair_view: UIView!
+    @IBOutlet var Skills_BackView: UIView!
+    @IBOutlet var VideoAndImage_gallery_Backview: UIView!
     @IBOutlet var video_collectionview: UICollectionView!
     @IBOutlet var Certificate_tableview: UITableView!
     @IBOutlet var Galaery_collection: UICollectionView!
@@ -20,13 +36,24 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     @IBOutlet var Rating_view: FloatRatingView!
     @IBOutlet var Profile_image: UIImageView!
     @IBOutlet var About_txt: UITextView!
+    
+    @IBOutlet var liability_txt: UITextView!
+    @IBOutlet var Wheel_chair_textview: UITextView!
+    @IBOutlet var Skill_textview: UITextView!
+    
     @IBOutlet var other_txt: UITextView!
     var arrCollectionImages = [[String:AnyObject]] ()
     var arrCollectionVideo = [[String:AnyObject]] ()
     var arrCertificateSkill = [[String:AnyObject]]()
-     
+    var avPlayer = AVPlayer()
+    var avPlayerLayer: AVPlayerLayer!
+    let invisibleButton = UIButton()
+    @IBOutlet var SelectedImageview: UIImageView!
+    @IBOutlet var Video_frame_view: UIView!
+    @IBOutlet var Video_backgroundView: UIView!
     @IBOutlet var Video_lbl: UILabel!
-    
+    var locManager = CLLocationManager()
+    var currentLocation: CLLocation!
     @IBOutlet var Image_lbl: UILabel!
     @IBOutlet var Taglbl: UILabel!
     @IBOutlet var Name_lbl: UILabel!
@@ -36,17 +63,29 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     override func viewDidLoad() {
         super.viewDidLoad()
         self.ReadyViewCustomize()
-      
+        locManager.requestWhenInUseAuthorization()
+        
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+            currentLocation = locManager.location
+            print(currentLocation.coordinate.latitude)
+            print(currentLocation.coordinate.longitude)
+        }
 
         // Do any additional setup after loading the view.
     }
-
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.JsonForFetch()
-
-        // Hide the navigation bar on the this view controller
+       
+               // Hide the navigation bar on the this view controller
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
     }
 
     
@@ -62,6 +101,7 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     }
     
     func ReadyViewCustomize(){
+        self.Video_backgroundView.isHidden=true
         Profile_image.layoutIfNeeded()
         Profile_image.layer.borderWidth = 1
         Profile_image.layer.masksToBounds = true
@@ -82,6 +122,25 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         self.Rating_view.floatRatings = false
         self.Image_lbl.isHidden=true
         self.Video_lbl.isHidden=true
+      
+        
+     //   self.ViewCoordinate()
+    }
+    
+    func adjustContentSize(tv: UITextView){
+        let deadSpace = tv.bounds.size.height - tv.contentSize.height
+        let inset = max(0, deadSpace/2.0)
+        tv.contentInset = UIEdgeInsetsMake(inset, tv.contentInset.left, inset, tv.contentInset.right)
+    }
+    // MARK : View Coorditaion Function
+    
+    
+        // Function MapView Delegate
+  
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("user location",myLocations)
+       
+        manager.stopUpdatingLocation()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -91,12 +150,13 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     }
     override func viewWillLayoutSubviews(){
         super.viewWillLayoutSubviews()
+       self.Skill_textview.layoutIfNeeded()
         Client_scorllview.layoutIfNeeded()
         if self.view.frame.size.width==320 {
-            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+260)
+            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+400)
         }
         else{
-            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+170)
+            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+300)
         }
         
     }
@@ -105,13 +165,25 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     // Json fetch++++++++++++++++++********************************
     
     func JsonForFetch()  {
+        
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
         SVProgressHUD.show()
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+            currentLocation = locManager.location
+            
+            print(currentLocation.coordinate.latitude)
+            print(currentLocation.coordinate.longitude)
+        }
+        
         let userDefaults = Foundation.UserDefaults.standard
         let User_id:String = userDefaults.string(forKey: "user_id")!
         var poststring:String?
         
-        let parameters = ["trainer_id": User_id]
+        let parameters = ["trainer_id": User_id,"latitude": currentLocation.coordinate.latitude,"longitude": currentLocation.coordinate.longitude] as [String : Any]
+        
+        print("params",parameters)
+        
         let Url:String=Constants.Base_url+"trainerProfile"
         
         if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
@@ -142,9 +214,11 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
                             self.arrCollectionImages=(response.result.value as AnyObject).value(forKey: "TrainerImage") as! [[String:AnyObject]]
                             self.arrCollectionVideo=(response.result.value as AnyObject).value(forKey: "TrainerVideo") as! [[String:AnyObject]]
                             if self.arrCollectionVideo.isEmpty==false{
-                                self.video_collectionview.reloadData()
                                 self.video_collectionview.isHidden=false
                                 self.Video_lbl.isHidden=true
+
+                                self.video_collectionview.reloadData()
+                                
                             }
                             else{
                             self.video_collectionview.isHidden=true
@@ -167,26 +241,41 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
                              self.other_txt.text=((response.result.value as AnyObject).value(forKey: "other_skill") as? String)!
                             self.Taglbl.text=((response.result.value as AnyObject).value(forKey: "tagline") as? String)!
                             if liability_insurance=="Y"{
-                               self.liablity_insurence.text="Yes"
+                               self.liability_txt.text="Yes"
                             }
                             else{
-                                self.liablity_insurence.text="No"
+                                self.liability_txt.text="No"
                             }
                             let WheelChair:String=((response.result.value as AnyObject).value(forKey: "iswheelchair") as? String)!
                             
                             if WheelChair=="Y"{
-                                self.wheel_chair_lbl.text="Yes"
+                                self.Wheel_chair_textview.text="Yes"
                             }
                                 
                             else{
-                                self.wheel_chair_lbl.text="No"
+                                self.Wheel_chair_textview.text="No"
                             }
                             
                              let Name:String=((response.result.value as AnyObject).value(forKey: "name") as? String)!
                             let Certificate:String=((response.result.value as AnyObject).value(forKey: "skills") as? String)!
-                            self.Certificate_lbl.text=Certificate
+                            self.Skill_textview.text=Certificate
                             self.Name_lbl.text=Name
                             
+//                            self.Skill_textview.textAlignment = NSTextAlignment.center
+//                            //self.liability_txt.textAlignment = NSTextAlignment.center
+//                           // self.Wheel_chair_textview.textAlignment = NSTextAlignment.center
+//                            self.About_txt.textAlignment = NSTextAlignment.center
+//                            self.other_txt.textAlignment = NSTextAlignment.center
+//                            self.adjustContentSize(tv: self.Skill_textview)
+//                            //self.adjustContentSize(tv: self.liability_txt)
+//                           // self.adjustContentSize(tv: self.Wheel_chair_textview)
+//                            self.adjustContentSize(tv: self.About_txt)
+//                            self.adjustContentSize(tv: self.other_txt)
+//                            self.Skill_textview.layoutIfNeeded()
+//                            self.liability_txt.layoutIfNeeded()
+//                            self.Wheel_chair_textview.layoutIfNeeded()
+//                            self.About_txt.layoutIfNeeded()
+//                            self.other_txt.layoutIfNeeded()
                              let url:String=((response.result.value as AnyObject).value(forKey: "profile_image") as? String)!
                             Alamofire.request(url).responseImage { response in
                                 debugPrint(response)
@@ -217,6 +306,20 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         
     }
     
+    func getThumbnailImage(forUrl url: URL) -> UIImage? {
+        let asset: AVAsset = AVAsset(url: url)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        
+        do {
+            let thumbnailImage = try imageGenerator.copyCGImage(at: CMTimeMake(1, 60) , actualTime: nil)
+            return UIImage(cgImage: thumbnailImage)
+        } catch let error {
+            print(error)
+        }
+        
+        return nil
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrCertificateSkill.count
     }
@@ -236,6 +339,8 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        
+       
     }
     
     
@@ -256,18 +361,16 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VideoCell", for: indexPath) as! VideoCell
             cell.layer.cornerRadius=10
             let Url:String = ((self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "video_image") as? String)!
-            
             Alamofire.request(Url).responseImage { response in
-              //  debugPrint(response)
+                //  debugPrint(response)
                 //debugPrint(response.result)
                 
                 if let image = response.result.value {
-                   cell.Video_ImageView.image=image
+                    cell.Video_ImageView.image=image
                     
                 }
             }
-
-            return cell
+                       return cell
         }
         else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Gallerycell", for: indexPath)as! GalleryCell
@@ -290,6 +393,45 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         
         
     }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        if collectionView==video_collectionview {
+         //   Video_backgroundView.isHidden=false
+          //  self.SelectedImageview.isHidden=true
+            let url:String = (self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "video") as! String
+            let Video_url = NSURL(string: url)
+            let playerVC = MobilePlayerViewController(contentURL: Video_url as! URL)
+            playerVC.title = "Video"
+            playerVC.activityItems = [Video_url as! URL] // Check the documentation for more information.
+            presentMoviePlayerViewControllerAnimated(playerVC)
+        }
+        if collectionView==Galaery_collection {
+            Video_backgroundView.isHidden=false
+            self.SelectedImageview.isHidden=false
+             let url:String = (self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "trainer_images") as! String
+            Alamofire.request(url).responseImage { response in
+                //  debugPrint(response)
+                //debugPrint(response.result)
+                
+                if let image = response.result.value {
+                   self.SelectedImageview.image=image
+                    
+                }
+            }
+
+        }
+        
+        
+    }
+    func invisibleButtonTapped(sender: UIButton) {
+        let playerIsPlaying = avPlayer.rate > 0
+        if playerIsPlaying {
+            avPlayer.pause()
+        } else {
+            avPlayer.play()
+        }
+    }
+    
     // MARK: FloatRatingViewDelegate
     
     func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating:Float) {
@@ -341,6 +483,9 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         
     }
     
+    @IBAction func DidTabVideoCrossBtn(_ sender: Any) {
+        self.Video_backgroundView.isHidden=true
+    }
 
     /*
     // MARK: - Navigation

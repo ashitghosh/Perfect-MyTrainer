@@ -8,6 +8,7 @@ PODS:
     - DKImagePickerController/ImageManager (= 3.5.1)
   - DKImagePickerController/Camera (3.5.1)
   - DKImagePickerController/ImageManager (3.5.1)
+  - MobilePlayer (1.2.0)
   - SVProgressHUD (2.1.2)
   - Toast-Swift (2.0.0)
   - UIDropDown (1.1.1)
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - AlamofireImage (~> 3.1)
   - CameraManager (~> 3.1)
   - DKImagePickerController
+  - MobilePlayer
   - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
   - Toast-Swift (~> 2.0.0)
   - UIDropDown
@@ -35,10 +37,11 @@ SPEC CHECKSUMS:
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   CameraManager: 8ef2dfb1bb11c38ef3cc0a236076096dfa8a5d8e
   DKImagePickerController: 8db7e76a88a7a66a893ba30e935cc4c9bb7ed335
+  MobilePlayer: 069b13482499f14c25b6ce53f63a91e17975b073
   SVProgressHUD: d65371a8e4482380deddb9fe60e14e59ddb30eb3
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
   UIDropDown: 22e6e3e22d419884c8f21d95ea9be36aac905ed4
 
-PODFILE CHECKSUM: 9f1b24c17bf056d24aa1b4c0a34598ea6ae1e9d4
+PODFILE CHECKSUM: c1f3fc107af0445d3f7e6b04d5e77bb524c8d546
 
 COCOAPODS: 1.2.0

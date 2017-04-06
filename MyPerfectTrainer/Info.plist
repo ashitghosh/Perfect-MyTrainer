@@ -28,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.2</string>
+	<string>1.0.4</string>
 	<key>FacebookAppID</key>
 	<string>1864098443865549</string>
 	<key>FacebookDisplayName</key>
@@ -66,6 +66,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) camera use</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string> $(PRODUCT_NAME) Current location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>CameraManager will use your location to save EXIF data.</string>
 	<key>NSMicrophoneUsageDescription</key>

@@ -18,6 +18,7 @@ class TrainerMyPostController: UIViewController,UITableViewDelegate,UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        UITextField.appearance().tintColor = UIColor.black
         self.MyFeedTable.isHidden=false
         self.NoFeedListAvailable.isHidden=true
      
@@ -72,8 +73,6 @@ class TrainerMyPostController: UIViewController,UITableViewDelegate,UITableViewD
         SVProgressHUD.show()
         Alamofire.request(Url, method:.post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
-                
-                
                 //to get status code
                 if let status = response.response?.statusCode {
                     print("Status = ",status);
@@ -137,8 +136,10 @@ class TrainerMyPostController: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
+        let vc=self.storyboard! .instantiateViewController(withIdentifier: "PostDetailsController") as! PostDetailsController
+        vc.PostDetails=["detail":(self.arrMyPost[indexPath.row] as AnyObject)]
+        self.navigationController?.pushViewController(vc, animated: true)
+          }
 
     @IBAction func DidTabCreateFeed(_ sender: Any) {
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerCreateFeedController") as! TrainerCreateFeedController

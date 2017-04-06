@@ -31,7 +31,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     var Imagedict:[String:AnyObject] = [:]
      var arrCollectionImages = [[String:AnyObject]] ()
      var arrCollectionVideo = [[String:AnyObject]] ()
-    var Trainer_profile_id:String!
+ 
     var arrVideo: [NSData] = []
     var arrImage: [NSData] = []
     var UploadImageData:NSData? = nil
@@ -45,8 +45,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     var player:AVPlayer?
     var Upload:String=""
     
-    
-    
+   
     // MARK: - @IBOutlets
     
     @IBOutlet var Camera_background_view: UIView!
@@ -65,9 +64,15 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        UITextField.appearance().tintColor = UIColor.white
+        UITextView.appearance().tintColor = UIColor.white
         About_txt_view.text="Type Here"
         Tagline_txtView.text="Type Here"
-     //   OkBtn.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
+        OkBtn.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
+        self.OkBtn.layoutIfNeeded()
+         self.OkBtn.layer.masksToBounds = true
+         self.OkBtn.layer.cornerRadius =  self.OkBtn.frame.height/2
+         self.OkBtn.clipsToBounds = true
          cameraButton.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
         Upload_image_btn.BtnRoundCorner(radious: 5.0, colour: UIColor.white)
         Upload_videoBtn.BtnRoundCorner(radious: 5.0, colour: UIColor.white)
@@ -146,10 +151,11 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                      self.arrVideo.append((video as AnyObject) as! NSData)
                         self.Imagedict = ["sample" : "upload" as AnyObject, "trainer_video" : asset as AnyObject]
                         self.arrCollectionVideo.append(self.Imagedict)
-                                          })
-                   
-                    
+                        
+                    })
            }
+                    
+                    
                 else{
                     asset.fetchImageDataForAsset(true, completeBlock: {Data ,info in
                         self.arrImage.append((Data as AnyObject) as! NSData)
@@ -157,12 +163,26 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                         self.arrCollectionImages.append(self.Imagedict)
                     })
            }
+            
             }
-           print("images",self.arrCollectionImages)
+            if self.arrCollectionVideo.isEmpty==true{
+                self.VideoCollectionView.isHidden=true
+            }
+            else{
+                self.VideoCollectionView.isHidden=false
+                self.VideoCollectionView.reloadData()
+            }
+            if self.arrCollectionImages.isEmpty==true{
+                self.Image_collectionView.isHidden=true
+            }
+            else{
+                self.Image_collectionView.isHidden=false
+                self.Image_collectionView.reloadData()
+            }
+
+           print(" images",self.arrCollectionImages)
            print("Video",self.arrCollectionVideo)
-            self.VideoCollectionView.reloadData()
-            self.Image_collectionView.reloadData()
-           
+            
         }
         
         if UI_USER_INTERFACE_IDIOM() == .pad {
@@ -171,9 +191,6 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         
         self.present(pickerController, animated: true) {}
     }
-    
-    
-
     
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
@@ -252,9 +269,9 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         let User_id:String = userDefaults.string(forKey: "user_id")!
         var poststring:String?
         
-        let parameters = ["trainer_id": User_id,"action": "get","trainer_info_id": self.Trainer_profile_id]
+        let parameters = ["trainer_id": User_id]
         print("new parameter",parameters)
-        let Url:String=Constants.Base_url+"profileTwoCreate"
+        let Url:String=Constants.Base_url+"getTrainerInfoStep2"
         
         if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
             poststring = String(data: json, encoding: String.Encoding.utf8)!
@@ -345,9 +362,9 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         print(photo_count)
         
         // let parameters = ["trainer_id": "7" ,"trainer_info_id": "3","tagline": "new tagline","about": "now about","iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
-        let parameters = ["trainer_id": User_id ,"trainer_info_id": self.Trainer_profile_id,"tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
+        let parameters = ["trainer_id": User_id ,"tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
         print("parameter",parameters)
-        let Url:String=Constants.Base_url+"profileCreateTwoInsert"
+        let Url:String=Constants.Base_url+"createTrainerInfoStep2"
         Alamofire.upload(multipartFormData: { multipartFormData in
             if self.arrImage.isEmpty==true && self.arrVideo.isEmpty==true{
             
@@ -396,7 +413,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
             }
             
             for (key, value) in parameters {
-                multipartFormData.append((value?.data(using: .utf8))!, withName: key)
+                multipartFormData.append((value.data(using: .utf8))!, withName: key)
             }
         },
                          to:Url, method: .post, headers: ["Authorization": "auth_token"],
@@ -453,7 +470,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
             let Id:String = ((self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "sample") as? String)!
             
             if Id == "upload"{
-                 let url:String = "http://ogmaconceptions.com/demo/my_perfect_trainer/img/offwhite-video.png"
+                 let url:String = "http://ogmaconceptions.com/demo/my_perfect_trainer/img/video.jpeg"
                 Alamofire.request(url).responseImage { response in
                    // debugPrint(response)
                     
@@ -527,14 +544,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         if collectionView==VideoCollectionView{
         
-            let url:String = (self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "name") as! String
-            let videoURL = URL(string: url)
-            player = AVPlayer(url: videoURL!)
-            let playerLayer = AVPlayerLayer(player: player)
-            playerLayer.frame = self.view.bounds
-            self.view.layer.addSublayer(playerLayer)
-            player?.play()
-        }
+                   }
     }
     
     //For image Picker Function controller++++++++++++++++++*************************************

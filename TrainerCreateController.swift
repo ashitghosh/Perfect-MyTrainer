@@ -50,9 +50,9 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     @IBOutlet var create_scorllview: UIScrollView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
+        UITextField.appearance().tintColor = UIColor.white
         self.ViewReCoordination()
+          self.JsonForFetch()
         // Do any additional setup after loading the view.
         Skill_table.isHidden=true
         Liability_insurence="Y"
@@ -88,7 +88,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.JsonForFetch()
+      
         
         // Hide the navigation bar on the this view controller
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -398,8 +398,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         let User_id:String = userDefaults.string(forKey: "user_id")!
         var poststring:String?
         
-        let parameters = ["trainer_id": User_id,"action": "get","trainer_info_id": self.traine_profile_id]
-        let Url:String=Constants.Base_url+"profileOneCreate"
+        let parameters = ["trainer_id": User_id]
+        let Url:String=Constants.Base_url+"getTrainerInfoStep1"
 
         if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
             poststring = String(data: json, encoding: String.Encoding.utf8)!
@@ -457,10 +457,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                                 }
                             }
                             let trainer_type:String=((response.result.value as AnyObject).value(forKey: "trainer_type") as? String)!
-                            let user_id:NSInteger=(response.result.value as AnyObject).value(forKey: "trainer_info_id") as! NSInteger
-                            let profile_id:String=String(user_id)
-                            self.traine_profile_id=profile_id
-                            print(user_id as AnyObject)
+                           
                            
                             if trainer_type=="individual"{
                             self.Invidual_selectBtn.image=UIImage.init(named: "radio-select.png")
@@ -517,8 +514,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
             let userDefaults = Foundation.UserDefaults.standard
             let User_id:String = userDefaults.string(forKey: "user_id")!
             
-            CreateDict = ["skill" : arrSelectedSkill as AnyObject,"additionalSkill" : ArradditionalSkill as AnyObject,"certificate" : arrCertificateSkill as AnyObject,"liability_insurance" : Liability_insurence as AnyObject,"trainer_type" : Training_type as AnyObject,"trainer_id" : User_id as AnyObject,"trainer_info_id" : self.traine_profile_id as AnyObject,"action" : "insert" as AnyObject ]
-            let URL:String = Constants.Base_url+"profileOneCreate"
+            CreateDict = ["skill" : arrSelectedSkill as AnyObject,"additionalSkill" : ArradditionalSkill as AnyObject,"certificate" : arrCertificateSkill as AnyObject,"liability_insurance" : Liability_insurence as AnyObject,"trainer_type" : Training_type as AnyObject,"trainer_id" : User_id as AnyObject ]
+            let URL:String = Constants.Base_url+"createTrainerInfoStep1"
             self.CreateTrainerJson(jsonString: CreateDict, url: URL)
         }
         
@@ -598,12 +595,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                             self.Certificate_tableview.reloadData()
                             self.Skill_table.reloadData()
                             self.ViewReCoordination()*/
-                            let user_id:NSInteger=(response.result.value as AnyObject).value(forKey: "trainer_info_id") as! NSInteger
-                            let profile_id:String=String(user_id)
-                            self.traine_profile_id=profile_id
-                            print("profile_id",self.traine_profile_id)
+                          
                             let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerCreateProfileTwo") as! TrainerCreateProfileTwo
-                            vc.Trainer_profile_id=self.traine_profile_id
                             self.navigationController?.pushViewController(vc, animated: true)
                             SVProgressHUD.dismiss()
                             
@@ -689,7 +682,22 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                         upload.responseJSON { response in
                             print("Response",response.result.value!)
                              SVProgressHUD.dismiss()
-                          
+                            if (response.result.value as AnyObject).value(forKey: "status")as! NSNumber==0{
+                                let url:String=((response.result.value as AnyObject).value(forKey: "image") as? String)!
+                                Alamofire.request(url).responseImage { response in
+                                    debugPrint(response)
+                                    
+                                    
+                                    debugPrint(response.result)
+                                    
+                                    if let image = response.result.value {
+                                        print("image downloaded: \(image)")
+                                        
+                                        self.profile_image.image=image
+                                    }
+                                }
+
+                            }
                            
                             let Message=(response.result.value as AnyObject).value(forKey: "message")
                             print(Message as! String)
@@ -708,8 +716,10 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     
     @IBAction func DidTabAdditionalSkillBtn(_ sender: Any) {
         self.view.endEditing(true)
-        if (Additional_skill_text.text?.characters.count)! > 0 {
-            let arrayobject:[String:String]=["name":Additional_skill_text.text!,"id":""]
+        let myString2 = Additional_skill_text.text
+        let Additinal_skill = myString2?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if (Additinal_skill?.characters.count)! > 0 {
+            let arrayobject:[String:String]=["name":(Additinal_skill)!,"id":""]
             ArradditionalSkill.append(arrayobject as [String : AnyObject])
             print("arr certificate ",arrCertificateSkill)
             //   self.UITableView_Auto_Height()
@@ -735,12 +745,16 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     
     @IBAction func DidTabCertificateCellBtn(_ sender: Any) {
         self.view.endEditing(true)
-        if (CertificateName_txt.text?.characters.count)!  > 0 && (Instuite_name.text?.characters.count)! > 0 {
+        let myString = CertificateName_txt.text
+        let myString2 = Instuite_name.text
+        let certificate = myString?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+         let Institute = myString2?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if (certificate?.characters.count)!  > 0 && (Institute?.characters.count)! > 0 {
             
-            let arrayobject:[String:String]=["certificate_name":self.CertificateName_txt.text!+","+self.Instuite_name.text!,"id":""]
+            let arrayobject:[String:String]=["certificate_name":(certificate)!+","+(Institute)!,"id":""]
            
             
-            arrCertificateSkill.append(arrayobject as [String : AnyObject])
+            self.arrCertificateSkill.append(arrayobject as [String : AnyObject])
             print("AdditionalSkill",arrCertificateSkill)
             //   self.UITableView_Auto_Height()
             Certificate_tableview .reloadData()
@@ -749,12 +763,12 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
             Instuite_name.text = ""
         }
         else{
-            if (CertificateName_txt.text?.characters.count)!   == 0  {
+            if (certificate?.characters.count)!   == 0  {
                 
                  presentAlertWithTitle(title: "Alert", message: "Write your Certificate")
                 
             }
-            else if (Instuite_name.text?.characters.count)!   == 0{
+            else if (Institute?.characters.count)!   == 0{
                 
              presentAlertWithTitle(title: "Alert", message: "write your Institute Name")
                 

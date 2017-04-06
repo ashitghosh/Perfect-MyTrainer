@@ -10,6 +10,11 @@ import UIKit
 
 class CommentCell: UITableViewCell {
 
+    @IBOutlet var Delete_btn: UIButton!
+    @IBOutlet var Profile_image: UIImageView!
+    @IBOutlet var time_lbl: UILabel!
+    @IBOutlet var message_lbl: UILabel!
+    @IBOutlet var Name_lbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

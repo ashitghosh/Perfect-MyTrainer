@@ -38,95 +38,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TrainerCreateProfileTwo.swift"
-            timestampString = "512476885.296342"
+            timestampString = "513177641.497499"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "showImagePicker()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MyPerfectTrainer.TrainerCreateProfileTwo.(showImagePicker () -&gt; ()).(closure #1)"
-                  moduleName = "MyPerfectTrainer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/IOS%20Project/Ashit%20ios%20project/My%20Perfect%20Trainer/MyPerfectTrainer/TrainerCreateProfileTwo.swift"
-                  timestampString = "512476886.391828"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "154"
-                  endingLineNumber = "154"
-                  offsetFromSymbolStart = "1384">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MyPerfectTrainer.TrainerCreateProfileTwo.(showImagePicker () -&gt; ()).(closure #1).(closure #2)"
-                  moduleName = "MyPerfectTrainer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/IOS%20Project/Ashit%20ios%20project/My%20Perfect%20Trainer/MyPerfectTrainer/TrainerCreateProfileTwo.swift"
-                  timestampString = "512476886.393734"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130"
-                  offsetFromSymbolStart = "48">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TrainerCreateProfileTwo.swift"
-            timestampString = "512476885.296342"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "showImagePicker()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TrainerCreateProfileTwo.swift"
-            timestampString = "512476885.296342"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "showImagePicker()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TrainerCreateProfileTwo.swift"
-            timestampString = "512476885.296342"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "uploadWithAlamofire()"
             landmarkType = "7">
          </BreakpointContent>

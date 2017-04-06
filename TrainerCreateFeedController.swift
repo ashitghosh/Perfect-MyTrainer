@@ -37,6 +37,8 @@ class TrainerCreateFeedController: UIViewController,UITextFieldDelegate,UITextVi
     var UploadVideodata:NSData? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
+        UITextField.appearance().tintColor = UIColor.black
+        UITextView.appearance().tintColor = UIColor.black
 SendBtn.ButtonRoundCorner(radious: 8.0)
         title_text.attributedPlaceholder = NSAttributedString(string: "Enter Title",
                                                                attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
@@ -171,40 +173,47 @@ SendBtn.ButtonRoundCorner(radious: 8.0)
         pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
             print("didSelectAssets")
             self.assets = assets
-            let asset=self.assets?[0]
-            print(assets)
-            if (asset?.isVideo)! {
-                asset?.fetchAVAssetWithCompleteBlock({(avAsset,info) in
-                    let urlAsset = avAsset as? AVURLAsset
-                    let video = try? Data(contentsOf: (urlAsset?.url)!)
-                    self.UploadVideodata=video as NSData?
-                    let url:String = "http://ogmaconceptions.com/demo/my_perfect_trainer/img/offwhite-video.png"
-                    Alamofire.request(url).responseImage { response in
-                        // debugPrint(response)
-                        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
-                        SVProgressHUD.show()
-                        
-                        //debugPrint(response.result)
-                        
-                        if let image = response.result.value {
-                            self.UploadImageOrVideo.image=image
-                            SVProgressHUD.dismiss()
+            if self.assets?.isEmpty==false{
+                let asset=self.assets?[0]
+                print(assets)
+                if (asset?.isVideo)! {
+                    asset?.fetchAVAssetWithCompleteBlock({(avAsset,info) in
+                        let urlAsset = avAsset as? AVURLAsset
+                        let video = try? Data(contentsOf: (urlAsset?.url)!)
+                        self.UploadVideodata=video as NSData?
+                       
+                       // let urlString = "http://ogmaconceptions.com/demo/my_perfect_trainer/profile_images/thumb/1490867984.jpeg"
+                        let url:String = "http://ogmaconceptions.com/demo/my_perfect_trainer/img/video.jpeg"
+                 DataRequest.addAcceptableImageContentTypes(["image/jpg"])
+                        Alamofire.request(url).responseImage { response in
+                            // debugPrint(response)
+//                            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+//                            SVProgressHUD.show()
+                            
+                            debugPrint(response.result)
+                            
+                            if let image = response.result.value {
+                                self.UploadImageOrVideo.image=image
+                                SVProgressHUD.dismiss()
+                                
+                            }
                             
                         }
                         
-                    }
-
+                        
+                    })
                     
-                })
-                
-                
+                    
+                }
+                else{
+                    asset?.fetchImageDataForAsset(true, completeBlock: {Data ,info in
+                        self.UploadImageData=Data as NSData?
+                        self.UploadImageOrVideo.image=UIImage.init(data: self.UploadImageData as! Data)
+                    })
+                }
+
             }
-            else{
-                asset?.fetchImageDataForAsset(true, completeBlock: {Data ,info in
-                    self.UploadImageData=Data as NSData?
-                    self.UploadImageOrVideo.image=UIImage.init(data: self.UploadImageData as! Data)
-                })
-            }
+           
             
         }
         

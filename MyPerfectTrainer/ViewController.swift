@@ -33,7 +33,7 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-      
+       UITextField.appearance().tintColor = UIColor.white
                Trainer_select_view.isHidden=true
         self.labelMultiColor(getLabelName: lbl_forgot_password)
         self.ButtonCorner(getViewName: btn_login)
@@ -42,7 +42,7 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
         self.ViewCorner(getViewName: view_login_password)
         self.textplaceholderColor(getTextName: txt_email, getplaceholderText: "Email")
         self.textplaceholderColor(getTextName: txt_password, getplaceholderText: "Password")
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         //tap.cancelsTouchesInView = false
@@ -373,55 +373,93 @@ self.facebookLoginJson(jsonString: FbDict, Url: "http://ogmaconceptions.com/demo
    
     @IBAction func DidTabFacebookBtn(_ sender: Any) {
                 let login: FBSDKLoginManager = FBSDKLoginManager()
-        // Make login and request permissions
-       login.logOut()
-        login.logIn(withReadPermissions: ["email"], from: self, handler: {(result, error) -> Void in
-           
-            if error != nil {
-                // Handle Error
-           print(error!)
-            } else if (result?.isCancelled)! {
-                // If process is cancel
-                NSLog("Cancelled")
-            }
-            else {
-                SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
-                SVProgressHUD.show()
-
-                // Parameters for Graph Request
-                let parameters = ["fields": "email, name,picture,gender"]
-                
-                FBSDKGraphRequest(graphPath: "me", parameters: parameters).start {(connection, result, error) -> Void in
-                    if error != nil {
-                        NSLog(error.debugDescription)
-                        return
-                    }
-                    SVProgressHUD.dismiss()
-                    // Result
-                   // print("Result: " ,result! )
-               self.IsFacebook=true
-                    self.FbDict=result! as! [String : AnyObject]
-                    print("fb details",self.FbDict)
-                    let email: String = (self.FbDict["email"] as! String?)!
-                    print(email)
-                    self.Trainer_select_view.isHidden=false
-                    // Handle vars
-                    
-                   /*if let result = result as? [String:Any],
-                        let email: String = result["email"] as! String?,
-                        let fbId: String = result["id"] as! String?,
-                     let name: String = result["name"] as! String?
-                  
-                    {
-                        print("Email: \(email)")
-                        print("fbID: \(fbId)")
-                         print("fbID: \(name)")
-                        print("fbID: \(name)")
-                    }*/
+        if FBSDKAccessToken.current() != nil {
+            print(FBSDKAccessToken.current().userID)
+         //   print(FBSDKAccessToken.current().userID)
+            //OR call the *FBGraphRequest*
+            let parameters = ["fields": "email, name,picture,gender"]
+            
+            FBSDKGraphRequest(graphPath: "me", parameters: parameters).start {(connection, result, error) -> Void in
+                if error != nil {
+                    NSLog(error.debugDescription)
+                    return
                 }
+                SVProgressHUD.dismiss()
+                // Result
+                // print("Result: " ,result! )
+                self.IsFacebook=true
+                self.FbDict=result! as! [String : AnyObject]
+                print("fb details",self.FbDict)
+                let email: String = (self.FbDict["email"] as! String?)!
+                print(email)
+                self.Trainer_select_view.isHidden=false
+                // Handle vars
+                
+                /*if let result = result as? [String:Any],
+                 let email: String = result["email"] as! String?,
+                 let fbId: String = result["id"] as! String?,
+                 let name: String = result["name"] as! String?
+                 
+                 {
+                 print("Email: \(email)")
+                 print("fbID: \(fbId)")
+                 print("fbID: \(name)")
+                 print("fbID: \(name)")
+                 }*/
             }
-        })
-    }
+
+        }else{
+            login.logOut()
+            login.logIn(withReadPermissions: ["email"], from: self, handler: {(result, error) -> Void in
+                
+                if error != nil {
+                    // Handle Error
+                    print(error!)
+                } else if (result?.isCancelled)! {
+                    // If process is cancel
+                    NSLog("Cancelled")
+                }
+                else {
+                    SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+                    SVProgressHUD.show()
+                    
+                    // Parameters for Graph Request
+                    let parameters = ["fields": "email, name,picture,gender"]
+                    
+                    FBSDKGraphRequest(graphPath: "me", parameters: parameters).start {(connection, result, error) -> Void in
+                        if error != nil {
+                            NSLog(error.debugDescription)
+                            return
+                        }
+                        SVProgressHUD.dismiss()
+                        // Result
+                        // print("Result: " ,result! )
+                        self.IsFacebook=true
+                        self.FbDict=result! as! [String : AnyObject]
+                        print("fb details",self.FbDict)
+                        let email: String = (self.FbDict["email"] as! String?)!
+                        print(email)
+                        self.Trainer_select_view.isHidden=false
+                        // Handle vars
+                        
+                        /*if let result = result as? [String:Any],
+                         let email: String = result["email"] as! String?,
+                         let fbId: String = result["id"] as! String?,
+                         let name: String = result["name"] as! String?
+                         
+                         {
+                         print("Email: \(email)")
+                         print("fbID: \(fbId)")
+                         print("fbID: \(name)")
+                         print("fbID: \(name)")
+                         }*/
+                    }
+                }
+            })
+
+        }
+        // Make login and request permissions
+}
     @IBAction func DidTabCreateAccountBtn(_ sender: Any) {
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
         self.navigationController?.pushViewController(vc, animated: true)

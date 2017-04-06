@@ -29,7 +29,7 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
     @IBOutlet var Trainer_btn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+ UITextField.appearance().tintColor = UIColor.white
         // Do any additional setup after loading the view.
          self.Trainer_btn.setBackgroundImage(UIImage(named :"Selected_image.png"), for: UIControlState.normal)
        self.viewCorner(getViewName: Password_view, GetBtnName: (nil))
@@ -39,7 +39,7 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
         self.textplaceholderColor(getTextName: Email_txt, getplaceholderText: "Email")
         self.textplaceholderColor(getTextName: Password_txt, getplaceholderText: "Password")
         self.textplaceholderColor(getTextName: FullName_txt, getplaceholderText: "Fullname")
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.dismissKeyboard))
              view.addGestureRecognizer(tap)
         
     }
@@ -72,6 +72,7 @@ class SignUpViewController: UIViewController ,UITextFieldDelegate{
         return done
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
+       
         if textField==Email_txt{
         self.animateViewMoving(up: true, moveValue: 150.0)
         }

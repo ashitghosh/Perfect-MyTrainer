@@ -24,6 +24,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MobilePlayer-MobilePlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MobilePlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-MyPerfectTrainer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,12 +57,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>620E9E8EBB753F128BDD8BDD52DB5701</key>
+		<key>2C32C10FF4C1B06E0F5A5053F44EE011</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7CC687275F36D8D0DC307BD96AB5262E</key>
+		<key>362E95B816068454C1FA5DD3CA791372</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,7 +72,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9516E5793117D9828DABE45B68BEFAB5</key>
+		<key>982B331ADC1A9F5A64A6454A66B97984</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9888668BBC1AD7F60F358D510141CECE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9A10B794E4B8E181CF944C8678D56AA6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,12 +92,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D29ECE69EF439D1FF5B5E9EB40FDFFE0</key>
+		<key>AD666190D4145AC9FE643913F908B928</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D88A56E20D0A48E33FD682DBF85508EA</key>
+		<key>D29ECE69EF439D1FF5B5E9EB40FDFFE0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -9,4 +9,5 @@ pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git
 pod 'Toast-Swift', '~> 2.0.0'
 pod 'CameraManager', '~> 3.1'
 pod 'DKImagePickerController'
+pod "MobilePlayer"
 end
