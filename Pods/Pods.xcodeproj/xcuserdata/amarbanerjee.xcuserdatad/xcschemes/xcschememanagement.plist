@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JTAppleCalendar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MobilePlayer-MobilePlayer.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -44,6 +49,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Stripe-Stripe.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Stripe.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftGifOrigin.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Toast-Swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,7 +77,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2C32C10FF4C1B06E0F5A5053F44EE011</key>
+		<key>1036DB1ADE8B69463E8452B26C057145</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1A14E5AE7A87EA09390AF61A8DFB1272</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,22 +92,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5A128C36C7D27BB302861D83D28FFF50</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6F771C0A010BDD8501D4E5A8C89D7765</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>871EB1AA9E745A6918C8AD3A48A44608</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>982B331ADC1A9F5A64A6454A66B97984</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9888668BBC1AD7F60F358D510141CECE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9A10B794E4B8E181CF944C8678D56AA6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -93,6 +118,21 @@
 			<true/>
 		</dict>
 		<key>AD666190D4145AC9FE643913F908B928</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BFED2E29E95E065400F8846E0231A970</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C624D6AFC4FC8E704CE78BD14B60A7D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CA67B3ADCD8000FC789591DBF3A5974B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

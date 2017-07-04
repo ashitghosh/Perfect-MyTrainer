@@ -10,6 +10,8 @@ import UIKit
 
 class CommentCell: UITableViewCell {
 
+    @IBOutlet var View_btn: UIButton!
+    @IBOutlet var Reply_btn: UIButton!
     @IBOutlet var Delete_btn: UIButton!
     @IBOutlet var Profile_image: UIImageView!
     @IBOutlet var time_lbl: UILabel!

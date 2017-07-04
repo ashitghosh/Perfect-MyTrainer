@@ -1,3 +1,4 @@
+ 
 //
 //  TrainerAboutController.swift
 //  MyPerfectTrainer
@@ -21,6 +22,7 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     fileprivate let reuseIdentifier = "Customcell"
     //fileprivate let reuseIdentifier = "Customcell"
    
+    @IBOutlet var Notification_lbl: UILabel!
     @IBOutlet var Other_skill_view: UIView!
     @IBOutlet var About_view: UIView!
     @IBOutlet var Social_Connection_View: UIView!
@@ -41,12 +43,17 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     @IBOutlet var Wheel_chair_textview: UITextView!
     @IBOutlet var Skill_textview: UITextView!
     
+    @IBOutlet var Average_rating_lbl: UILabel!
     @IBOutlet var other_txt: UITextView!
     var arrCollectionImages = [[String:AnyObject]] ()
     var arrCollectionVideo = [[String:AnyObject]] ()
     var arrCertificateSkill = [[String:AnyObject]]()
     var avPlayer = AVPlayer()
     var avPlayerLayer: AVPlayerLayer!
+    var fb_profile:String=""
+    var twitter_profile:String=""
+    var instagram_profile:String=""
+
     let invisibleButton = UIButton()
     @IBOutlet var SelectedImageview: UIImageView!
     @IBOutlet var Video_frame_view: UIView!
@@ -64,6 +71,7 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         super.viewDidLoad()
         self.ReadyViewCustomize()
         locManager.requestWhenInUseAuthorization()
+        locManager.requestAlwaysAuthorization()
         
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
@@ -71,6 +79,7 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
             print(currentLocation.coordinate.latitude)
             print(currentLocation.coordinate.longitude)
         }
+        self.Notification_lbl.Circlelabel(BorderColour: .clear, Radious: 1.0)
 
         // Do any additional setup after loading the view.
     }
@@ -116,7 +125,7 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         self.Rating_view.contentMode = UIViewContentMode.scaleAspectFit
         self.Rating_view.maxRating = 5
         self.Rating_view.minRating = 1
-        self.Rating_view.rating = 2.5
+        
         self.Rating_view.editable = false
         self.Rating_view.halfRatings = true
         self.Rating_view.floatRatings = false
@@ -156,7 +165,7 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
             Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+400)
         }
         else{
-            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+300)
+            Client_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height: Client_scorllview.frame.size.height+450)
         }
         
     }
@@ -168,19 +177,24 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
         SVProgressHUD.show()
+        var latitudeText:String=""
+        var longitudeText:String=""
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             currentLocation = locManager.location
             
-            print(currentLocation.coordinate.latitude)
+           print(currentLocation.coordinate.latitude)
             print(currentLocation.coordinate.longitude)
+            latitudeText = String(format: "%f", currentLocation.coordinate.latitude)
+            longitudeText = String(format: "%f", currentLocation.coordinate.longitude)
+
         }
         
         let userDefaults = Foundation.UserDefaults.standard
         let User_id:String = userDefaults.string(forKey: "user_id")!
         var poststring:String?
         
-        let parameters = ["trainer_id": User_id,"latitude": currentLocation.coordinate.latitude,"longitude": currentLocation.coordinate.longitude] as [String : Any]
+        let parameters = ["trainer_id": User_id,"latitude": latitudeText,"longitude": longitudeText]
         
         print("params",parameters)
         
@@ -194,8 +208,7 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
                 print(poststring as AnyObject)
             }
         }
-        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
-        SVProgressHUD.show()
+       
         Alamofire.request(Url, method:.post, parameters: parameters, encoding: JSONEncoding.default)
             .responseJSON { response in
                 
@@ -261,21 +274,7 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
                             self.Skill_textview.text=Certificate
                             self.Name_lbl.text=Name
                             
-//                            self.Skill_textview.textAlignment = NSTextAlignment.center
-//                            //self.liability_txt.textAlignment = NSTextAlignment.center
-//                           // self.Wheel_chair_textview.textAlignment = NSTextAlignment.center
-//                            self.About_txt.textAlignment = NSTextAlignment.center
-//                            self.other_txt.textAlignment = NSTextAlignment.center
-//                            self.adjustContentSize(tv: self.Skill_textview)
-//                            //self.adjustContentSize(tv: self.liability_txt)
-//                           // self.adjustContentSize(tv: self.Wheel_chair_textview)
-//                            self.adjustContentSize(tv: self.About_txt)
-//                            self.adjustContentSize(tv: self.other_txt)
-//                            self.Skill_textview.layoutIfNeeded()
-//                            self.liability_txt.layoutIfNeeded()
-//                            self.Wheel_chair_textview.layoutIfNeeded()
-//                            self.About_txt.layoutIfNeeded()
-//                            self.other_txt.layoutIfNeeded()
+
                              let url:String=((response.result.value as AnyObject).value(forKey: "profile_image") as? String)!
                             Alamofire.request(url).responseImage { response in
                                 debugPrint(response)
@@ -292,6 +291,26 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
                             //self.arrSelectedSkill=(response.result.value as! String).value(forKey: "skill") as! String
                             print("certificateSkill",self.arrCertificateSkill)
                             self.Certificate_tableview.reloadData()
+                            /*   facebook-hover.png,facebook_connect.png
+                             instragram_connect.png,instragram-hover.png
+                             twitter_connect.png,twitter_hover.png*/
+                            self.fb_profile=((response.result.value as AnyObject).value(forKey: "fb_profile_link") as? String)!
+                            
+                            self.twitter_profile=((response.result.value as AnyObject).value(forKey: "twitter_profile_link") as? String)!
+                            
+                            self.instagram_profile=((response.result.value as AnyObject).value(forKey: "instagram_profile_link") as? String)!
+                            self.Rating_view.rating = Float(((response.result.value as AnyObject).value(forKey: "average_rating") as? String)!)!
+                            self.Average_rating_lbl.text = ""
+                            let noti_num:NSInteger = NSInteger((response.result.value as AnyObject).value(forKey: "total_unread_notification") as! NSNumber)
+                            if noti_num>0{
+                                self.Notification_lbl.isHidden=false
+                            }
+                            else{
+                                self.Notification_lbl.isHidden=true
+                            }
+
+                            self.Notification_lbl.text=String(describing: ((response.result.value as AnyObject).value(forKey: "total_unread_notification") as! NSNumber))
+                            
                         }
                         else{
                             SVProgressHUD.dismiss()
@@ -375,6 +394,8 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Gallerycell", for: indexPath)as! GalleryCell
             cell.layer.cornerRadius=10
+            cell.gallery_ImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin, .flexibleRightMargin, .flexibleLeftMargin, .flexibleTopMargin]
+            cell.gallery_ImageView.contentMode = .scaleAspectFill // OR .scaleAspectFill
             let Url:String = ((self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "trainer_images") as? String)!
             
             Alamofire.request(Url).responseImage { response in
@@ -408,7 +429,8 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
         if collectionView==Galaery_collection {
             Video_backgroundView.isHidden=false
             self.SelectedImageview.isHidden=false
-             let url:String = (self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "trainer_images") as! String
+           self.SelectedImageview.image = UIImage.gif(name: "new_loader")
+             let url:String = (self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "big_trainer_images") as! String
             Alamofire.request(url).responseImage { response in
                 //  debugPrint(response)
                 //debugPrint(response.result)
@@ -486,8 +508,56 @@ class TrainerAboutController: UIViewController, UICollectionViewDataSource,UICol
     @IBAction func DidTabVideoCrossBtn(_ sender: Any) {
         self.Video_backgroundView.isHidden=true
     }
+    
+    
+   
+    
+    @IBAction func DidTabFacebookBtn(_ sender: Any) {
+        if self.fb_profile=="" {
+            self.view.makeToast("Don't have any facebook profile", duration: 3.0, position: .bottom)
+        }
+        else{
+            UIApplication.shared.open(URL(string: self.fb_profile)!, options: [:], completionHandler: nil)
+        }
 
-    /*
+    }
+    
+   
+    @IBAction func DidTabTwitterBtn(_ sender: Any) {
+        if self.twitter_profile=="" {
+            
+    self.view.makeToast("Don't have any twitter profile", duration: 3.0, position: .bottom)
+      
+        }
+        else{
+            UIApplication.shared.open(URL(string: self.twitter_profile)!, options: [:], completionHandler: nil)
+        }
+
+    }
+    
+    @IBAction func DidTabinstagramBtn(_ sender: Any) {
+        if self.instagram_profile=="" {
+     self.view.makeToast("Don't have any instagram profile", duration: 3.0, position: .bottom)
+        
+        }
+        else{
+            UIApplication.shared.open(URL(string: self.instagram_profile)!, options: [:], completionHandler: nil)
+        }
+
+    }
+    @IBAction func NotificationBtn(_ sender: Any) {
+        
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
+       
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @IBAction func DidTabMessageBtn(_ sender: Any) {
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "MessageViewController") as! MessageViewController
+        vc.IsNotComeFromClient=true;
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+       /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

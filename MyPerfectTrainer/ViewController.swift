@@ -11,6 +11,8 @@ import Alamofire
 import SVProgressHUD
 import FBSDKCoreKit
 import FBSDKLoginKit
+import MapKit
+import CoreLocation
 
 class ViewController: UIViewController,KYDrawerControllerDelegate {
     var user_type = "trainer"
@@ -26,6 +28,7 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
     @IBOutlet var view_login_email: UIView!
     @IBOutlet var Trainer_select_view: UIView!
     @IBOutlet var Trainer_btn: UIButton!
+     var locManager = CLLocationManager()
      var LoginDict:[String:AnyObject] = [:]
     var FbDict:[String:AnyObject]=[:]
     var IsFacebook:Bool = false
@@ -43,7 +46,14 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
         self.textplaceholderColor(getTextName: txt_email, getplaceholderText: "Email")
         self.textplaceholderColor(getTextName: txt_password, getplaceholderText: "Password")
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        locManager.requestWhenInUseAuthorization()
         
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+            
+        }
+        
+
         //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         //tap.cancelsTouchesInView = false
         
@@ -330,9 +340,9 @@ class ViewController: UIViewController,KYDrawerControllerDelegate {
            let email: String = (self.FbDict["email"] as! String?)!
            let fbid: String = (self.FbDict["id"] as! String?)!
             let name: String = (self.FbDict["name"] as! String?)!
-            let data = self.FbDict["picture"] as?[String:Any]
-            let newdata = data!["data"] as? [String:Any]
-            let picture:String = (newdata!["url"] as! String?)!
+          //  let data = self.FbDict["picture"] as?[String:Any]
+           // let newdata = data!["data"] as? [String:Any]
+            let picture:String = "http://graph.facebook.com/" + fbid + "/picture?type=large"
             print(picture)
             print(email)
             let profile_url:String="https://www.facebook.com/"+fbid
@@ -359,11 +369,27 @@ self.facebookLoginJson(jsonString: Fbdetails, Url: "http://ogmaconceptions.com/d
         print(user_type)
          Trainer_select_view.isHidden=true
         if IsFacebook {
-            self.FbDict = ["user_type" : user_type as AnyObject ]
-           print("FbDict",self.FbDict)
-self.facebookLoginJson(jsonString: FbDict, Url: "http://ogmaconceptions.com/demo/my_perfect_trainer/MyPerfectTrainerApp/facebookLogin")        }
+            print("FbDict",self.FbDict)
+            let email: String = (self.FbDict["email"] as! String?)!
+            let fbid: String = (self.FbDict["id"] as! String?)!
+            let name: String = (self.FbDict["name"] as! String?)!
+           // let data = self.FbDict["picture"] as?[String:Any]
+           // let newdata = data!["data"] as? [String:Any]
+           // let picture:String = (newdata!["url"] as! String?)!
+            let picture:String = "http://graph.facebook.com/" + fbid + "/picture?type=large"
+            print(picture)
+            print(email)
+            let profile_url:String="https://www.facebook.com/"+fbid
+            print("fb details",self.FbDict)
+            var Fbdetails:[String:AnyObject]=[:]
+            print("fb details=",Fbdetails)
+            Fbdetails = ["email" : email as AnyObject, "facebook_id" :fbid as AnyObject, "device_token" : "" as AnyObject ,"login_type" :"facebook"  as AnyObject,"name" :name as AnyObject,"fb_image" :picture as AnyObject,"fb_link" :profile_url as AnyObject,"user_type" :user_type as AnyObject ]
+            print("Lattest details",Fbdetails)
+            self.facebookLoginJson(jsonString: Fbdetails, Url: "http://ogmaconceptions.com/demo/my_perfect_trainer/MyPerfectTrainerApp/facebookLogin")
+        
+        }
         else{
-            LoginDict = ["email" : (txt_email.text)! as AnyObject, "password" : (txt_password.text)! as AnyObject, "device_token" : "" as AnyObject,"user_type" : "user_type" as AnyObject ]
+            LoginDict = ["email" : (txt_email.text)! as AnyObject, "password" : (txt_password.text)! as AnyObject, "device_token" : "" as AnyObject,"user_type" : user_type as AnyObject ]
             self.LoginJsonCheck(jsonstring: LoginDict, url: "http://ogmaconceptions.com/demo/my_perfect_trainer/MyPerfectTrainerApp/login")
         }
 
@@ -373,10 +399,13 @@ self.facebookLoginJson(jsonString: FbDict, Url: "http://ogmaconceptions.com/demo
    
     @IBAction func DidTabFacebookBtn(_ sender: Any) {
                 let login: FBSDKLoginManager = FBSDKLoginManager()
+        // print(FBSDKAccessToken.current())
         if FBSDKAccessToken.current() != nil {
             print(FBSDKAccessToken.current().userID)
          //   print(FBSDKAccessToken.current().userID)
             //OR call the *FBGraphRequest*
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+            SVProgressHUD.show()
             let parameters = ["fields": "email, name,picture,gender"]
             
             FBSDKGraphRequest(graphPath: "me", parameters: parameters).start {(connection, result, error) -> Void in
@@ -442,17 +471,6 @@ self.facebookLoginJson(jsonString: FbDict, Url: "http://ogmaconceptions.com/demo
                         self.Trainer_select_view.isHidden=false
                         // Handle vars
                         
-                        /*if let result = result as? [String:Any],
-                         let email: String = result["email"] as! String?,
-                         let fbId: String = result["id"] as! String?,
-                         let name: String = result["name"] as! String?
-                         
-                         {
-                         print("Email: \(email)")
-                         print("fbID: \(fbId)")
-                         print("fbID: \(name)")
-                         print("fbID: \(name)")
-                         }*/
                     }
                 }
             })

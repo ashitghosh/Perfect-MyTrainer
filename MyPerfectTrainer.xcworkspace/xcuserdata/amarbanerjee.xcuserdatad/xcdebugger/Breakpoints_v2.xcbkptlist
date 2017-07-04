@@ -25,29 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DrawerViewController.m"
-            timestampString = "512395253.007553"
+            filePath = "TrainerViewController.swift"
+            timestampString = "514732970.868872"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TrainerCreateProfileTwo.swift"
-            timestampString = "513177641.497499"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
-            landmarkName = "uploadWithAlamofire()"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "ReadyViewCustomize()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

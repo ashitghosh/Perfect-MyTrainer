@@ -49,6 +49,41 @@ class TrainerMyPostController: UIViewController,UITableViewDelegate,UITableViewD
         self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
         UIView.commitAnimations()
     }
+    
+    func PostDelete(postId:String){
+        let parameters = ["feed_id": postId]
+        let Url:String=Constants.Base_url+"deleteTrainerFeed"
+        let postString:String?
+        if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
+            postString = String(data: json, encoding: String.Encoding.utf8)!
+            // print(poststring)
+            if  postString == String(data: json, encoding: String.Encoding.utf8)! {
+                // here `content` is the JSON dictionary containing the String
+                print(postString as AnyObject)
+            }
+        }
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
+        Alamofire.request(Url, method:.post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                //to get status code
+                if let status = response.response?.statusCode {
+                    print("Status = ",status);
+                    switch(status){
+                    case 200:
+                        print( "Json  return for Fetch= ",response)
+                        //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
+                        SVProgressHUD.dismiss()
+                        
+                        
+                    default:
+                        print("error with response status: \(status)")
+                        SVProgressHUD.dismiss()
+                    }
+                }
+        }
+
+    }
 
     
     func JsonForFetchForMyPost()  {
@@ -136,8 +171,10 @@ class TrainerMyPostController: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let FeedId = ( self.arrMyPost[indexPath.row] as AnyObject).value(forKey: "feed_id") as! String
+        print(FeedId)
         let vc=self.storyboard! .instantiateViewController(withIdentifier: "PostDetailsController") as! PostDetailsController
-        vc.PostDetails=["detail":(self.arrMyPost[indexPath.row] as AnyObject)]
+        vc.Feed_id=FeedId
         self.navigationController?.pushViewController(vc, animated: true)
           }
 
@@ -156,9 +193,27 @@ class TrainerMyPostController: UIViewController,UITableViewDelegate,UITableViewD
     @IBAction func didTabDeleteBtn(_ sender: Any) {
         let selectedIndex:NSInteger=(sender as AnyObject).tag
         print(selectedIndex)
+        let Post_id = ( self.arrMyPost[selectedIndex] as AnyObject).value(forKey: "feed_id") as! String
+        
+        print(Post_id)
+        self.PostDelete(postId: Post_id)
         self.arrMyPost.remove(at: selectedIndex)
         self.MyFeedTable.reloadData()
     }
+    
+    @IBAction func DidTabCommentBtn(_ sender: Any) {
+        let selectedIndex:NSInteger=(sender as AnyObject).tag
+        print(selectedIndex)
+        let FeedId = ( self.arrMyPost[selectedIndex] as AnyObject).value(forKey: "feed_id") as! String
+        print(FeedId)
+        let vc=self.storyboard! .instantiateViewController(withIdentifier: "CommentViewController") as! CommentViewController
+        vc.FeedId=FeedId
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    
+    
+  
     /*
     // MARK: - Navigation
 

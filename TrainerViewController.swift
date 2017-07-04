@@ -7,6 +7,14 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
+import SVProgressHUD
+import MapKit
+import CoreLocation
+import AVFoundation
+import MediaPlayer
+import MobilePlayer
 
 class TrainerViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
@@ -14,6 +22,46 @@ class TrainerViewController: UIViewController,UITableViewDelegate,UITableViewDat
     @IBOutlet var about_lbl: UILabel!
     @IBOutlet var Profile_image: UIImageView!
     @IBOutlet var BookNow_lbl: UILabel!
+    @IBOutlet var Other_skill_view: UIView!
+    @IBOutlet var About_view: UIView!
+    @IBOutlet var Social_Connection_View: UIView!
+    @IBOutlet var Certificate_view: UIView!
+    @IBOutlet var Liability_view: UIView!
+    @IBOutlet var Wheelchair_view: UIView!
+    @IBOutlet var Skills_BackView: UIView!
+    @IBOutlet var VideoAndImage_gallery_Backview: UIView!
+    @IBOutlet var video_collectionview: UICollectionView!
+    @IBOutlet var Certificate_tableview: UITableView!
+    @IBOutlet var Galaery_collection: UICollectionView!
+    @IBOutlet var Client_scorllview: UIScrollView!
+    @IBOutlet var Rating_view: FloatRatingView!
+
+    @IBOutlet var About_txt: UITextView!
+    
+    @IBOutlet var liability_txt: UITextView!
+    @IBOutlet var Wheel_chair_textview: UITextView!
+    @IBOutlet var Skill_textview: UITextView!
+    
+    @IBOutlet var other_txt: UITextView!
+    var arrCollectionImages = [[String:AnyObject]] ()
+    var arrCollectionVideo = [[String:AnyObject]] ()
+    var arrCertificateSkill = [[String:AnyObject]]()
+    var avPlayer = AVPlayer()
+    var avPlayerLayer: AVPlayerLayer!
+    let invisibleButton = UIButton()
+    @IBOutlet var SelectedImageview: UIImageView!
+    @IBOutlet var Video_frame_view: UIView!
+    @IBOutlet var Video_backgroundView: UIView!
+    @IBOutlet var Video_lbl: UILabel!
+    var locManager = CLLocationManager()
+    var currentLocation: CLLocation!
+    @IBOutlet var Image_lbl: UILabel!
+    @IBOutlet var Taglbl: UILabel!
+    @IBOutlet var Name_lbl: UILabel!
+    @IBOutlet var Certificate_lbl: UILabel!
+    @IBOutlet var wheel_chair_lbl: UILabel!
+    @IBOutlet var liablity_insurence: UILabel!
+
       override func viewDidLoad() {
         super.viewDidLoad()
   self.ReadyViewCustomize()

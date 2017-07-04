@@ -10,6 +10,8 @@ import UIKit
 
 class UploadImageCell: UICollectionViewCell {
     
-    @IBOutlet var Upload_image: UIImageView!
+    @IBOutlet var Video_DeleteBtn: UIButton!
+    @IBOutlet var DeleteBtn: UIButton!
+        @IBOutlet var Upload_image: UIImageView!
     @IBOutlet var VideoImage: UIImageView!
 }

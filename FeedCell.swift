@@ -9,7 +9,19 @@
 import UIKit
 
 class FeedCell: UITableViewCell {
-
+    
+    @IBOutlet var profile_linkBtn: UIButton!
+    @IBOutlet var like_lbl: UILabel!
+    @IBOutlet var like_btn: UIButton!
+    @IBOutlet var Comments_btn: UIButton!
+    @IBOutlet var Detail_btn: UIButton!
+    @IBOutlet var comment_count_lbl: UILabel!
+    @IBOutlet var like_count_lbl: UILabel!
+    @IBOutlet var Feed_imageview: UIImageView!
+    @IBOutlet var profle_image: UIImageView!
+    @IBOutlet var Description_lbl: UILabel!
+    @IBOutlet var Date_lbl: UILabel!
+    @IBOutlet var name_lbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

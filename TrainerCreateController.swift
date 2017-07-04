@@ -12,6 +12,9 @@ import AlamofireImage
 import SVProgressHUD
 class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
+    @IBOutlet var Group_btn: UIButton!
+    @IBOutlet var Tandem_Btn: UIButton!
+    @IBOutlet var IndividualBtn: UIButton!
     @IBOutlet var ProfileBtn: UIButton!
     @IBOutlet var GroupImageview: UIImageView!
     @IBOutlet var Tandem_selectBtn: UIImageView!
@@ -26,7 +29,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     @IBOutlet var Certificate_tableview: UITableView!
     @IBOutlet var CertificateView: UIView!
     @IBOutlet var Additional_Skill_view: UIView!
-       @IBOutlet var Additional_skill_text: UITextField!
+    @IBOutlet var Additional_skill_text: UITextField!
     @IBOutlet var Back_btn: UIButton!
     @IBOutlet var skill_collectionview: UICollectionView!
     @IBOutlet var Back_image: UIImageView!
@@ -38,20 +41,30 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     var arrskill = [[String:AnyObject]]()
     var ArradditionalSkill = [[String:AnyObject]]()
     var arrCertificateSkill = [[String:AnyObject]]()
+    var arrSelectedTrainingType = [[String:AnyObject]]()
+    var arrTrainingType = [String] ()
     var arrnewSelectedskill = [[String:AnyObject]]()
     var arrSelectedSkill = [String]()
     var Training_type:String = ""
     var Liability_insurence:String = ""
-     var CreateDict:[String:AnyObject]=[:]
+    var CreateDict:[String:AnyObject]=[:]
     var ProfileImageData : NSData?
     var picked_image:UIImage?=nil
     var traine_profile_id:String="0"
     var TrainerEdit:String=""
+    var GroupTrainerType:String=""
+   var GroupTrainerTMember:String="0"
+    
+    @IBOutlet var Training_type_lbl_view: UILabel!
+    @IBOutlet var Individualview: UIView!
+    @IBOutlet var groupNumber_txt: UITextField!
+    @IBOutlet var Liability_view: UIView!
     @IBOutlet var create_scorllview: UIScrollView!
     override func viewDidLoad() {
         super.viewDidLoad()
         UITextField.appearance().tintColor = UIColor.white
         self.ViewReCoordination()
+        self.addDoneButtonOnKeyboard()
           self.JsonForFetch()
         // Do any additional setup after loading the view.
         Skill_table.isHidden=true
@@ -66,6 +79,8 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                                                                          attributes: [NSForegroundColorAttributeName: UIColor.white])
         Instuite_name.attributedPlaceholder = NSAttributedString(string: "Institute Name",
                                                                         attributes: [NSForegroundColorAttributeName: UIColor.white])
+        self.groupNumber_txt.attributedPlaceholder = NSAttributedString(string: " Type Maximum Group Member",
+                                                                 attributes: [NSForegroundColorAttributeName: UIColor.white])
         print("Trainer Edit=",self.TrainerEdit)
         if self.TrainerEdit=="yes"{
         Back_btn.isHidden=false
@@ -75,14 +90,16 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
             Back_btn.isHidden=true
             Back_image.isHidden=true
         }
-    /*    let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        self.skill_collectionview.collectionViewLayout = layout*/
-
+        
+        self.groupNumber_txt.layer.cornerRadius = 10.0
+        self.groupNumber_txt.layer.borderWidth = 2.0
+        self.groupNumber_txt.layer.borderColor=UIColor.white.cgColor
+    
+        
     }
     
     func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        //Causes thew (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     
@@ -118,7 +135,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
             Certificate_tableview.isHidden=true
              CertificateView.frame=CGRect.init(x: Additional_Skill_view.frame.origin.x, y: Additional_Skill_view.frame.origin.y+Additional_Skill_view.frame.size.height+15, width: CertificateView.frame.size.width, height: CertificateView.frame.size.height)
              Training_type_view.frame=CGRect.init(x: CertificateView.frame.origin.x, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+15, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
-            Size.height=(Additional_Skill_view.frame.size.height+CertificateView.frame.size.height+Training_type_view.frame.size.height+80.0)
+                       Size.height=(Additional_Skill_view.frame.size.height+CertificateView.frame.size.height+Training_type_view.frame.size.height+80.0)
             print("Height",Size.height)
         }
         else{
@@ -147,6 +164,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                
                  Training_type_view.frame=CGRect.init(x: 0, y: Certificate_tableview.frame.origin.y+Certificate_tableview.frame.size.height+15, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
                  Size.height=(Additional_Skill_view.frame.size.height+CertificateView.frame.size.height+Training_type_view.frame.size.height+100.0+skill_table.height+Certificate_table.height)
+                
                 print("Height",Size.height)
             }
             else{
@@ -184,17 +202,29 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                     Training_type_view.frame=CGRect.init(x: 0, y: CertificateView.frame.origin.y+CertificateView.frame.size.height+15, width: Training_type_view.frame.size.width, height: Training_type_view.frame.size.height)
                      Size.height=(Additional_Skill_view.frame.size.height+CertificateView.frame.size.height+Training_type_view.frame.size.height+100.0+skill_table.height)
                     print("Height=",Size.height)
+                    
                               }
 
             }
                    }
         
       if Skill_table.contentSize.height>111.0 || Certificate_tableview.contentSize.height>111.0{
-         create_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height:820.0)
+         create_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height:950.0)
          }
          else{
-         create_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height:700.0)
+         create_scorllview.contentSize = CGSize.init(width: self.view.frame.size.width, height:850.0)
          }
+        if GroupTrainerType=="group"{
+            self.groupNumber_txt.isHidden=false
+            self.groupNumber_txt.frame=CGRect.init(x: 15.0, y: self.Individualview.frame.size.height+42, width: self.groupNumber_txt.frame.size.width, height: self.groupNumber_txt.frame.size.height)
+            
+            self.Liability_view.frame=CGRect.init(x: 0.0, y: self.Individualview.frame.size.height+42+self.groupNumber_txt.frame.size.height+5, width: self.Liability_view.frame.size.width, height: self.Liability_view.frame.size.height)
+        }
+        else{
+            self.groupNumber_txt.isHidden=true
+            self.Liability_view.frame=CGRect.init(x: 0.0, y: self.Individualview.frame.size.height+42, width: self.Liability_view.frame.size.width, height: self.Liability_view.frame.size.height)
+        }
+
       
     }
     
@@ -208,18 +238,39 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         if textField==CertificateName_txt{
             self.animateViewMoving(up: true, moveValue: 150.0)
         }
-        else if textField==Instuite_name{
+        
+         if textField==Instuite_name{
             self.animateViewMoving(up: true, moveValue: 200.0)
         }
+        
+         if textField==Additional_skill_text{
+            self.animateViewMoving(up: true, moveValue: 150.0)
+        }
+        
+        if textField==groupNumber_txt{
+            self.animateViewMoving(up: true, moveValue: 200.0)
+        }
+        
     }
     @available(iOS 10.0, *)
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         if textField==CertificateName_txt{
             self.animateViewMoving(up: false, moveValue: 150.0)
         }
-        else if textField==Instuite_name{
+        
+       if textField==Instuite_name{
             self.animateViewMoving(up: false, moveValue: 200.0)
-        }    }
+        }
+        
+      if textField==Additional_skill_text
+        {
+            self.animateViewMoving(up: false, moveValue: 150.0)
+        }
+        
+        if textField==groupNumber_txt{
+            self.animateViewMoving(up: false, moveValue: 200.0)
+        }
+    }
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -239,6 +290,28 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
        
         return IsDone
     }
+    func doneButtonAction() {
+        
+        self.groupNumber_txt.resignFirstResponder()
+    }
+    
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        doneToolbar.barStyle       = UIBarStyle.default
+        let flexSpace              = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem  = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        
+        var items = [UIBarButtonItem]()
+        items.append(flexSpace)
+        items.append(done)
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        
+        self.groupNumber_txt.inputAccessoryView = doneToolbar
+    }
+    
     func animateViewMoving (up:Bool, moveValue :CGFloat){
         let movementDuration:TimeInterval = 0.3
         let movement:CGFloat = ( up ? -moveValue : moveValue)
@@ -255,7 +328,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     //For image Picker Function controller++++++++++++++++++*************************************
      public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            profile_image.contentMode = .scaleToFill
+            profile_image.contentMode = .scaleAspectFit
             profile_image.image = pickedImage
            // self.CallingForImageUpload()
             self.uploadWithAlamofire()
@@ -456,22 +529,35 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                                     self.profile_image.image=image
                                 }
                             }
-                            let trainer_type:String=((response.result.value as AnyObject).value(forKey: "trainer_type") as? String)!
-                           
-                           
-                            if trainer_type=="individual"{
-                            self.Invidual_selectBtn.image=UIImage.init(named: "radio-select.png")
-                                self.Training_type="individual"
-                            }
-                            if trainer_type=="tandem"{
-                               self.Tandem_selectBtn.image=UIImage.init(named: "radio-select.png")
-                                self.Training_type="tandem"
-                            }
-                            if trainer_type=="group"{
+                            self.arrSelectedTrainingType=(response.result.value as AnyObject).value(forKey: "trainer_type") as! [[String:AnyObject]]
+                            
+                            
+                            for  index in stride(from: 0, to:  (self.arrSelectedTrainingType.count), by: 1){
+                            let trainer_type=(self.arrSelectedTrainingType[index] as AnyObject).value(forKey: "type") as! String
+                                print(trainer_type)
+                                if trainer_type=="individual"{
+                                self.Invidual_selectBtn.image=UIImage.init(named: "radio-select.png")
+                                self.arrTrainingType.append("individual")
+                                    self.IndividualBtn.isSelected=true
+                                }
+                                if trainer_type=="tandem"{
+                                self.Tandem_selectBtn.image=UIImage.init(named: "radio-select.png")
+                                self.arrTrainingType.append("tandem")
+                                 self.Tandem_Btn.isSelected=true
+                                }
+                                if trainer_type=="group"{
+                                    self.GroupTrainerType="group"
+                                    self.GroupTrainerTMember=String(describing: ((response.result.value as AnyObject).value(forKey: "max_group_members") as! NSNumber))
+                                    self.groupNumber_txt.text=self.GroupTrainerTMember
+                                    
                                 self.GroupImageview.image=UIImage.init(named: "radio-select.png")
-                                self.Training_type="group"
+                                self.arrTrainingType.append("group")
+                                    self.Group_btn.isSelected=true
+                                }
+                            
                             }
                             
+                         
                             self.arrCertificateSkill=(response.result.value as AnyObject).value(forKey: "certificate") as! [[String:AnyObject]]
                              //self.arrSelectedSkill=(response.result.value as! String).value(forKey: "skill") as! String
                             self.ArradditionalSkill=(response.result.value as AnyObject).value(forKey: "trainerOtherSkill") as! [[String:AnyObject]]
@@ -500,23 +586,40 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
         if arrSelectedSkill.isEmpty==true {
             presentAlertWithTitle(title: "alert", message: "Select your Skill")
         }
-        else if ArradditionalSkill.isEmpty==true{
-            presentAlertWithTitle(title: "alert", message: "Select your Additional Skill")
-        }
+        
         else if arrCertificateSkill.isEmpty==true{
             presentAlertWithTitle(title: "alert", message: "Select your Certificate")
         }
-        else if Training_type == ""{
+        else if arrTrainingType.isEmpty == true{
             presentAlertWithTitle(title: "alert", message: "Select your Training Type")
         }
+        
+            
         else{
             // Fbdetails = ["email" : email as AnyObject, "facebook_id" :fbid as AnyObject, "device_token" : "" as AnyObject ,"login_type" :"facebook"  as AnyObject,"name" :name as AnyObject,"fb_image" :picture as AnyObject,"fb_link" :profile_url as AnyObject,"user_type" :user_type as AnyObject ]
-            let userDefaults = Foundation.UserDefaults.standard
-            let User_id:String = userDefaults.string(forKey: "user_id")!
+             if arrTrainingType.contains("group"){
+                if self.groupNumber_txt.text=="0" || self.groupNumber_txt.text==""{
+                    self.presentAlertWithTitle(title: "Alert", message: "Write your maximum group member")
+                }
+                else{
+                    let userDefaults = Foundation.UserDefaults.standard
+                    let User_id:String = userDefaults.string(forKey: "user_id")!
+                    
+                    CreateDict = ["skill" : arrSelectedSkill as AnyObject,"additionalSkill" : ArradditionalSkill as AnyObject,"certificate" : arrCertificateSkill as AnyObject,"liability_insurance" : Liability_insurence as AnyObject,"trainer_type" : arrTrainingType as AnyObject,"trainer_id" : User_id as AnyObject,"max_group_members" : self.groupNumber_txt.text as AnyObject ]
+                    let URL:String = Constants.Base_url+"createTrainerInfoStep1"
+                    self.CreateTrainerJson(jsonString: CreateDict, url: URL)
+                }
+            }
+                
+            else{
+                let userDefaults = Foundation.UserDefaults.standard
+                let User_id:String = userDefaults.string(forKey: "user_id")!
+                self.groupNumber_txt.text="0"
+                CreateDict = ["skill" : arrSelectedSkill as AnyObject,"additionalSkill" : ArradditionalSkill as AnyObject,"certificate" : arrCertificateSkill as AnyObject,"liability_insurance" : Liability_insurence as AnyObject,"trainer_type" : arrTrainingType as AnyObject,"trainer_id" : User_id as AnyObject,"max_group_members" : self.groupNumber_txt.text as AnyObject ]
+                let URL:String = Constants.Base_url+"createTrainerInfoStep1"
+                self.CreateTrainerJson(jsonString: CreateDict, url: URL)
+            }
             
-            CreateDict = ["skill" : arrSelectedSkill as AnyObject,"additionalSkill" : ArradditionalSkill as AnyObject,"certificate" : arrCertificateSkill as AnyObject,"liability_insurance" : Liability_insurence as AnyObject,"trainer_type" : Training_type as AnyObject,"trainer_id" : User_id as AnyObject ]
-            let URL:String = Constants.Base_url+"createTrainerInfoStep1"
-            self.CreateTrainerJson(jsonString: CreateDict, url: URL)
         }
         
         
@@ -553,6 +656,7 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                         
                         
                         if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
+                            
                             
                         /*    self.arrnewSelectedskill=(response.result.value as AnyObject).value(forKey: "skill") as! [[String:AnyObject]]
                             // print((self.arrnewSelectedskill[0] as AnyObject).value(forKey: "id") as! String)
@@ -683,12 +787,12 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
                             print("Response",response.result.value!)
                              SVProgressHUD.dismiss()
                             if (response.result.value as AnyObject).value(forKey: "status")as! NSNumber==0{
-                                let url:String=((response.result.value as AnyObject).value(forKey: "image") as? String)!
+                                let url:String=((response.result.value as AnyObject).value(forKey: "                        ") as? String)!
                                 Alamofire.request(url).responseImage { response in
-                                    debugPrint(response)
+                                   // debugPrint(response)
                                     
                                     
-                                    debugPrint(response.result)
+                                   // debugPrint(response.result)
                                     
                                     if let image = response.result.value {
                                         print("image downloaded: \(image)")
@@ -792,28 +896,102 @@ class TrainerCreateController: UIViewController,UICollectionViewDataSource,UICol
     @IBAction func DidTabGroupBtn(_ sender: Any) {
         
         self.view.endEditing(true)
-        Training_type="group"
-        GroupImageview.image=UIImage.init(named: "radio-select.png")
-         Tandem_selectBtn.image=UIImage.init(named: "radio-unselect.png")
-         Invidual_selectBtn.image=UIImage.init(named: "radio-unselect.png")
+        Group_btn.isSelected = !Group_btn.isSelected
+        if(Group_btn.isSelected == true)
+        {
+           // Group_btn.setImage(UIImage(named:"select_heart"), for: UIControlState.normal)
+            print("selected")
+            self.GroupTrainerType = "group"
+           arrTrainingType.append("group")
+            Group_btn.isSelected=true
+            GroupImageview.image=UIImage.init(named: "radio-select.png")
+                        print(arrTrainingType)
+                self.groupNumber_txt.isHidden=false
+                self.groupNumber_txt.frame=CGRect.init(x: 15.0, y: self.Individualview.frame.size.height+42, width: self.groupNumber_txt.frame.size.width, height: self.groupNumber_txt.frame.size.height)
+                self.Liability_view.frame=CGRect.init(x: 0.0, y: self.Individualview.frame.size.height+42+self.groupNumber_txt.frame.size.height+5, width: self.Liability_view.frame.size.width, height: self.Liability_view.frame.size.height)
+            
+        }
+        else
+            
+        {
+          //  Group_btn.setImage(UIImage(named:"heart"), for: UIControlState.normal)
+             print("Not selected")
+            arrTrainingType.Delete(object: "group")
+            GroupImageview.image=UIImage.init(named: "radio-unselect.png")
+            Group_btn.isSelected=false
+            self.GroupTrainerType = ""
+            
+                self.groupNumber_txt.isHidden=true
+            
+                self.Liability_view.frame=CGRect.init(x: 0.0, y: self.Individualview.frame.size.height+42, width: self.Liability_view.frame.size.width, height: self.Liability_view.frame.size.height)
+            
+             print(arrTrainingType)
+        }
+        
+        
+        
         
     }
     @IBAction func DidTabIndividualBtn(_ sender: Any) {
          self.view.endEditing(true)
          Training_type="individual"
-        GroupImageview.image=UIImage.init(named: "radio-unselect.png")
-        Tandem_selectBtn.image=UIImage.init(named: "radio-unselect.png")
-        Invidual_selectBtn.image=UIImage.init(named: "radio-select.png")
+        
+        
+        IndividualBtn.isSelected = !IndividualBtn.isSelected
+        if(IndividualBtn.isSelected == true)
+        {
+            // Group_btn.setImage(UIImage(named:"select_heart"), for: UIControlState.normal)
+            print("selected")
+            arrTrainingType.append("individual")
+            IndividualBtn.isSelected=true
+            Invidual_selectBtn.image=UIImage.init(named: "radio-select.png")
+            print(arrTrainingType)
+            self.Group_btn.setTitle("Group", for: .selected)
+            
+        }
+        else
+        {
+            //  Group_btn.setImage(UIImage(named:"heart"), for: UIControlState.normal)
+            print("Not selected")
+              arrTrainingType.Delete(object: "individual")
+            IndividualBtn.isSelected=false
+            
+            Invidual_selectBtn.image=UIImage.init(named: "radio-unselect.png")
+            print(arrTrainingType)
+        }
+        
+
+       
 
         
     }
     @IBAction func DidTabTandemBtn(_ sender: Any) {
          self.view.endEditing(true)
-        Training_type="tandem"
-        GroupImageview.image=UIImage.init(named: "radio-unselect.png")
-        Tandem_selectBtn.image=UIImage.init(named: "radio-select.png")
-        Invidual_selectBtn.image=UIImage.init(named: "radio-unselect.png")
+        Tandem_Btn.isSelected = !Tandem_Btn.isSelected
+        if(Tandem_Btn.isSelected == true)
+            
+        {
+            // Group_btn.setImage(UIImage(named:"select_heart"), for: UIControlState.normal)
+            print("selected")
+            arrTrainingType.append("tandem")
+            Tandem_Btn.isSelected=true
+            
+            Tandem_selectBtn.image=UIImage.init(named: "radio-select.png")
+            print(arrTrainingType)
+            
+        }
+        else
+        {
+            //  Group_btn.setImage(UIImage(named:"heart"), for: UIControlState.normal)
+            print("Not selected")
+             Tandem_Btn.isSelected=false
+            arrTrainingType.Delete(object: "tandem")
+            
+          Tandem_selectBtn.image=UIImage.init(named: "radio-unselect.png")
+            print(arrTrainingType)
+        }
 
+       
     }
     
     @IBAction func DidTabRightArrowBtn(_ sender: Any) {

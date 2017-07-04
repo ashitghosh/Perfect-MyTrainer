@@ -14,8 +14,11 @@ import Alamofire
 import AlamofireImage
 import SVProgressHUD
 import AVFoundation
-class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate {
+class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate,UIAlertViewDelegate {
 
+    @IBOutlet var Facebook_imageview: UIImageView!
+    @IBOutlet var instagram_imageview: UIImageView!
+    @IBOutlet var Twitter_imageview: UIImageView!
     @IBOutlet var Upload_image_view: UIView!
     @IBOutlet var OkBtn: UIButton!
     @IBOutlet var wheelchair_access_switch: UISwitch!
@@ -29,11 +32,18 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     @IBOutlet var Tagline_txtView: UITextView!
     var placeholderLabel : UILabel!
     var Imagedict:[String:AnyObject] = [:]
-     var arrCollectionImages = [[String:AnyObject]] ()
-     var arrCollectionVideo = [[String:AnyObject]] ()
- 
+    var arrCollectionImages = [[String:AnyObject]] ()
+    var arrCollectionVideo = [[String:AnyObject]] ()
+    var arrUploadVideo = [[String:AnyObject]] ()
+    var arrUploadCollectionVideo = [[String:AnyObject]] ()
+    var fb_profile:String=""
+     var twitter_profile:String=""
+     var instagram_profile:String=""
     var arrVideo: [NSData] = []
     var arrImage: [NSData] = []
+    var arrVideoUrl:[String] = []
+    var Urlcount:NSInteger = 0
+    var DkassetCount:NSInteger = 0
     var UploadImageData:NSData? = nil
     var UploadVideodata:NSData? = nil
     let cameraManager = CameraManager()
@@ -68,12 +78,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         UITextView.appearance().tintColor = UIColor.white
         About_txt_view.text="Type Here"
         Tagline_txtView.text="Type Here"
-        OkBtn.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
-        self.OkBtn.layoutIfNeeded()
-         self.OkBtn.layer.masksToBounds = true
-         self.OkBtn.layer.cornerRadius =  self.OkBtn.frame.height/2
-         self.OkBtn.clipsToBounds = true
-         cameraButton.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
+                  cameraButton.CircleBtn(BorderColour: UIColor.clear, Radious: 0.0)
         Upload_image_btn.BtnRoundCorner(radious: 5.0, colour: UIColor.white)
         Upload_videoBtn.BtnRoundCorner(radious: 5.0, colour: UIColor.white)
         Upload_image_plus_lbl.Circlelabel(BorderColour: UIColor.clear, Radious: 0.0)
@@ -143,25 +148,16 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         // signUpDict = ["name" : (FullName_txt.text)! as AnyObject, "password" : (Password_txt.text)! as AnyObject,"email":Email_txt.text as AnyObject,"user_type":user_type as AnyObject, "device_token" : "" as AnyObject ]
             
                 if asset.isVideo {
-                    asset.fetchAVAssetWithCompleteBlock({(avAsset,info) in
-                        let urlAsset = avAsset as? AVURLAsset
-                       let video = try? Data(contentsOf: (urlAsset?.url)!)
-                   //    print(video as AnyObject)
-                        self.VideoCollectionView.isHidden=false
-                     self.arrVideo.append((video as AnyObject) as! NSData)
-                        self.Imagedict = ["sample" : "upload" as AnyObject, "trainer_video" : asset as AnyObject]
-                        self.arrCollectionVideo.append(self.Imagedict)
-                        
-                    })
+                    self.Imagedict = ["sample" : "upload" as AnyObject, "trainer_video" : asset as AnyObject]
+                    self.arrCollectionVideo.append(self.Imagedict)
+
            }
                     
                     
                 else{
-                    asset.fetchImageDataForAsset(true, completeBlock: {Data ,info in
-                        self.arrImage.append((Data as AnyObject) as! NSData)
-                          self.Imagedict = ["sample" : "upload" as AnyObject, "trainer_images" : asset as AnyObject]
-                        self.arrCollectionImages.append(self.Imagedict)
-                    })
+                    
+                    self.Imagedict = ["sample" : "upload" as AnyObject, "trainer_images" : asset as AnyObject]
+                    self.arrCollectionImages.append(self.Imagedict)
            }
             
             }
@@ -261,6 +257,92 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         // Dispose of any resources that can be recreated.
     }
     
+    func verifyUrl (urlString: String?) -> Bool {
+        //Check for nil
+        if let urlString = urlString {
+            // create NSURL instance
+            if let url = NSURL(string: urlString) {
+                // check if your application can open the NSURL instance
+                return UIApplication.shared.canOpenURL(url as URL)
+            }
+        }
+        return false
+    }
+    
+    func JsonForSocialUrl(Url:String,social_type:String)  {
+        if verifyUrl(urlString: Url)==false {
+           self.presentAlertWithTitle(title: "Alert", message: "Write a valid url")
+        }
+        else{
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+            SVProgressHUD.show()
+            var poststring:String?
+            
+            let userDefaults = Foundation.UserDefaults.standard
+            let User_id:String = userDefaults.string(forKey: "user_id")!
+           
+            
+            let parameters = ["trainer_id": User_id,"account_type":social_type,"link":Url]
+            let Url:String=Constants.Base_url+"insertSocialLink"
+            
+            if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
+                poststring = String(data: json, encoding: String.Encoding.utf8)!
+                // print(poststring)
+                if  poststring == String(data: json, encoding: String.Encoding.utf8)! {
+                    // here `content` is the JSON dictionary containing the String
+                    print(poststring as AnyObject)
+                }
+            }
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+            SVProgressHUD.show()
+            Alamofire.request(Url, method:.post, parameters: parameters, encoding: JSONEncoding.default)
+                .responseJSON { response in
+                    
+                    
+                    //to get status code
+                    if let status = response.response?.statusCode {
+                        print("Status = ",status);
+                        switch(status){
+                        case 200:
+                            print( "Json  return for Fetch= ",response)
+                            SVProgressHUD.dismiss()
+                            //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
+                            
+                            if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0  {
+                                SVProgressHUD.dismiss()
+                                /*   facebook-hover.png,facebook_connect.png
+                                 instragram_connect.png,instragram-hover.png
+                                 twitter_connect.png,twitter_hover.png*/
+                                if social_type=="facebook"{
+                                self.Facebook_imageview.image=UIImage.init(named: "facebook-hover.png")
+                                }
+                                if social_type=="twitter"{
+                                    self.Twitter_imageview.image=UIImage.init(named: "twitter_connect.png")
+                                }
+                                if social_type=="instagram"{
+                                    self.instagram_imageview.image=UIImage.init(named: "instragram-hover.png")
+                                }
+                                
+                            }
+                            if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 1  {
+                                SVProgressHUD.dismiss()
+                                
+                            }
+                            else{
+                                
+                                SVProgressHUD.dismiss()
+                            }
+                            
+                        default:
+                            print("error with response status: \(status)")
+                            SVProgressHUD.dismiss()
+                        }
+                    }
+            }
+
+        }
+    }
+    
     
     func JsonForFetch()  {
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
@@ -335,6 +417,34 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                             else{
                               self.wheelchair_access_switch.setOn(true, animated: true)
                             }
+                            
+                         /*   facebook-hover.png,facebook_connect.png
+                            instragram_connect.png,instragram-hover.png
+                            twitter_connect.png,twitter_hover.png*/
+                            self.fb_profile=((response.result.value as AnyObject).value(forKey: "fb_profile_link") as? String)!
+                            if self.fb_profile==""{
+                            self.Facebook_imageview.image=UIImage.init(named: "facebook_connect.png")
+                            }
+                            else{
+                             self.Facebook_imageview.image=UIImage.init(named: "facebook-hover.png")
+                            }
+                            
+                             self.twitter_profile=((response.result.value as AnyObject).value(forKey: "twitter_profile_link") as? String)!
+                            if self.twitter_profile==""{
+                                self.Twitter_imageview.image=UIImage.init(named: "twitter_hover.png")
+                            }
+                            else{
+                                self.Twitter_imageview.image=UIImage.init(named: "twitter_connect.png")
+                            }
+                             self.instagram_profile=((response.result.value as AnyObject).value(forKey: "instagram_profile_link") as? String)!
+                            if self.instagram_profile==""{
+                                self.instagram_imageview.image=UIImage.init(named: "instragram_connect.png")
+                            }
+                            else{
+                                self.instagram_imageview.image=UIImage.init(named: "instragram-hover.png")
+                            }
+
+                            
                         }
               else{
                             SVProgressHUD.dismiss()
@@ -350,101 +460,370 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     }
     
     
+    func DeleteImageAndVideo(imageOrvideo:String,id:NSNumber,url:String)  {
+       
+            
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+            SVProgressHUD.show()
+            var poststring:String?
+            
+       
+            
+            let parameters = [imageOrvideo: id]
+            let Url:String=Constants.Base_url+url
+            
+            if let json = try? JSONSerialization.data(withJSONObject: parameters, options: []) {
+                poststring = String(data: json, encoding: String.Encoding.utf8)!
+                // print(poststring)
+                if  poststring == String(data: json, encoding: String.Encoding.utf8)! {
+                    // here `content` is the JSON dictionary containing the String
+                    print(poststring as AnyObject)
+                }
+            }
+            SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+            SVProgressHUD.show()
+            Alamofire.request(Url, method:.post, parameters: parameters, encoding: JSONEncoding.default)
+                .responseJSON { response in
+                    
+                    //to get status code
+                    if let status = response.response?.statusCode {
+                        print("Status = ",response.result.value as AnyObject);
+                        
+                        switch(status){
+                        case 200:
+                            print( "Json  return for Fetch= ",response)
+                            SVProgressHUD.dismiss()
+                            //      let isError:String=(response.result.value as AnyObject).value(forKey: "is_error" ) as! String
+                            
+                            if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0  {
+                                SVProgressHUD.dismiss()
+                               
+                            }
+                                
+                            else{
+                                
+                                SVProgressHUD.dismiss()
+                            }
+                            
+                        default:
+                            print("error with response status: \(status)")
+                            SVProgressHUD.dismiss()
+                        }
+                    }
+            }
+            
+        
+
+    }
+    
+    
+    func convertDkassetToAvasset(count:NSInteger){
+        let asset:DKAsset = ((self.arrUploadVideo[count] as AnyObject).value(forKey: "trainer_video") as AnyObject) as! DKAsset
+         
+         asset.fetchAVAssetWithCompleteBlock({(avAsset,info) in
+         
+            
+         print("avAsset",avAsset!)
+         let asset = avAsset as! AVURLAsset
+         //   let url = NSURL(string: asset.url.absoluteString)
+         print("Absoulute url", asset.url.absoluteString)
+         print("Reletive url", asset.url.relativePath)
+         //let catPictureURL = URL(string: asset.url.absoluteString)!
+         self.arrVideoUrl.append(asset.url.absoluteString)
+         print("arr video url",self.arrVideoUrl);
+         self.DkassetCount = self.DkassetCount+1
+            let urlAsset = avAsset as? AVURLAsset
+            let video = try? Data(contentsOf: (urlAsset?.url)!)
+            self.arrVideo.append((video as AnyObject) as! NSData)
+            print("dk asset count =",self.DkassetCount)
+            if self.DkassetCount<self.arrUploadVideo.count{
+            self.convertDkassetToAvasset(count: self.DkassetCount)
+            }
+            else{
+         
+              //  self.videoDownload(count: 0)
+                print("count=",self.arrVideo.count)
+                self.UploadNew()
+                
+            }
+         
+         
+         })
+    }
+    
+    func UploadNew() {
+        let userDefaults = Foundation.UserDefaults.standard
+         let User_id:String = userDefaults.string(forKey: "user_id")!
+         let photo_count = String(self.arrImage.count)
+         let video_count = String(self.arrVideo.count)
+         print(photo_count,video_count)
+         
+         // let parameters = ["trainer_id": "7" ,"trainer_info_id": "3","tagline": "new tagline","about": "now about","iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
+         let parameters = ["trainer_id": User_id ,"tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
+         print("parameter",parameters)
+         let Url:String=Constants.Base_url+"createTrainerInfoStep2"
+         Alamofire.upload(multipartFormData: { multipartFormData in
+         if self.arrImage.isEmpty==true && self.arrVideo.isEmpty==true{
+         
+         }
+         else{
+         if self.arrImage.isEmpty==false{
+         
+         for  index in stride(from: 0, to:  (self.arrImage.count), by: 1){
+         
+         let data:NSData = self.arrImage[index]
+         
+         // let asset = self.assets![index]
+         // self.uploadImage?.image=UIImage.init(data: data as Data)
+         if let imageData = UIImageJPEGRepresentation(UIImage.init(data: data as Data)!, 1) {
+         
+         let file_name : String="file"+String(index+1)+".jpeg"
+         let Photo : String="photo_"+String(index+1)
+         print(Photo)
+         print(file_name)
+         multipartFormData.append(imageData, withName: Photo, fileName: file_name, mimeType: "image/jpeg")
+         print("New Image")
+         
+         
+         //  multipartFormData.append(ImageData, withName: "photo", fileName:"file.jpeg" , mimeType: "image/jpeg")
+         }
+         }
+         }
+         if self.arrVideo.isEmpty==false{
+         for  index in stride(from: 0, to:  (self.arrVideo.count), by: 1){
+         
+         let data:Data = self.arrVideo[index] as Data
+         // let asset = self.assets![index]
+         // self.uploadImage?.image=UIImage.init(data: data as Data)
+         var movieData:Data?
+         movieData=data as Data
+         
+         let file_name : String="file"+String(index+1)+".mp4"
+         let Photo : String="video_"+String(index+1)
+         print(Photo)
+         print(file_name)
+         multipartFormData.append(movieData!, withName: Photo, fileName: file_name, mimeType: "video/mp4")
+         print("New video")
+         }
+         }
+         
+         }
+         
+         for (key, value) in parameters {
+         multipartFormData.append((value.data(using: .utf8))!, withName: key)
+         }
+         },
+         to:Url, method: .post, headers: ["Authorization": "auth_token"],
+         encodingCompletion: { encodingResult in
+         switch encodingResult {
+         case .success(let upload, _, _):
+         
+         print("Upload success")
+         upload.responseJSON { response in
+         
+         print("Response",response.result.value as AnyObject)
+         
+         SVProgressHUD.dismiss()
+         
+         
+         if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
+         SVProgressHUD.dismiss()
+         self.arrCollectionVideo.removeAll()
+         self.arrCollectionImages.removeAll()
+         self.arrVideo.removeAll()
+         self.arrImage.removeAll()
+         let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerAboutController") as! TrainerAboutController
+         self.navigationController?.pushViewController(vc, animated: true)
+         }
+         else{
+         SVProgressHUD.dismiss()
+         }
+         }
+         
+         
+         case .failure(let encodingError):
+         print("error:\(encodingError)")
+         SVProgressHUD.dismiss()
+         }
+         })
+  
+    }
+    
+    func videoDownload(count:NSInteger){
+        let catPictureURL = URL(string: self.arrVideoUrl[count])!
+        
+        let session = URLSession(configuration: .default)
+        
+         // Define a download task. The download task will download the contents of the URL as a Data object and then you can do what you wish with that data.
+         let downloadPicTask = session.dataTask(with: catPictureURL) { (data, response, error) in
+         // The download has finished.
+         if let e = error {
+         print("Error downloading cat picture: \(e)")
+            self.videoDownload(count: self.Urlcount)
+         }
+         else {
+         //self.arrVideo.append((data as AnyObject) as! NSData)
+         print("data",data!);
+         let sourceNSData = data! as NSData
+         self.arrVideo.append(sourceNSData)
+            if self.Urlcount<self.arrVideoUrl.count{
+            self.Urlcount=self.Urlcount+1
+             print("url count=",self.Urlcount)
+                self.videoDownload(count: self.Urlcount)
+            }
+            else{
+                print("arrvideo count=",self.arrVideo.count)
+            SVProgressHUD.dismiss()
+            }
+         //print("data",sourceNSData)
+         // No errors found.
+         // It would be weird if we didn't have a response, so check for that too.
+         
+         }
+         }
+        
+         downloadPicTask.resume()
+        
+        
+
+    }
+
+
     func uploadWithAlamofire() {
         
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
         SVProgressHUD.show()
+        self.arrVideo.removeAll()
+        self.arrUploadVideo.removeAll()
+        self.arrImage.removeAll()
         // define parameters
-        let userDefaults = Foundation.UserDefaults.standard
-          let User_id:String = userDefaults.string(forKey: "user_id")!
-        let photo_count = String(self.arrImage.count)
-        let video_count = String(self.arrVideo.count)
-        print(photo_count)
-        
-        // let parameters = ["trainer_id": "7" ,"trainer_info_id": "3","tagline": "new tagline","about": "now about","iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
-        let parameters = ["trainer_id": User_id ,"tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
-        print("parameter",parameters)
-        let Url:String=Constants.Base_url+"createTrainerInfoStep2"
-        Alamofire.upload(multipartFormData: { multipartFormData in
-            if self.arrImage.isEmpty==true && self.arrVideo.isEmpty==true{
-            
-            }
-            else{
-                if self.arrImage.isEmpty==false{
-                    
-                    for  index in stride(from: 0, to:  (self.arrImage.count), by: 1){
-                        
-                        let data:NSData = self.arrImage[index]
-                        
-                        // let asset = self.assets![index]
-                        // self.uploadImage?.image=UIImage.init(data: data as Data)
-                        if let imageData = UIImageJPEGRepresentation(UIImage.init(data: data as Data)!, 1) {
-                            
-                            let file_name : String="file"+String(index+1)+".jpeg"
-                            let Photo : String="photo_"+String(index+1)
-                            print(Photo)
-                            print(file_name)
-                            multipartFormData.append(imageData, withName: Photo, fileName: file_name, mimeType: "image/jpeg")
-                            print("New Image")
-                            
-                            
-                            //  multipartFormData.append(ImageData, withName: "photo", fileName:"file.jpeg" , mimeType: "image/jpeg")
-                        }
-                    }
-                }
-                if self.arrVideo.isEmpty==false{
-                    for  index in stride(from: 0, to:  (self.arrVideo.count), by: 1){
-                        
-                        let data:Data = self.arrVideo[index] as Data
-                        // let asset = self.assets![index]
-                        // self.uploadImage?.image=UIImage.init(data: data as Data)
-                        var movieData:Data?
-                        movieData=data as Data
-                        
-                        let file_name : String="file"+String(index+1)+".mp4"
-                        let Photo : String="video_"+String(index+1)
-                        print(Photo)
-                        print(file_name)
-                        multipartFormData.append(movieData!, withName: Photo, fileName: file_name, mimeType: "video/mp4")
-                        print("New video")
-                    }
-                }
+        for  index in stride(from: 0, to:  (self.arrCollectionVideo.count), by: 1){
+            let sample = (self.arrCollectionVideo[index] as AnyObject).value(forKey: "sample") as! String
+            print(sample)
+            if sample=="upload"{
+                self.arrUploadVideo.append(self.arrCollectionVideo[index])
+                print("Upload video file",self.arrUploadVideo)
+               
 
             }
-            
-            for (key, value) in parameters {
-                multipartFormData.append((value.data(using: .utf8))!, withName: key)
+        }
+       
+        
+        for  index in stride(from: 0, to:  (self.arrCollectionImages.count), by: 1){
+            let sample = (self.arrCollectionImages[index] as AnyObject).value(forKey: "sample") as! String
+            print(sample)
+            if sample=="upload"{
+                let asset:DKAsset = ((self.arrCollectionImages[index] as AnyObject).value(forKey: "trainer_images") as AnyObject) as! DKAsset
+                asset.fetchImageDataForAsset(true, completeBlock: {Data ,info in
+                    self.arrImage.append((Data as AnyObject) as! NSData)
+                   
+                })
             }
-        },
-                         to:Url, method: .post, headers: ["Authorization": "auth_token"],
-                         encodingCompletion: { encodingResult in
-                            switch encodingResult {
-                            case .success(let upload, _, _):
+            
+        }
+        
+        
+        if self.arrUploadVideo.isEmpty==false{
+        self.convertDkassetToAvasset(count: 0)
+        }
+        else{
+            let userDefaults = Foundation.UserDefaults.standard
+            let User_id:String = userDefaults.string(forKey: "user_id")!
+            let photo_count = String(self.arrImage.count)
+            let video_count = String(self.arrVideo.count)
+            print(photo_count,video_count)
+            
+            // let parameters = ["trainer_id": "7" ,"trainer_info_id": "3","tagline": "new tagline","about": "now about","iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
+            let parameters = ["trainer_id": User_id ,"tagline": Tagline_txtView.text!,"about": About_txt_view.text!,"iswheelchair": Wheel_chair,"photo_count": photo_count,"video_count": video_count]
+            print("parameter",parameters)
+            let Url:String=Constants.Base_url+"createTrainerInfoStep2"
+            Alamofire.upload(multipartFormData: { multipartFormData in
+                if self.arrImage.isEmpty==true && self.arrVideo.isEmpty==true{
+                    
+                }
+                else{
+                    if self.arrImage.isEmpty==false{
+                        
+                        for  index in stride(from: 0, to:  (self.arrImage.count), by: 1){
+                            
+                            let data:NSData = self.arrImage[index]
+                            
+                            // let asset = self.assets![index]
+                            // self.uploadImage?.image=UIImage.init(data: data as Data)
+                            if let imageData = UIImageJPEGRepresentation(UIImage.init(data: data as Data)!, 1) {
                                 
-                                print("Upload success")
-                                upload.responseJSON { response in
-                                    print("Response",response.result.value!)
-                                    SVProgressHUD.dismiss()
-                                    
-                                    
-                               if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
-                                        SVProgressHUD.dismiss()
-                                self.arrCollectionVideo.removeAll()
-                                self.arrCollectionImages.removeAll()
-                                let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerAboutController") as! TrainerAboutController
-                                self.navigationController?.pushViewController(vc, animated: true)
-                               }
-                                    else{
-                                        SVProgressHUD.dismiss()
-                                    }
-                                }
+                                let file_name : String="file"+String(index+1)+".jpeg"
+                                let Photo : String="photo_"+String(index+1)
+                                print(Photo)
+                                print(file_name)
+                                multipartFormData.append(imageData, withName: Photo, fileName: file_name, mimeType: "image/jpeg")
+                                print("New Image")
                                 
                                 
-                            case .failure(let encodingError):
-                                print("error:\(encodingError)")
-                                SVProgressHUD.dismiss()
+                                //  multipartFormData.append(ImageData, withName: "photo", fileName:"file.jpeg" , mimeType: "image/jpeg")
                             }
-        })
+                        }
+                    }
+                    if self.arrVideo.isEmpty==false{
+                        for  index in stride(from: 0, to:  (self.arrVideo.count), by: 1){
+                            
+                            let data:Data = self.arrVideo[index] as Data
+                            // let asset = self.assets![index]
+                            // self.uploadImage?.image=UIImage.init(data: data as Data)
+                            var movieData:Data?
+                            movieData=data as Data
+                            
+                            let file_name : String="file"+String(index+1)+".mp4"
+                            let Photo : String="video_"+String(index+1)
+                            print(Photo)
+                            print(file_name)
+                            multipartFormData.append(movieData!, withName: Photo, fileName: file_name, mimeType: "video/mp4")
+                            print("New video")
+                        }
+                    }
+                    
+                }
+                
+                for (key, value) in parameters {
+                    multipartFormData.append((value.data(using: .utf8))!, withName: key)
+                }
+            },
+                             to:Url, method: .post, headers: ["Authorization": "auth_token"],
+                             encodingCompletion: { encodingResult in
+                                switch encodingResult {
+                                case .success(let upload, _, _):
+                                    
+                                    print("Upload success")
+                                    upload.responseJSON { response in
+                                        
+                                        print("Response",response.result.value as AnyObject)
+                                        
+                                        SVProgressHUD.dismiss()
+                                        
+                                        
+                                        if (response.result.value as AnyObject).value(forKey: "status") as? NSNumber == 0 {
+                                            SVProgressHUD.dismiss()
+                                            self.arrCollectionVideo.removeAll()
+                                            self.arrCollectionImages.removeAll()
+                                            self.arrVideo.removeAll()
+                                            self.arrImage.removeAll()
+                                            let vc = self.storyboard!.instantiateViewController(withIdentifier: "TrainerAboutController") as! TrainerAboutController
+                                            self.navigationController?.pushViewController(vc, animated: true)
+                                        }
+                                        else{
+                                            SVProgressHUD.dismiss()
+                                        }
+                                    }
+                                    
+                                    
+                                case .failure(let encodingError):
+                                    print("error:\(encodingError)")
+                                    SVProgressHUD.dismiss()
+                                }
+            })
+
+        }
+        
         
     }
 
@@ -468,7 +847,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         cell.layer.cornerRadius=10
         if collectionView==VideoCollectionView{
             let Id:String = ((self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "sample") as? String)!
-            
+            cell.Video_DeleteBtn.tag=indexPath.row
             if Id == "upload"{
                  let url:String = "http://ogmaconceptions.com/demo/my_perfect_trainer/img/video.jpeg"
                 Alamofire.request(url).responseImage { response in
@@ -487,6 +866,8 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                 
             }
             else{
+                
+                
                     let url:String = ((self.arrCollectionVideo[indexPath.row] as AnyObject).value(forKey: "video_image") as? String)!
                     print("video image",url)
                     Alamofire.request(url).responseImage { response in
@@ -506,7 +887,7 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
            
         }
         else{
-            
+            cell.DeleteBtn.tag=indexPath.row
             
             let Id:String = ((self.arrCollectionImages[indexPath.row] as AnyObject).value(forKey: "sample") as? String)!
             
@@ -675,6 +1056,8 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
         if cameraButton.isSelected {
             cameraManager.startRecordingVideo()
         } else {
+            
+            
                       cameraManager.stopVideoRecording({ (videoURL, error) -> Void in
               print("video url",videoURL as AnyObject)
            //     self.arrVideo.append(videoURL!)
@@ -694,7 +1077,9 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
                                 // It would be weird if we didn't have a response, so check for that too.
                                 if let res = response as? HTTPURLResponse {
                                     print("Downloaded cat picture with response code \(res.statusCode)")
-                                     self.arrVideo.append((data as AnyObject) as! NSData)
+                                   // let asset:DKAsset=data as!DKAsset
+                                  //  print(asset)
+                                 // self.arrVideo.append((data as AnyObject) as! NSData)
                                    
                                 } else {
                                     print("Couldn't get response code for some reason")
@@ -732,6 +1117,167 @@ class TrainerCreateProfileTwo: UIViewController,UICollectionViewDelegate,UIColle
     @IBAction func DidTabBackBtn(_ sender: Any) {
         self.view.endEditing(true)
         self.navigationController! .popViewController(animated: true)
+    }
+    
+    @IBAction func DidTabVideoDeleteBtn(_ sender: Any) {
+        let selectedIndex:NSInteger=(sender as AnyObject).tag
+        print(selectedIndex)
+        
+        let alertController = UIAlertController(title: "Alert", message: "Are you sure want to delete", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) {
+            (action: UIAlertAction) in print("Youve pressed OK Button")
+            print((self.arrCollectionImages[selectedIndex] as AnyObject))
+            let sample = (self.arrCollectionVideo[selectedIndex] as AnyObject).value(forKey: "sample") as! String
+            print(sample)
+            if sample=="upload"{
+                self.arrCollectionVideo.remove(at: selectedIndex)
+                self.VideoCollectionView.reloadData()
+            }
+            else{
+                let Id = (self.arrCollectionVideo[selectedIndex] as AnyObject).value(forKey: "id") as! NSNumber
+                self.arrCollectionVideo.remove(at: selectedIndex)
+                self.VideoCollectionView.reloadData()
+              // self.DeleteImageAndVideo(imageOrvideo: "trainer_video_id", id: Id)
+                self.DeleteImageAndVideo(imageOrvideo: "trainer_video_id", id: Id, url: "deleteTrainerVideo")
+            }
+
+        }
+        let NoAction = UIAlertAction(title: "No", style: .default) {
+            (action: UIAlertAction) in print("Youve pressed No Button")
+        }
+        alertController.addAction(OKAction)
+        alertController.addAction(NoAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func DidTabImageDeleteBtn(_ sender: Any) {
+        let selectedIndex:NSInteger=(sender as AnyObject).tag
+        print(selectedIndex)
+        
+        let alertController = UIAlertController(title: "Alert", message: "Are you sure want to delete", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) {
+            (action: UIAlertAction) in print("Youve pressed OK Button")
+            print((self.arrCollectionImages[selectedIndex] as AnyObject))
+            let sample = (self.arrCollectionImages[selectedIndex] as AnyObject).value(forKey: "sample") as! String
+            print(sample)
+            if sample=="upload"{
+            self.arrCollectionImages.remove(at: selectedIndex)
+                self.Image_collectionView.reloadData()
+             }
+            else{
+                let Id = (self.arrCollectionImages[selectedIndex] as AnyObject).value(forKey: "id") as! NSNumber
+                self.arrCollectionImages.remove(at: selectedIndex)
+                self.Image_collectionView.reloadData()
+                //self.DeleteImageAndVideo(imageOrvideo: "trainer_image_id", id: Id)
+                self.DeleteImageAndVideo(imageOrvideo: "trainer_image_id", id: Id, url: "deleteTrainerImages")
+            }
+        }
+        let NoAction = UIAlertAction(title: "No", style: .default) {
+            (action: UIAlertAction) in print("Youve pressed No Button")
+        }
+        alertController.addAction(OKAction)
+        alertController.addAction(NoAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func DidTabFaceBookSocialBtn(_ sender: Any) {
+        let alertController = UIAlertController(title: "Add Your Link", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: {
+            alert -> Void in
+            
+            let firstTextField = alertController.textFields![0] as UITextField
+            print(firstTextField.text!)
+            self.JsonForSocialUrl(Url: firstTextField.text!, social_type: "facebook")
+            
+            
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+            (action : UIAlertAction!) -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            self.fb_profile=firstTextField.text!
+        })
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter Facebook Profile Link"
+                  textField.text=self.fb_profile
+        }
+        
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    
+    @IBAction func DidTabSocialInstargramBtn(_ sender: Any) {
+        let alertController = UIAlertController(title: "Add Your Link", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: {
+            alert -> Void in
+            
+            let firstTextField = alertController.textFields![0] as UITextField
+            print(firstTextField.text!)
+            self.JsonForSocialUrl(Url: firstTextField.text!, social_type: "instagram")
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+            (action : UIAlertAction!) -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            self.instagram_profile=firstTextField.text!
+        })
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter instagram Profile Link"
+            textField.text=self.instagram_profile
+        }
+        
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+        
+    }
+    @IBAction func DidTabSocialTwitterBtn(_ sender: Any) {
+        let alertController = UIAlertController(title: "Add Your Link", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: {
+            alert -> Void in
+            
+            let firstTextField = alertController.textFields![0] as UITextField
+            print(firstTextField.text!)
+            self.JsonForSocialUrl(Url: firstTextField.text!, social_type: "twitter")
+            
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+            (action : UIAlertAction!) -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            self.twitter_profile=firstTextField.text!
+            
+        })
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter Twitter Profile Link"
+            textField.text=self.twitter_profile
+        }
+        
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+        
     }
     /*
     // MARK: - Navigation

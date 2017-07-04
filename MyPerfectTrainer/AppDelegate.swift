@@ -9,7 +9,8 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
-
+import StoreKit
+import Stripe
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
        // FBSDKLoginButton.classForCoder()
       //  FBSDKLoginButton.classForCoder()
+         STPPaymentConfiguration.shared().publishableKey = "pk_test_Lxc80a8dvPHwv9hGH4QTZjs7"
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     

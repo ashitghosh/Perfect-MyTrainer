@@ -14,6 +14,8 @@ import Alamofire
 import AlamofireImage
 import SVProgressHUD
 import AVFoundation
+import MapKit
+import CoreLocation
 
 class TrainerCreateFeedController: UIViewController,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -24,7 +26,9 @@ class TrainerCreateFeedController: UIViewController,UITextFieldDelegate,UITextVi
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var flashModeButton: UIButton!
     let cameraManager = CameraManager()
-    
+    var locManager = CLLocationManager()
+    var currentLocation: CLLocation!
+
     @IBOutlet var Description_Txtview: UITextView!
     @IBOutlet var title_text: UITextField!
     @IBOutlet var UploadImageOrVideo: UIImageView!
@@ -229,6 +233,20 @@ SendBtn.ButtonRoundCorner(radious: 8.0)
         SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
         SVProgressHUD.show()
         // define parameters
+        var latitudeText:String=""
+        var longitudeText:String=""
+        locManager.requestWhenInUseAuthorization()
+        
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+            CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+            currentLocation = locManager.location
+            print(currentLocation.coordinate.latitude)
+            print(currentLocation.coordinate.longitude)
+            latitudeText = String(format: "%f", currentLocation.coordinate.latitude)
+            longitudeText = String(format: "%f", currentLocation.coordinate.longitude)
+        }
+        
+        print(latitudeText,longitudeText)
         let userDefaults = Foundation.UserDefaults.standard
         let User_id:String = userDefaults.string(forKey: "user_id")!
         var file_type:String=""
@@ -246,7 +264,7 @@ SendBtn.ButtonRoundCorner(radious: 8.0)
             
 
         
-        let parameter = ["trainer_id": User_id ,"file_type": file_type ,"feed_title": title_text.text!,"feed_description": Description_Txtview.text!]
+        let parameter = ["trainer_id": User_id ,"file_type": file_type ,"feed_title": title_text.text!,"latitude": latitudeText,"longitude": longitudeText,"feed_description": Description_Txtview.text!]
         print("parameter",parameter)
         let Url:String=Constants.Base_url+"createTrainerFeed"
         Alamofire.upload(multipartFormData: { multipartFormData in
@@ -285,7 +303,8 @@ SendBtn.ButtonRoundCorner(radious: 8.0)
             }
             
             for (key, value) in parameter {
-                multipartFormData.append((value.data(using: .utf8))!, withName: key)
+               // multipartFormData.append(value , withName: key)
+                multipartFormData.append(value.data(using: .utf8)!, withName: key)
             }
         },
                          to:Url, method: .post, headers: ["Authorization": "auth_token"],

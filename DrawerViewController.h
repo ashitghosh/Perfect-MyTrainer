@@ -11,8 +11,10 @@
 #import "MyPerfectTrainer-Swift.h"
 
 
-@interface DrawerViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+
+@interface DrawerViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,NSURLSessionDelegate,NSURLSessionDataDelegate,NSURLSessionTaskDelegate>{
     NSMutableArray *arrDrawer, *arrImage;
+    NSString *total_unread_counter;
 }
 @property (strong, nonatomic) IBOutlet UITableView *Drawer_table_view;
 

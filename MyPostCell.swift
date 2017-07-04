@@ -10,6 +10,7 @@ import UIKit
 
 class MyPostCell: UITableViewCell {
 
+    @IBOutlet var DidTabCommentBtn: UIButton!
     @IBOutlet var Date_lbl: UILabel!
     @IBOutlet var like_count_lbl: UILabel!
     @IBOutlet var Comment_count_lbl: UILabel!

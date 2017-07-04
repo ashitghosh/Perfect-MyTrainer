@@ -10,4 +10,7 @@ pod 'Toast-Swift', '~> 2.0.0'
 pod 'CameraManager', '~> 3.1'
 pod 'DKImagePickerController'
 pod "MobilePlayer"
+pod 'JTAppleCalendar', '~> 7.0'
+ pod 'SwiftGifOrigin'
+pod 'Stripe'
 end

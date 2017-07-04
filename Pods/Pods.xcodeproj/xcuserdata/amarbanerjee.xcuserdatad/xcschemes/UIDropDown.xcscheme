@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '982B331ADC1A9F5A64A6454A66B97984'
+               BlueprintIdentifier = '5A128C36C7D27BB302861D83D28FFF50'
                BlueprintName = 'UIDropDown'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'UIDropDown.framework'>

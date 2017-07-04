@@ -17,7 +17,7 @@ class CommentViewController: UIViewController,UITableViewDelegate,UITableViewDat
     @IBOutlet var MyFeedTableView: UITableView!
     @IBOutlet var NoCommentsAvailable: UILabel!
     @IBOutlet var Comment_txt: UITextField!
-    var FeedId:NSNumber = 0.0
+    var FeedId:String = ""
     
        var arrMyComments = [[String:AnyObject]]()
     override func viewDidLoad() {

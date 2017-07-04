@@ -10,6 +10,9 @@ import UIKit
 
 class TrainingTypeCell: UITableViewCell {
 
+    @IBOutlet var Tagline_text: UILabel!
+    @IBOutlet var Name_lbl: UILabel!
+    @IBOutlet var Profile_imageview: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

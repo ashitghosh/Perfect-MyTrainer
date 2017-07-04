@@ -8,12 +8,55 @@
 
 /* Begin PBXBuildFile section */
 		16C55200DE943BA1D3450CB2 /* Pods_MyPerfectTrainer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 102092B2E1E3DEBFD08E68CA /* Pods_MyPerfectTrainer.framework */; };
+		5801D9E61EDD532500BA7F0F /* AddScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5801D9E51EDD532500BA7F0F /* AddScheduleViewController.swift */; };
+		5801D9E91EDDB81400BA7F0F /* RescheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5801D9E81EDDB81400BA7F0F /* RescheduleViewController.swift */; };
 		580B729F1E645B0100DCF0D1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580B729D1E645B0100DCF0D1 /* FBSDKCoreKit.framework */; };
 		580B72A01E645B0200DCF0D1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580B729E1E645B0100DCF0D1 /* FBSDKLoginKit.framework */; };
 		580B72AC1E64718600DCF0D1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580B72AB1E64718600DCF0D1 /* Bolts.framework */; };
+		58160AD31EB0B4C400D935C7 /* TrainerMyPackageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58160AD21EB0B4C400D935C7 /* TrainerMyPackageController.swift */; };
+		58160ADB1EB0B58E00D935C7 /* Package_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 58160AD51EB0B58E00D935C7 /* Package_delete.png */; };
+		58160ADC1EB0B58E00D935C7 /* Package_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58160AD61EB0B58E00D935C7 /* Package_delete@2x.png */; };
+		58160ADD1EB0B58E00D935C7 /* Package_delete_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 58160AD71EB0B58E00D935C7 /* Package_delete_large.png */; };
+		58160ADE1EB0B58E00D935C7 /* Package_edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 58160AD81EB0B58E00D935C7 /* Package_edit.png */; };
+		58160ADF1EB0B58E00D935C7 /* Package_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58160AD91EB0B58E00D935C7 /* Package_edit@2x.png */; };
+		58160AE01EB0B58E00D935C7 /* Package_edit_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 58160ADA1EB0B58E00D935C7 /* Package_edit_large.png */; };
+		58160AE41EB0BD0000D935C7 /* discount.png in Resources */ = {isa = PBXBuildFile; fileRef = 58160AE11EB0BD0000D935C7 /* discount.png */; };
+		58160AE51EB0BD0000D935C7 /* discount2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58160AE21EB0BD0000D935C7 /* discount2x.png */; };
+		58160AE61EB0BD0000D935C7 /* discount_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 58160AE31EB0BD0000D935C7 /* discount_large.png */; };
+		58160AE81EB0C67500D935C7 /* DiscountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58160AE71EB0C67500D935C7 /* DiscountCell.swift */; };
+		5819BF821EC04B3700764271 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5819BF811EC04B3700764271 /* Main.storyboard */; };
+		5819BFD71EC0701F00764271 /* FSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFB71EC0701F00764271 /* FSCalendar.m */; };
+		5819BFD81EC0701F00764271 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFB91EC0701F00764271 /* FSCalendarAppearance.m */; };
+		5819BFD91EC0701F00764271 /* FSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFBB1EC0701F00764271 /* FSCalendarCell.m */; };
+		5819BFDA1EC0701F00764271 /* FSCalendarCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFBD1EC0701F00764271 /* FSCalendarCollectionView.m */; };
+		5819BFDB1EC0701F00764271 /* FSCalendarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFBF1EC0701F00764271 /* FSCalendarCollectionViewLayout.m */; };
+		5819BFDC1EC0701F00764271 /* FSCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFC11EC0701F00764271 /* FSCalendarHeaderView.m */; };
+		5819BFDD1EC0701F00764271 /* FSCalendarScopeHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFC31EC0701F00764271 /* FSCalendarScopeHandle.m */; };
+		5819BFDE1EC0701F00764271 /* FSCalendarStickyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFC51EC0701F00764271 /* FSCalendarStickyHeader.m */; };
+		5819BFDF1EC0701F00764271 /* FSCalendarWeekdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFC71EC0701F00764271 /* FSCalendarWeekdayView.m */; };
+		5819BFE01EC0701F00764271 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFC91EC0701F00764271 /* FSCalendarTransitionCoordinator.m */; };
+		5819BFE11EC0701F00764271 /* FSCalendarCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFCB1EC0701F00764271 /* FSCalendarCalculator.m */; };
+		5819BFE21EC0701F00764271 /* FSCalendarConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFCD1EC0701F00764271 /* FSCalendarConstants.m */; };
+		5819BFE31EC0701F00764271 /* FSCalendarDelegationFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFCF1EC0701F00764271 /* FSCalendarDelegationFactory.m */; };
+		5819BFE41EC0701F00764271 /* FSCalendarDelegationProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFD11EC0701F00764271 /* FSCalendarDelegationProxy.m */; };
+		5819BFE51EC0701F00764271 /* FSCalendarExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFD41EC0701F00764271 /* FSCalendarExtensions.m */; };
+		5819BFE61EC0701F00764271 /* FSCalendar+Deprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFD51EC0701F00764271 /* FSCalendar+Deprecated.m */; };
+		5819BFE71EC0701F00764271 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5819BFD61EC0701F00764271 /* Info.plist */; };
+		5819BFEA1EC0B02100764271 /* MySchduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5819BFE91EC0B02100764271 /* MySchduleController.swift */; };
+		582489091F0A7A20005959F5 /* ClientInvoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582489081F0A7A20005959F5 /* ClientInvoiceController.swift */; };
 		5829DAAC1E8A723500E814C7 /* ic_delete_2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5829DAA91E8A723500E814C7 /* ic_delete_2x.png */; };
 		5829DAAD1E8A723500E814C7 /* ic_delete_3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5829DAAA1E8A723500E814C7 /* ic_delete_3x.png */; };
 		5829DAAE1E8A723500E814C7 /* ic_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 5829DAAB1E8A723500E814C7 /* ic_delete.png */; };
+		5836C3551F013590007A49E6 /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5836C3541F013590007A49E6 /* Stripe.framework */; };
+		583C07E81EF10BB90050D50C /* reply-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 583C07E71EF10BB90050D50C /* reply-icon.png */; };
+		583C07EA1EF112CC0050D50C /* view-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 583C07E91EF112CC0050D50C /* view-icon.png */; };
+		583D22AE1E9E631C009ADD95 /* FeedCellTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583D22AD1E9E631C009ADD95 /* FeedCellTwo.swift */; };
+		583D49C51EB1DA0E008EAB2C /* My_package_cross.png in Resources */ = {isa = PBXBuildFile; fileRef = 583D49C41EB1DA0E008EAB2C /* My_package_cross.png */; };
+		58415E251EF29A1100005B3A /* block-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 58415E241EF29A1100005B3A /* block-icon.png */; };
+		584291201EA5F25100525099 /* nonselect-radio.png in Resources */ = {isa = PBXBuildFile; fileRef = 5842911D1EA5F25100525099 /* nonselect-radio.png */; };
+		584291211EA5F25100525099 /* nonselect-radio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5842911E1EA5F25100525099 /* nonselect-radio@2x.png */; };
+		584291221EA5F25100525099 /* nonselect-radio@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5842911F1EA5F25100525099 /* nonselect-radio@3x.png */; };
+		584291241EA63C0800525099 /* SearchSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584291231EA63C0800525099 /* SearchSkillCell.swift */; };
 		584D03D51E5ECF71005F091E /* facebook_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 584D03D21E5ECF71005F091E /* facebook_login.png */; };
 		584D03D61E5ECF71005F091E /* facebook_login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 584D03D31E5ECF71005F091E /* facebook_login@2x.png */; };
 		584D03D71E5ECF71005F091E /* facebook_login@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 584D03D41E5ECF71005F091E /* facebook_login@3x.png */; };
@@ -52,6 +95,7 @@
 		585AF1341E727F2A00220785 /* twitter_connect.png in Resources */ = {isa = PBXBuildFile; fileRef = 585AF1281E727F2A00220785 /* twitter_connect.png */; };
 		585AF1351E727F2A00220785 /* twitter_connect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 585AF1291E727F2A00220785 /* twitter_connect@2x.png */; };
 		585AF1361E727F2A00220785 /* twitter_connect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 585AF12A1E727F2A00220785 /* twitter_connect@3x.png */; };
+		586586501EEED95F007BF40D /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5865864F1EEED95F007BF40D /* MessageViewController.swift */; };
 		586849EC1E88EFDB00C3694C /* TrainerCreateFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586849EB1E88EFDB00C3694C /* TrainerCreateFeedController.swift */; };
 		586849F11E88F98D00C3694C /* Create_feed_No_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 586849EE1E88F98D00C3694C /* Create_feed_No_image.png */; };
 		586849F21E88F98D00C3694C /* Create_feed_No_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 586849EF1E88F98D00C3694C /* Create_feed_No_image@2x.png */; };
@@ -60,6 +104,10 @@
 		586849F81E88FA7800C3694C /* Create_feed_Camera_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 586849F51E88FA7800C3694C /* Create_feed_Camera_Icon@2x.png */; };
 		586849F91E88FA7800C3694C /* Create_feed_Camera_Icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 586849F61E88FA7800C3694C /* Create_feed_Camera_Icon@3x.png */; };
 		586F50F81E8BFDD000F54A7E /* PostDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F50F71E8BFDD000F54A7E /* PostDetailsController.swift */; };
+		586F6A121EDE9CDE009608D7 /* RescheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F6A111EDE9CDE009608D7 /* RescheduleCell.swift */; };
+		586F6A141EDEA6CB009608D7 /* rescedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 586F6A131EDEA6CB009608D7 /* rescedule.png */; };
+		586F6A171EDEEFD5009608D7 /* ClientMyScheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F6A161EDEEFD5009608D7 /* ClientMyScheduleController.swift */; };
+		586F6A1A1EDF069F009608D7 /* ClientSessionListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F6A191EDF069F009608D7 /* ClientSessionListController.swift */; };
 		58714D9D1E4CAE8200AC3B5E /* KYEmbedDrawerControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58714D9A1E4CAE8200AC3B5E /* KYEmbedDrawerControllerSegue.swift */; };
 		58714D9E1E4CAE8200AC3B5E /* KYEmbedMainControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58714D9B1E4CAE8200AC3B5E /* KYEmbedMainControllerSegue.swift */; };
 		5879035D1E530DEA004D9E6D /* Trainer_profile_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5879035A1E530DEA004D9E6D /* Trainer_profile_bg.png */; };
@@ -78,6 +126,9 @@
 		587903761E534456004D9E6D /* sky_like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 587903731E534456004D9E6D /* sky_like@2x.png */; };
 		587903771E534456004D9E6D /* sky_like_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 587903741E534456004D9E6D /* sky_like_large.png */; };
 		587903791E534DAE004D9E6D /* TrainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587903781E534DAE004D9E6D /* TrainerViewController.swift */; };
+		587A04CF1E97924B00E94EA8 /* WorkSchduleCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587A04CE1E97924B00E94EA8 /* WorkSchduleCreateView.swift */; };
+		587A04D11E97B09E00E94EA8 /* HADropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587A04D01E97B09E00E94EA8 /* HADropDown.swift */; };
+		587A04D31E97CA9500E94EA8 /* WorkSchduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587A04D21E97CA9500E94EA8 /* WorkSchduleCell.swift */; };
 		587CF9DC1E76A037003645CB /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587CF9DB1E76A037003645CB /* CameraManager.swift */; };
 		587CF9DE1E76CCE8003645CB /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587CF9DD1E76CCE8003645CB /* Photos.framework */; };
 		587CF9E41E76CDFB003645CB /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 587CF9DF1E76CDFB003645CB /* AlamofireImage.framework */; };
@@ -119,6 +170,24 @@
 		588047681E6044D2008ADBC6 /* TrainerCreateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588047671E6044D2008ADBC6 /* TrainerCreateController.swift */; };
 		58821E781E793C8B00CE40BA /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58821E771E793C8B00CE40BA /* CoreMedia.framework */; };
 		588560B81E5C603F00F8647B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588560B71E5C603F00F8647B /* File.swift */; };
+		5885D7E41ED6FB3A0056C46B /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 5885D7E31ED6FB3A0056C46B /* dot.png */; };
+		5885D7E61ED6FCD90056C46B /* dotNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 5885D7E51ED6FCD90056C46B /* dotNew.png */; };
+		5885E8D91EF3D5B60019F503 /* MessageDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5885E8D81EF3D5B60019F503 /* MessageDetailController.swift */; };
+		58888A161EC1A08E00858485 /* MySchduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58888A151EC1A08E00858485 /* MySchduleCell.swift */; };
+		58888A1E1EC1A3B300858485 /* header-icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 58888A181EC1A3B300858485 /* header-icon2.png */; };
+		58888A1F1EC1A3B400858485 /* My_schdule_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 58888A191EC1A3B300858485 /* My_schdule_add.png */; };
+		58888A201EC1A3B400858485 /* My_schdule_group.png in Resources */ = {isa = PBXBuildFile; fileRef = 58888A1A1EC1A3B300858485 /* My_schdule_group.png */; };
+		58888A211EC1A3B400858485 /* My_schdule_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 58888A1B1EC1A3B300858485 /* My_schdule_icon.png */; };
+		58888A221EC1A3B400858485 /* My_schdule_individual.png in Resources */ = {isa = PBXBuildFile; fileRef = 58888A1C1EC1A3B300858485 /* My_schdule_individual.png */; };
+		58888A231EC1A3B400858485 /* My_schdule_tandem.png in Resources */ = {isa = PBXBuildFile; fileRef = 58888A1D1EC1A3B300858485 /* My_schdule_tandem.png */; };
+		58888A261EC1FBC500858485 /* TrainerScheduleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58888A251EC1FBC500858485 /* TrainerScheduleListView.swift */; };
+		58888A2B1EC20DA300858485 /* Schdulelist_confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = 58888A281EC20DA300858485 /* Schdulelist_confirm.png */; };
+		58888A2C1EC20DA300858485 /* schdulelist_message.png in Resources */ = {isa = PBXBuildFile; fileRef = 58888A291EC20DA300858485 /* schdulelist_message.png */; };
+		58888A2D1EC20DA300858485 /* Schedule_list_reschedule.png in Resources */ = {isa = PBXBuildFile; fileRef = 58888A2A1EC20DA300858485 /* Schedule_list_reschedule.png */; };
+		58888A2F1EC2108600858485 /* SchedulelistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58888A2E1EC2108600858485 /* SchedulelistCell.swift */; };
+		588B0D661ED82BAB0073F855 /* booking-banner.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 588B0D651ED82BAB0073F855 /* booking-banner.jpg */; };
+		588B0D681ED82BBC0073F855 /* booking_tick.png in Resources */ = {isa = PBXBuildFile; fileRef = 588B0D671ED82BBC0073F855 /* booking_tick.png */; };
+		588E91DD1EA9F44B00912634 /* TrainerDetailsByClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588E91DC1EA9F44B00912634 /* TrainerDetailsByClient.swift */; };
 		589065B91E4DA751001BC5A3 /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 589065B81E4DA751001BC5A3 /* DrawerViewController.m */; };
 		589065BB1E4DA808001BC5A3 /* KYDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589065BA1E4DA808001BC5A3 /* KYDrawerController.swift */; };
 		589065C01E4DC9A5001BC5A3 /* homeicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 589065BD1E4DC9A5001BC5A3 /* homeicon.png */; };
@@ -162,9 +231,11 @@
 		589541E31E57168A00E862D1 /* SelectedSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589541E21E57168900E862D1 /* SelectedSkillCell.swift */; };
 		589541E61E57430600E862D1 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589541E51E57430600E862D1 /* CommentViewController.swift */; };
 		589541E81E57435B00E862D1 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589541E71E57435B00E862D1 /* CommentCell.swift */; };
+		589BFBC91EA494A90066BF9E /* FeedCellTwo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 589BFBC81EA494A90066BF9E /* FeedCellTwo.xib */; };
+		589BFBCB1EA4A2320066BF9E /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 589BFBCA1EA4A2320066BF9E /* FeedCell.xib */; };
 		58A226981E968E5D004CC27E /* cross_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A2268E1E968E5D004CC27E /* cross_icon.png */; };
 		58A226991E968E5D004CC27E /* cross_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A2268F1E968E5D004CC27E /* cross_icon@2x.png */; };
-		58A2269A1E968E5D004CC27E /* cross_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A226901E968E5D004CC27E /* cross_icon@3x.png */; };
+		58A2269A1E968E5D004CC27E /* cross_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A226901E968E5D004CC27E /* cross_icon2.png */; };
 		58A2269B1E968E5D004CC27E /* plus_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A226911E968E5D004CC27E /* plus_icon.png */; };
 		58A2269C1E968E5D004CC27E /* plus_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A226921E968E5D004CC27E /* plus_icon2.png */; };
 		58A2269D1E968E5D004CC27E /* plus_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A226931E968E5D004CC27E /* plus_icon@3x.png */; };
@@ -172,6 +243,19 @@
 		58A2269F1E968E5D004CC27E /* select-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A226951E968E5D004CC27E /* select-arrow@2x.png */; };
 		58A226A01E968E5D004CC27E /* select-arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58A226961E968E5D004CC27E /* select-arrow@3x.png */; };
 		58A226A11E968E5D004CC27E /* video_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 58A226971E968E5D004CC27E /* video_img.jpg */; };
+		58ADD0161EAB7E3200D5DA85 /* facebook-hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 58ADD00D1EAB7E3200D5DA85 /* facebook-hover.png */; };
+		58ADD0171EAB7E3200D5DA85 /* facebook-hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58ADD00E1EAB7E3200D5DA85 /* facebook-hover@2x.png */; };
+		58ADD0181EAB7E3200D5DA85 /* facebook-hover@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58ADD00F1EAB7E3200D5DA85 /* facebook-hover@3x.png */; };
+		58ADD0191EAB7E3200D5DA85 /* instragram-hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 58ADD0101EAB7E3200D5DA85 /* instragram-hover.png */; };
+		58ADD01A1EAB7E3200D5DA85 /* instragram-hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58ADD0111EAB7E3200D5DA85 /* instragram-hover@2x.png */; };
+		58ADD01B1EAB7E3200D5DA85 /* instragram-hover@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58ADD0121EAB7E3200D5DA85 /* instragram-hover@3x.png */; };
+		58ADD01C1EAB7E3200D5DA85 /* twitter_hover.png in Resources */ = {isa = PBXBuildFile; fileRef = 58ADD0131EAB7E3200D5DA85 /* twitter_hover.png */; };
+		58ADD01D1EAB7E3200D5DA85 /* twitter_hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58ADD0141EAB7E3200D5DA85 /* twitter_hover@2x.png */; };
+		58ADD01E1EAB7E3200D5DA85 /* twitter_hover@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58ADD0151EAB7E3200D5DA85 /* twitter_hover@3x.png */; };
+		58AEA8271EBB342100DCEF8D /* BookNow_next.png in Resources */ = {isa = PBXBuildFile; fileRef = 58AEA8261EBB342100DCEF8D /* BookNow_next.png */; };
+		58AEA82E1EBB609500DCEF8D /* BookNowNextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AEA82D1EBB609500DCEF8D /* BookNowNextView.swift */; };
+		58AF587A1EE01E530022D861 /* reschedule-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 58AF58791EE01E530022D861 /* reschedule-icon.png */; };
+		58AF587C1EE01E640022D861 /* message-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 58AF587B1EE01E640022D861 /* message-icon.png */; };
 		58B2F5C31E719F40008EC988 /* TrainerCreateProfileTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B2F5C21E719F40008EC988 /* TrainerCreateProfileTwo.swift */; };
 		58B2F5C51E719F8E008EC988 /* UploadImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B2F5C41E719F8E008EC988 /* UploadImageCell.swift */; };
 		58B403141E557F95007D77DE /* CertificateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B403131E557F95007D77DE /* CertificateCell.swift */; };
@@ -192,6 +276,8 @@
 		58B403341E55CB63007D77DE /* ClientTrainingTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B403331E55CB63007D77DE /* ClientTrainingTypeController.swift */; };
 		58B403361E55CC06007D77DE /* TrainingTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B403351E55CC06007D77DE /* TrainingTypeCell.swift */; };
 		58B7E7311E6D4BBF00AF88DD /* AdditionalSkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B7E7301E6D4BBF00AF88DD /* AdditionalSkillCell.swift */; };
+		58BDB21A1E9F651200B154C2 /* Ok_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 58BDB2191E9F651200B154C2 /* Ok_btn.png */; };
+		58BDB21C1E9F66AD00B154C2 /* Ok_new_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 58BDB21B1E9F66AD00B154C2 /* Ok_new_btn.png */; };
 		58CBA9111E5ACE2D008A5926 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58CBA9101E5ACE2D008A5926 /* QuartzCore.framework */; };
 		58CBA9131E5AEBCE008A5926 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CBA9121E5AEBCE008A5926 /* FloatRatingView.swift */; };
 		58CBA91A1E5AEFCD008A5926 /* orengestar.png in Resources */ = {isa = PBXBuildFile; fileRef = 58CBA9141E5AEFCD008A5926 /* orengestar.png */; };
@@ -202,6 +288,12 @@
 		58CBA91F1E5AEFCD008A5926 /* whitestar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58CBA9191E5AEFCD008A5926 /* whitestar@3x.png */; };
 		58CBA9211E5B308E008A5926 /* UIDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CBA9201E5B308E008A5926 /* UIDropDown.swift */; };
 		58DBC0C41E6999B500121A01 /* SkillCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DBC0C31E6999B400121A01 /* SkillCell.swift */; };
+		58DBF36B1EA0D582008BAE4B /* ClientFeedDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DBF36A1EA0D582008BAE4B /* ClientFeedDetailsView.swift */; };
+		58DBF36E1EA0EAD4008BAE4B /* ClientFeedCommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DBF36D1EA0EAD4008BAE4B /* ClientFeedCommentsView.swift */; };
+		58DBF3701EA10E39008BAE4B /* no-img384x221-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 58DBF36F1EA10E39008BAE4B /* no-img384x221-1.jpg */; };
+		58DBF3721EA115D9008BAE4B /* no-img400x500-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 58DBF3711EA115D9008BAE4B /* no-img400x500-1.jpg */; };
+		58DC23881EEA8D1800275E28 /* ScheduleMemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DC23871EEA8D1800275E28 /* ScheduleMemberController.swift */; };
+		58DC238A1EEA8D3200275E28 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DC23891EEA8D3200275E28 /* MemberCell.swift */; };
 		58DE743C1E3F1BAB00E4FA4A /* ClientHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DE743B1E3F1BAB00E4FA4A /* ClientHomeController.swift */; };
 		58DE744B1E3F212800E4FA4A /* bell.png in Resources */ = {isa = PBXBuildFile; fileRef = 58DE743E1E3F212800E4FA4A /* bell.png */; };
 		58DE744C1E3F212800E4FA4A /* bell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58DE743F1E3F212800E4FA4A /* bell@2x.png */; };
@@ -247,9 +339,15 @@
 		58F0728D1E5DB88600FB5F63 /* edit_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 58F0728A1E5DB88600FB5F63 /* edit_about.png */; };
 		58F0728E1E5DB88600FB5F63 /* edit_about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58F0728B1E5DB88600FB5F63 /* edit_about@2x.png */; };
 		58F0728F1E5DB88600FB5F63 /* edit_about@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 58F0728C1E5DB88600FB5F63 /* edit_about@3x.png */; };
+		58F30B681EF9215100AC34EB /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F30B671EF9215100AC34EB /* NotificationViewController.swift */; };
+		58F30B6A1EF9216F00AC34EB /* ClientNotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F30B691EF9216F00AC34EB /* ClientNotificationController.swift */; };
+		58F4A2A41EA76B520038B598 /* ClientEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F4A2A31EA76B520038B598 /* ClientEditViewController.swift */; };
+		58F8C9B41EFBCF26005710D1 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F8C9B31EFBCF26005710D1 /* UIImage+Gif.swift */; };
+		58F8C9B61EFBCFE5005710D1 /* Waiting_image_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 58F8C9B51EFBCFE5005710D1 /* Waiting_image_gif.gif */; };
+		58F8C9BA1EFBD6AA005710D1 /* new_loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 58F8C9B91EFBD6AA005710D1 /* new_loader.gif */; };
+		58F8C9BC1EFBEF56005710D1 /* plus-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 58F8C9BB1EFBEF56005710D1 /* plus-icon.png */; };
 		E82605ED1E36300D0074E4FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82605EC1E36300D0074E4FE /* AppDelegate.swift */; };
 		E82605EF1E36300F0074E4FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82605EE1E36300E0074E4FE /* ViewController.swift */; };
-		E82605F21E3630100074E4FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E82605F01E3630100074E4FE /* Main.storyboard */; };
 		E82605F41E3630160074E4FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E82605F31E3630160074E4FE /* Assets.xcassets */; };
 		E82605F71E3630170074E4FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E82605F51E3630170074E4FE /* LaunchScreen.storyboard */; };
 		E82606021E3630190074E4FE /* MyPerfectTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82606011E3630190074E4FE /* MyPerfectTrainerTests.swift */; };
@@ -293,12 +391,71 @@
 
 /* Begin PBXFileReference section */
 		102092B2E1E3DEBFD08E68CA /* Pods_MyPerfectTrainer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyPerfectTrainer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5801D9E51EDD532500BA7F0F /* AddScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddScheduleViewController.swift; sourceTree = "<group>"; };
+		5801D9E81EDDB81400BA7F0F /* RescheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RescheduleViewController.swift; sourceTree = "<group>"; };
 		580B729D1E645B0100DCF0D1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = MyPerfectTrainer/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		580B729E1E645B0100DCF0D1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = MyPerfectTrainer/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		580B72AB1E64718600DCF0D1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		58160AD21EB0B4C400D935C7 /* TrainerMyPackageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerMyPackageController.swift; sourceTree = "<group>"; };
+		58160AD51EB0B58E00D935C7 /* Package_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Package_delete.png; sourceTree = "<group>"; };
+		58160AD61EB0B58E00D935C7 /* Package_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Package_delete@2x.png"; sourceTree = "<group>"; };
+		58160AD71EB0B58E00D935C7 /* Package_delete_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Package_delete_large.png; sourceTree = "<group>"; };
+		58160AD81EB0B58E00D935C7 /* Package_edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Package_edit.png; sourceTree = "<group>"; };
+		58160AD91EB0B58E00D935C7 /* Package_edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Package_edit@2x.png"; sourceTree = "<group>"; };
+		58160ADA1EB0B58E00D935C7 /* Package_edit_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Package_edit_large.png; sourceTree = "<group>"; };
+		58160AE11EB0BD0000D935C7 /* discount.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discount.png; sourceTree = "<group>"; };
+		58160AE21EB0BD0000D935C7 /* discount2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discount2x.png; sourceTree = "<group>"; };
+		58160AE31EB0BD0000D935C7 /* discount_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = discount_large.png; sourceTree = "<group>"; };
+		58160AE71EB0C67500D935C7 /* DiscountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountCell.swift; sourceTree = "<group>"; };
+		5819BF811EC04B3700764271 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5819BFB61EC0701F00764271 /* FSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendar.h; sourceTree = "<group>"; };
+		5819BFB71EC0701F00764271 /* FSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendar.m; sourceTree = "<group>"; };
+		5819BFB81EC0701F00764271 /* FSCalendarAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarAppearance.h; sourceTree = "<group>"; };
+		5819BFB91EC0701F00764271 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
+		5819BFBA1EC0701F00764271 /* FSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCell.h; sourceTree = "<group>"; };
+		5819BFBB1EC0701F00764271 /* FSCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCell.m; sourceTree = "<group>"; };
+		5819BFBC1EC0701F00764271 /* FSCalendarCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCollectionView.h; sourceTree = "<group>"; };
+		5819BFBD1EC0701F00764271 /* FSCalendarCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCollectionView.m; sourceTree = "<group>"; };
+		5819BFBE1EC0701F00764271 /* FSCalendarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCollectionViewLayout.h; sourceTree = "<group>"; };
+		5819BFBF1EC0701F00764271 /* FSCalendarCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCollectionViewLayout.m; sourceTree = "<group>"; };
+		5819BFC01EC0701F00764271 /* FSCalendarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarHeaderView.h; sourceTree = "<group>"; };
+		5819BFC11EC0701F00764271 /* FSCalendarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarHeaderView.m; sourceTree = "<group>"; };
+		5819BFC21EC0701F00764271 /* FSCalendarScopeHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarScopeHandle.h; sourceTree = "<group>"; };
+		5819BFC31EC0701F00764271 /* FSCalendarScopeHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarScopeHandle.m; sourceTree = "<group>"; };
+		5819BFC41EC0701F00764271 /* FSCalendarStickyHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarStickyHeader.h; sourceTree = "<group>"; };
+		5819BFC51EC0701F00764271 /* FSCalendarStickyHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarStickyHeader.m; sourceTree = "<group>"; };
+		5819BFC61EC0701F00764271 /* FSCalendarWeekdayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarWeekdayView.h; sourceTree = "<group>"; };
+		5819BFC71EC0701F00764271 /* FSCalendarWeekdayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarWeekdayView.m; sourceTree = "<group>"; };
+		5819BFC81EC0701F00764271 /* FSCalendarTransitionCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarTransitionCoordinator.h; sourceTree = "<group>"; };
+		5819BFC91EC0701F00764271 /* FSCalendarTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarTransitionCoordinator.m; sourceTree = "<group>"; };
+		5819BFCA1EC0701F00764271 /* FSCalendarCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCalculator.h; sourceTree = "<group>"; };
+		5819BFCB1EC0701F00764271 /* FSCalendarCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCalculator.m; sourceTree = "<group>"; };
+		5819BFCC1EC0701F00764271 /* FSCalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarConstants.h; sourceTree = "<group>"; };
+		5819BFCD1EC0701F00764271 /* FSCalendarConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarConstants.m; sourceTree = "<group>"; };
+		5819BFCE1EC0701F00764271 /* FSCalendarDelegationFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarDelegationFactory.h; sourceTree = "<group>"; };
+		5819BFCF1EC0701F00764271 /* FSCalendarDelegationFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarDelegationFactory.m; sourceTree = "<group>"; };
+		5819BFD01EC0701F00764271 /* FSCalendarDelegationProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarDelegationProxy.h; sourceTree = "<group>"; };
+		5819BFD11EC0701F00764271 /* FSCalendarDelegationProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarDelegationProxy.m; sourceTree = "<group>"; };
+		5819BFD21EC0701F00764271 /* FSCalendarDynamicHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarDynamicHeader.h; sourceTree = "<group>"; };
+		5819BFD31EC0701F00764271 /* FSCalendarExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarExtensions.h; sourceTree = "<group>"; };
+		5819BFD41EC0701F00764271 /* FSCalendarExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarExtensions.m; sourceTree = "<group>"; };
+		5819BFD51EC0701F00764271 /* FSCalendar+Deprecated.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSCalendar+Deprecated.m"; sourceTree = "<group>"; };
+		5819BFD61EC0701F00764271 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5819BFE91EC0B02100764271 /* MySchduleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySchduleController.swift; sourceTree = "<group>"; };
+		582489081F0A7A20005959F5 /* ClientInvoiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientInvoiceController.swift; sourceTree = "<group>"; };
 		5829DAA91E8A723500E814C7 /* ic_delete_2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_delete_2x.png; sourceTree = "<group>"; };
 		5829DAAA1E8A723500E814C7 /* ic_delete_3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_delete_3x.png; sourceTree = "<group>"; };
 		5829DAAB1E8A723500E814C7 /* ic_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_delete.png; sourceTree = "<group>"; };
+		5836C3541F013590007A49E6 /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Stripe.framework; sourceTree = "<group>"; };
+		583C07E71EF10BB90050D50C /* reply-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reply-icon.png"; sourceTree = "<group>"; };
+		583C07E91EF112CC0050D50C /* view-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "view-icon.png"; sourceTree = "<group>"; };
+		583D22AD1E9E631C009ADD95 /* FeedCellTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCellTwo.swift; sourceTree = "<group>"; };
+		583D49C41EB1DA0E008EAB2C /* My_package_cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = My_package_cross.png; sourceTree = "<group>"; };
+		58415E241EF29A1100005B3A /* block-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "block-icon.png"; sourceTree = "<group>"; };
+		5842911D1EA5F25100525099 /* nonselect-radio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonselect-radio.png"; sourceTree = "<group>"; };
+		5842911E1EA5F25100525099 /* nonselect-radio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonselect-radio@2x.png"; sourceTree = "<group>"; };
+		5842911F1EA5F25100525099 /* nonselect-radio@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nonselect-radio@3x.png"; sourceTree = "<group>"; };
+		584291231EA63C0800525099 /* SearchSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchSkillCell.swift; sourceTree = "<group>"; };
 		584D03D21E5ECF71005F091E /* facebook_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_login.png; sourceTree = "<group>"; };
 		584D03D31E5ECF71005F091E /* facebook_login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook_login@2x.png"; sourceTree = "<group>"; };
 		584D03D41E5ECF71005F091E /* facebook_login@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook_login@3x.png"; sourceTree = "<group>"; };
@@ -325,6 +482,7 @@
 		585AF1281E727F2A00220785 /* twitter_connect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_connect.png; sourceTree = "<group>"; };
 		585AF1291E727F2A00220785 /* twitter_connect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter_connect@2x.png"; sourceTree = "<group>"; };
 		585AF12A1E727F2A00220785 /* twitter_connect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter_connect@3x.png"; sourceTree = "<group>"; };
+		5865864F1EEED95F007BF40D /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		586849EB1E88EFDB00C3694C /* TrainerCreateFeedController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerCreateFeedController.swift; sourceTree = "<group>"; };
 		586849EE1E88F98D00C3694C /* Create_feed_No_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Create_feed_No_image.png; sourceTree = "<group>"; };
 		586849EF1E88F98D00C3694C /* Create_feed_No_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Create_feed_No_image@2x.png"; sourceTree = "<group>"; };
@@ -333,6 +491,10 @@
 		586849F51E88FA7800C3694C /* Create_feed_Camera_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Create_feed_Camera_Icon@2x.png"; sourceTree = "<group>"; };
 		586849F61E88FA7800C3694C /* Create_feed_Camera_Icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Create_feed_Camera_Icon@3x.png"; sourceTree = "<group>"; };
 		586F50F71E8BFDD000F54A7E /* PostDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailsController.swift; sourceTree = "<group>"; };
+		586F6A111EDE9CDE009608D7 /* RescheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RescheduleCell.swift; sourceTree = "<group>"; };
+		586F6A131EDEA6CB009608D7 /* rescedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rescedule.png; sourceTree = "<group>"; };
+		586F6A161EDEEFD5009608D7 /* ClientMyScheduleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientMyScheduleController.swift; sourceTree = "<group>"; };
+		586F6A191EDF069F009608D7 /* ClientSessionListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientSessionListController.swift; sourceTree = "<group>"; };
 		58714D9A1E4CAE8200AC3B5E /* KYEmbedDrawerControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYEmbedDrawerControllerSegue.swift; sourceTree = "<group>"; };
 		58714D9B1E4CAE8200AC3B5E /* KYEmbedMainControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYEmbedMainControllerSegue.swift; sourceTree = "<group>"; };
 		58714D9F1E4CAE9300AC3B5E /* MyPerfectTrainer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyPerfectTrainer-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -352,6 +514,9 @@
 		587903731E534456004D9E6D /* sky_like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sky_like@2x.png"; sourceTree = "<group>"; };
 		587903741E534456004D9E6D /* sky_like_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sky_like_large.png; sourceTree = "<group>"; };
 		587903781E534DAE004D9E6D /* TrainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerViewController.swift; sourceTree = "<group>"; };
+		587A04CE1E97924B00E94EA8 /* WorkSchduleCreateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkSchduleCreateView.swift; sourceTree = "<group>"; };
+		587A04D01E97B09E00E94EA8 /* HADropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HADropDown.swift; sourceTree = "<group>"; };
+		587A04D21E97CA9500E94EA8 /* WorkSchduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkSchduleCell.swift; sourceTree = "<group>"; };
 		587CF9DA1E76A037003645CB /* CameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraManager.h; sourceTree = "<group>"; };
 		587CF9DB1E76A037003645CB /* CameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		587CF9DD1E76CCE8003645CB /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -394,6 +559,24 @@
 		588047671E6044D2008ADBC6 /* TrainerCreateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerCreateController.swift; sourceTree = "<group>"; };
 		58821E771E793C8B00CE40BA /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		588560B71E5C603F00F8647B /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		5885D7E31ED6FB3A0056C46B /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
+		5885D7E51ED6FCD90056C46B /* dotNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dotNew.png; sourceTree = "<group>"; };
+		5885E8D81EF3D5B60019F503 /* MessageDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDetailController.swift; sourceTree = "<group>"; };
+		58888A151EC1A08E00858485 /* MySchduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySchduleCell.swift; sourceTree = "<group>"; };
+		58888A181EC1A3B300858485 /* header-icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header-icon2.png"; sourceTree = "<group>"; };
+		58888A191EC1A3B300858485 /* My_schdule_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = My_schdule_add.png; sourceTree = "<group>"; };
+		58888A1A1EC1A3B300858485 /* My_schdule_group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = My_schdule_group.png; sourceTree = "<group>"; };
+		58888A1B1EC1A3B300858485 /* My_schdule_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = My_schdule_icon.png; sourceTree = "<group>"; };
+		58888A1C1EC1A3B300858485 /* My_schdule_individual.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = My_schdule_individual.png; sourceTree = "<group>"; };
+		58888A1D1EC1A3B300858485 /* My_schdule_tandem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = My_schdule_tandem.png; sourceTree = "<group>"; };
+		58888A251EC1FBC500858485 /* TrainerScheduleListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerScheduleListView.swift; sourceTree = "<group>"; };
+		58888A281EC20DA300858485 /* Schdulelist_confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Schdulelist_confirm.png; sourceTree = "<group>"; };
+		58888A291EC20DA300858485 /* schdulelist_message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = schdulelist_message.png; sourceTree = "<group>"; };
+		58888A2A1EC20DA300858485 /* Schedule_list_reschedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Schedule_list_reschedule.png; sourceTree = "<group>"; };
+		58888A2E1EC2108600858485 /* SchedulelistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchedulelistCell.swift; sourceTree = "<group>"; };
+		588B0D651ED82BAB0073F855 /* booking-banner.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "booking-banner.jpg"; sourceTree = "<group>"; };
+		588B0D671ED82BBC0073F855 /* booking_tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = booking_tick.png; sourceTree = "<group>"; };
+		588E91DC1EA9F44B00912634 /* TrainerDetailsByClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerDetailsByClient.swift; sourceTree = "<group>"; };
 		589065B71E4DA751001BC5A3 /* DrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewController.h; sourceTree = "<group>"; };
 		589065B81E4DA751001BC5A3 /* DrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerViewController.m; sourceTree = "<group>"; };
 		589065BA1E4DA808001BC5A3 /* KYDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KYDrawerController.swift; sourceTree = "<group>"; };
@@ -440,9 +623,11 @@
 		589541E21E57168900E862D1 /* SelectedSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSkillCell.swift; sourceTree = "<group>"; };
 		589541E51E57430600E862D1 /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		589541E71E57435B00E862D1 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		589BFBC81EA494A90066BF9E /* FeedCellTwo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCellTwo.xib; sourceTree = "<group>"; };
+		589BFBCA1EA4A2320066BF9E /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		58A2268E1E968E5D004CC27E /* cross_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross_icon.png; sourceTree = "<group>"; };
 		58A2268F1E968E5D004CC27E /* cross_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross_icon@2x.png"; sourceTree = "<group>"; };
-		58A226901E968E5D004CC27E /* cross_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cross_icon@3x.png"; sourceTree = "<group>"; };
+		58A226901E968E5D004CC27E /* cross_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross_icon2.png; sourceTree = "<group>"; };
 		58A226911E968E5D004CC27E /* plus_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus_icon.png; sourceTree = "<group>"; };
 		58A226921E968E5D004CC27E /* plus_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus_icon2.png; sourceTree = "<group>"; };
 		58A226931E968E5D004CC27E /* plus_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus_icon@3x.png"; sourceTree = "<group>"; };
@@ -450,6 +635,19 @@
 		58A226951E968E5D004CC27E /* select-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select-arrow@2x.png"; sourceTree = "<group>"; };
 		58A226961E968E5D004CC27E /* select-arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select-arrow@3x.png"; sourceTree = "<group>"; };
 		58A226971E968E5D004CC27E /* video_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = video_img.jpg; sourceTree = "<group>"; };
+		58ADD00D1EAB7E3200D5DA85 /* facebook-hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-hover.png"; sourceTree = "<group>"; };
+		58ADD00E1EAB7E3200D5DA85 /* facebook-hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-hover@2x.png"; sourceTree = "<group>"; };
+		58ADD00F1EAB7E3200D5DA85 /* facebook-hover@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook-hover@3x.png"; sourceTree = "<group>"; };
+		58ADD0101EAB7E3200D5DA85 /* instragram-hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instragram-hover.png"; sourceTree = "<group>"; };
+		58ADD0111EAB7E3200D5DA85 /* instragram-hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instragram-hover@2x.png"; sourceTree = "<group>"; };
+		58ADD0121EAB7E3200D5DA85 /* instragram-hover@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instragram-hover@3x.png"; sourceTree = "<group>"; };
+		58ADD0131EAB7E3200D5DA85 /* twitter_hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_hover.png; sourceTree = "<group>"; };
+		58ADD0141EAB7E3200D5DA85 /* twitter_hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter_hover@2x.png"; sourceTree = "<group>"; };
+		58ADD0151EAB7E3200D5DA85 /* twitter_hover@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter_hover@3x.png"; sourceTree = "<group>"; };
+		58AEA8261EBB342100DCEF8D /* BookNow_next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BookNow_next.png; sourceTree = "<group>"; };
+		58AEA82D1EBB609500DCEF8D /* BookNowNextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookNowNextView.swift; sourceTree = "<group>"; };
+		58AF58791EE01E530022D861 /* reschedule-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reschedule-icon.png"; sourceTree = "<group>"; };
+		58AF587B1EE01E640022D861 /* message-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-icon.png"; sourceTree = "<group>"; };
 		58B2F5C21E719F40008EC988 /* TrainerCreateProfileTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerCreateProfileTwo.swift; sourceTree = "<group>"; };
 		58B2F5C41E719F8E008EC988 /* UploadImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadImageCell.swift; sourceTree = "<group>"; };
 		58B403131E557F95007D77DE /* CertificateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateCell.swift; sourceTree = "<group>"; };
@@ -470,6 +668,8 @@
 		58B403331E55CB63007D77DE /* ClientTrainingTypeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTrainingTypeController.swift; sourceTree = "<group>"; };
 		58B403351E55CC06007D77DE /* TrainingTypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainingTypeCell.swift; sourceTree = "<group>"; };
 		58B7E7301E6D4BBF00AF88DD /* AdditionalSkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdditionalSkillCell.swift; sourceTree = "<group>"; };
+		58BDB2191E9F651200B154C2 /* Ok_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ok_btn.png; sourceTree = "<group>"; };
+		58BDB21B1E9F66AD00B154C2 /* Ok_new_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ok_new_btn.png; sourceTree = "<group>"; };
 		58CBA9101E5ACE2D008A5926 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		58CBA9121E5AEBCE008A5926 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		58CBA9141E5AEFCD008A5926 /* orengestar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orengestar.png; sourceTree = "<group>"; };
@@ -481,6 +681,12 @@
 		58CBA9201E5B308E008A5926 /* UIDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDropDown.swift; sourceTree = "<group>"; };
 		58DA27711E66CF5F00284DE5 /* MyPerfectTrainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyPerfectTrainer.entitlements; sourceTree = "<group>"; };
 		58DBC0C31E6999B400121A01 /* SkillCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillCell.swift; sourceTree = "<group>"; };
+		58DBF36A1EA0D582008BAE4B /* ClientFeedDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientFeedDetailsView.swift; sourceTree = "<group>"; };
+		58DBF36D1EA0EAD4008BAE4B /* ClientFeedCommentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientFeedCommentsView.swift; sourceTree = "<group>"; };
+		58DBF36F1EA10E39008BAE4B /* no-img384x221-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "no-img384x221-1.jpg"; sourceTree = "<group>"; };
+		58DBF3711EA115D9008BAE4B /* no-img400x500-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "no-img400x500-1.jpg"; sourceTree = "<group>"; };
+		58DC23871EEA8D1800275E28 /* ScheduleMemberController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleMemberController.swift; sourceTree = "<group>"; };
+		58DC23891EEA8D3200275E28 /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		58DE743B1E3F1BAB00E4FA4A /* ClientHomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientHomeController.swift; sourceTree = "<group>"; };
 		58DE743E1E3F212800E4FA4A /* bell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bell.png; sourceTree = "<group>"; };
 		58DE743F1E3F212800E4FA4A /* bell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bell@2x.png"; sourceTree = "<group>"; };
@@ -526,11 +732,18 @@
 		58F0728A1E5DB88600FB5F63 /* edit_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit_about.png; sourceTree = "<group>"; };
 		58F0728B1E5DB88600FB5F63 /* edit_about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_about@2x.png"; sourceTree = "<group>"; };
 		58F0728C1E5DB88600FB5F63 /* edit_about@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_about@3x.png"; sourceTree = "<group>"; };
+		58F30B671EF9215100AC34EB /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		58F30B691EF9216F00AC34EB /* ClientNotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientNotificationController.swift; sourceTree = "<group>"; };
+		58F4A2A31EA76B520038B598 /* ClientEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientEditViewController.swift; sourceTree = "<group>"; };
+		58F8C9B21EFBCF26005710D1 /* SwiftGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftGif.h; sourceTree = "<group>"; };
+		58F8C9B31EFBCF26005710D1 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
+		58F8C9B51EFBCFE5005710D1 /* Waiting_image_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Waiting_image_gif.gif; sourceTree = "<group>"; };
+		58F8C9B91EFBD6AA005710D1 /* new_loader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = new_loader.gif; sourceTree = "<group>"; };
+		58F8C9BB1EFBEF56005710D1 /* plus-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-icon.png"; sourceTree = "<group>"; };
 		8D42E6834C57DD2629645234 /* Pods-MyPerfectTrainer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyPerfectTrainer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyPerfectTrainer/Pods-MyPerfectTrainer.debug.xcconfig"; sourceTree = "<group>"; };
 		E82605E91E36300C0074E4FE /* MyPerfectTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPerfectTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E82605EC1E36300D0074E4FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E82605EE1E36300E0074E4FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E82605F11E3630100074E4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E82605F31E3630160074E4FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E82605F61E3630170074E4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E82605F81E3630170074E4FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -595,6 +808,7 @@
 				58CBA9111E5ACE2D008A5926 /* QuartzCore.framework in Frameworks */,
 				16C55200DE943BA1D3450CB2 /* Pods_MyPerfectTrainer.framework in Frameworks */,
 				580B72AC1E64718600DCF0D1 /* Bolts.framework in Frameworks */,
+				5836C3551F013590007A49E6 /* Stripe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,6 +829,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5801D9E11EDD524900BA7F0F /* Add Schedule Calender */ = {
+			isa = PBXGroup;
+			children = (
+				5801D9E51EDD532500BA7F0F /* AddScheduleViewController.swift */,
+			);
+			name = "Add Schedule Calender";
+			sourceTree = "<group>";
+		};
+		5801D9E71EDDB7EC00BA7F0F /* Reschedule Group */ = {
+			isa = PBXGroup;
+			children = (
+				5801D9E81EDDB81400BA7F0F /* RescheduleViewController.swift */,
+				586F6A111EDE9CDE009608D7 /* RescheduleCell.swift */,
+			);
+			name = "Reschedule Group";
+			sourceTree = "<group>";
+		};
 		580B72A11E645B1100DCF0D1 /* Facebook LoginKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -623,6 +854,93 @@
 				580B729E1E645B0100DCF0D1 /* FBSDKLoginKit.framework */,
 			);
 			name = "Facebook LoginKit";
+			sourceTree = "<group>";
+		};
+		58160AD11EB0714D00D935C7 /* Trainer Package Details */ = {
+			isa = PBXGroup;
+			children = (
+				58160AD21EB0B4C400D935C7 /* TrainerMyPackageController.swift */,
+				58160AE71EB0C67500D935C7 /* DiscountCell.swift */,
+			);
+			name = "Trainer Package Details";
+			sourceTree = "<group>";
+		};
+		58160AD41EB0B50900D935C7 /* TrainerMyPackage */ = {
+			isa = PBXGroup;
+			children = (
+				58AEA8261EBB342100DCEF8D /* BookNow_next.png */,
+				583D49C41EB1DA0E008EAB2C /* My_package_cross.png */,
+				58160AE11EB0BD0000D935C7 /* discount.png */,
+				58160AE21EB0BD0000D935C7 /* discount2x.png */,
+				58160AE31EB0BD0000D935C7 /* discount_large.png */,
+				58160AD51EB0B58E00D935C7 /* Package_delete.png */,
+				58160AD61EB0B58E00D935C7 /* Package_delete@2x.png */,
+				58160AD71EB0B58E00D935C7 /* Package_delete_large.png */,
+				58160AD81EB0B58E00D935C7 /* Package_edit.png */,
+				58160AD91EB0B58E00D935C7 /* Package_edit@2x.png */,
+				58160ADA1EB0B58E00D935C7 /* Package_edit_large.png */,
+			);
+			name = TrainerMyPackage;
+			sourceTree = "<group>";
+		};
+		5819BF831EC04F3F00764271 /* Calender Source file */ = {
+			isa = PBXGroup;
+			children = (
+				5836C3541F013590007A49E6 /* Stripe.framework */,
+				5819BFB61EC0701F00764271 /* FSCalendar.h */,
+				5819BFB71EC0701F00764271 /* FSCalendar.m */,
+				5819BFB81EC0701F00764271 /* FSCalendarAppearance.h */,
+				5819BFB91EC0701F00764271 /* FSCalendarAppearance.m */,
+				5819BFBA1EC0701F00764271 /* FSCalendarCell.h */,
+				5819BFBB1EC0701F00764271 /* FSCalendarCell.m */,
+				5819BFBC1EC0701F00764271 /* FSCalendarCollectionView.h */,
+				5819BFBD1EC0701F00764271 /* FSCalendarCollectionView.m */,
+				5819BFBE1EC0701F00764271 /* FSCalendarCollectionViewLayout.h */,
+				5819BFBF1EC0701F00764271 /* FSCalendarCollectionViewLayout.m */,
+				5819BFC01EC0701F00764271 /* FSCalendarHeaderView.h */,
+				5819BFC11EC0701F00764271 /* FSCalendarHeaderView.m */,
+				5819BFC21EC0701F00764271 /* FSCalendarScopeHandle.h */,
+				5819BFC31EC0701F00764271 /* FSCalendarScopeHandle.m */,
+				5819BFC41EC0701F00764271 /* FSCalendarStickyHeader.h */,
+				5819BFC51EC0701F00764271 /* FSCalendarStickyHeader.m */,
+				5819BFC61EC0701F00764271 /* FSCalendarWeekdayView.h */,
+				5819BFC71EC0701F00764271 /* FSCalendarWeekdayView.m */,
+				5819BFC81EC0701F00764271 /* FSCalendarTransitionCoordinator.h */,
+				5819BFC91EC0701F00764271 /* FSCalendarTransitionCoordinator.m */,
+				5819BFCA1EC0701F00764271 /* FSCalendarCalculator.h */,
+				5819BFCB1EC0701F00764271 /* FSCalendarCalculator.m */,
+				5819BFCC1EC0701F00764271 /* FSCalendarConstants.h */,
+				5819BFCD1EC0701F00764271 /* FSCalendarConstants.m */,
+				5819BFCE1EC0701F00764271 /* FSCalendarDelegationFactory.h */,
+				5819BFCF1EC0701F00764271 /* FSCalendarDelegationFactory.m */,
+				5819BFD01EC0701F00764271 /* FSCalendarDelegationProxy.h */,
+				5819BFD11EC0701F00764271 /* FSCalendarDelegationProxy.m */,
+				5819BFD21EC0701F00764271 /* FSCalendarDynamicHeader.h */,
+				5819BFD31EC0701F00764271 /* FSCalendarExtensions.h */,
+				5819BFD41EC0701F00764271 /* FSCalendarExtensions.m */,
+				5819BFD51EC0701F00764271 /* FSCalendar+Deprecated.m */,
+				5819BFD61EC0701F00764271 /* Info.plist */,
+			);
+			name = "Calender Source file";
+			sourceTree = "<group>";
+		};
+		5819BFE81EC0AF5C00764271 /* TrainerMySchdule */ = {
+			isa = PBXGroup;
+			children = (
+				5819BFE91EC0B02100764271 /* MySchduleController.swift */,
+				58888A151EC1A08E00858485 /* MySchduleCell.swift */,
+				58DC23871EEA8D1800275E28 /* ScheduleMemberController.swift */,
+				58DC23891EEA8D3200275E28 /* MemberCell.swift */,
+			);
+			name = TrainerMySchdule;
+			sourceTree = "<group>";
+		};
+		582489041F0A76FF005959F5 /*  Client Invoice */ = {
+			isa = PBXGroup;
+			children = (
+				582489081F0A7A20005959F5 /* ClientInvoiceController.swift */,
+			);
+			name = " Client Invoice";
 			sourceTree = "<group>";
 		};
 		584D049F1E3753A90025755E /* Sign Up */ = {
@@ -652,6 +970,15 @@
 			name = "Extension File";
 			sourceTree = "<group>";
 		};
+		5865864E1EEED8C1007BF40D /* Messgae View */ = {
+			isa = PBXGroup;
+			children = (
+				5865864F1EEED95F007BF40D /* MessageViewController.swift */,
+				5885E8D81EF3D5B60019F503 /* MessageDetailController.swift */,
+			);
+			name = "Messgae View";
+			sourceTree = "<group>";
+		};
 		586849EA1E88EFAC00C3694C /* Trainer Create Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,6 +1006,22 @@
 				586F50F71E8BFDD000F54A7E /* PostDetailsController.swift */,
 			);
 			name = "Post Details";
+			sourceTree = "<group>";
+		};
+		586F6A151EDEEF83009608D7 /* Client My  Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				586F6A161EDEEFD5009608D7 /* ClientMyScheduleController.swift */,
+			);
+			name = "Client My  Schedule";
+			sourceTree = "<group>";
+		};
+		586F6A181EDF0674009608D7 /* Client Session List */ = {
+			isa = PBXGroup;
+			children = (
+				586F6A191EDF069F009608D7 /* ClientSessionListController.swift */,
+			);
+			name = "Client Session List";
 			sourceTree = "<group>";
 		};
 		58714D981E4CAE6200AC3B5E /* KY Drawer Controller */ = {
@@ -724,6 +1067,16 @@
 				5879035C1E530DEA004D9E6D /* Trainer_profile_bg@3x.png */,
 			);
 			name = "Trainer profile";
+			sourceTree = "<group>";
+		};
+		587A04CD1E9791E500E94EA8 /* Work schdule */ = {
+			isa = PBXGroup;
+			children = (
+				587A04D01E97B09E00E94EA8 /* HADropDown.swift */,
+				587A04CE1E97924B00E94EA8 /* WorkSchduleCreateView.swift */,
+				587A04D21E97CA9500E94EA8 /* WorkSchduleCell.swift */,
+			);
+			name = "Work schdule";
 			sourceTree = "<group>";
 		};
 		588031D41E543B91005D0A67 /* Client About */ = {
@@ -781,6 +1134,8 @@
 		5880474D1E603741008ADBC6 /* Trainer Create Profile */ = {
 			isa = PBXGroup;
 			children = (
+				58BDB2191E9F651200B154C2 /* Ok_btn.png */,
+				58BDB21B1E9F66AD00B154C2 /* Ok_new_btn.png */,
 				587CF9DA1E76A037003645CB /* CameraManager.h */,
 				587CF9DB1E76A037003645CB /* CameraManager.swift */,
 				588047671E6044D2008ADBC6 /* TrainerCreateController.swift */,
@@ -807,6 +1162,15 @@
 				585AF1251E727F2A00220785 /* plusicon_connect.png */,
 				585AF1261E727F2A00220785 /* plusicon_connect@2x.png */,
 				585AF1271E727F2A00220785 /* plusicon_connect@3x.png */,
+				58ADD00D1EAB7E3200D5DA85 /* facebook-hover.png */,
+				58ADD00E1EAB7E3200D5DA85 /* facebook-hover@2x.png */,
+				58ADD00F1EAB7E3200D5DA85 /* facebook-hover@3x.png */,
+				58ADD0101EAB7E3200D5DA85 /* instragram-hover.png */,
+				58ADD0111EAB7E3200D5DA85 /* instragram-hover@2x.png */,
+				58ADD0121EAB7E3200D5DA85 /* instragram-hover@3x.png */,
+				58ADD0131EAB7E3200D5DA85 /* twitter_hover.png */,
+				58ADD0141EAB7E3200D5DA85 /* twitter_hover@2x.png */,
+				58ADD0151EAB7E3200D5DA85 /* twitter_hover@3x.png */,
 				585AF1281E727F2A00220785 /* twitter_connect.png */,
 				585AF1291E727F2A00220785 /* twitter_connect@2x.png */,
 				585AF12A1E727F2A00220785 /* twitter_connect@3x.png */,
@@ -824,6 +1188,58 @@
 				588047571E603789008ADBC6 /* radio-unselect@3x.png */,
 			);
 			name = "Trainer Create Profile";
+			sourceTree = "<group>";
+		};
+		58888A171EC1A39900858485 /* MyschduleIcon */ = {
+			isa = PBXGroup;
+			children = (
+				58888A181EC1A3B300858485 /* header-icon2.png */,
+				58888A191EC1A3B300858485 /* My_schdule_add.png */,
+				58888A1A1EC1A3B300858485 /* My_schdule_group.png */,
+				58888A1B1EC1A3B300858485 /* My_schdule_icon.png */,
+				58888A1C1EC1A3B300858485 /* My_schdule_individual.png */,
+				58888A1D1EC1A3B300858485 /* My_schdule_tandem.png */,
+			);
+			name = MyschduleIcon;
+			sourceTree = "<group>";
+		};
+		58888A241EC1FB8A00858485 /* Trainer ScdeduleList */ = {
+			isa = PBXGroup;
+			children = (
+				58AF587B1EE01E640022D861 /* message-icon.png */,
+				58AF58791EE01E530022D861 /* reschedule-icon.png */,
+				58415E241EF29A1100005B3A /* block-icon.png */,
+				58888A251EC1FBC500858485 /* TrainerScheduleListView.swift */,
+				58888A2E1EC2108600858485 /* SchedulelistCell.swift */,
+			);
+			name = "Trainer ScdeduleList";
+			sourceTree = "<group>";
+		};
+		58888A271EC20D8500858485 /* Schedule list iage */ = {
+			isa = PBXGroup;
+			children = (
+				58888A281EC20DA300858485 /* Schdulelist_confirm.png */,
+				58888A291EC20DA300858485 /* schdulelist_message.png */,
+				58888A2A1EC20DA300858485 /* Schedule_list_reschedule.png */,
+			);
+			name = "Schedule list iage";
+			sourceTree = "<group>";
+		};
+		588B0D641ED82B980073F855 /* BOOKING */ = {
+			isa = PBXGroup;
+			children = (
+				588B0D671ED82BBC0073F855 /* booking_tick.png */,
+				588B0D651ED82BAB0073F855 /* booking-banner.jpg */,
+			);
+			name = BOOKING;
+			sourceTree = "<group>";
+		};
+		588E91DB1EA9F1D600912634 /* TrainerDetails by client */ = {
+			isa = PBXGroup;
+			children = (
+				588E91DC1EA9F44B00912634 /* TrainerDetailsByClient.swift */,
+			);
+			name = "TrainerDetails by client";
 			sourceTree = "<group>";
 		};
 		589065BC1E4DC996001BC5A3 /* Drawer */ = {
@@ -860,6 +1276,11 @@
 		5890BE021E7FBC4E00CAD8F6 /* Trainer About */ = {
 			isa = PBXGroup;
 			children = (
+				58F8C9BB1EFBEF56005710D1 /* plus-icon.png */,
+				58F8C9B91EFBD6AA005710D1 /* new_loader.gif */,
+				58F8C9B51EFBCFE5005710D1 /* Waiting_image_gif.gif */,
+				58F8C9B21EFBCF26005710D1 /* SwiftGif.h */,
+				58F8C9B31EFBCF26005710D1 /* UIImage+Gif.swift */,
 				58908FFE1E8E824400846D21 /* MobilePlayerExampleStores.h */,
 				5890BE031E7FBC8000CAD8F6 /* TrainerAboutController.swift */,
 			);
@@ -900,9 +1321,11 @@
 		58A2268D1E968E44004CC27E /* Work Schdule */ = {
 			isa = PBXGroup;
 			children = (
+				58DBF3711EA115D9008BAE4B /* no-img400x500-1.jpg */,
+				58DBF36F1EA10E39008BAE4B /* no-img384x221-1.jpg */,
 				58A2268E1E968E5D004CC27E /* cross_icon.png */,
 				58A2268F1E968E5D004CC27E /* cross_icon@2x.png */,
-				58A226901E968E5D004CC27E /* cross_icon@3x.png */,
+				58A226901E968E5D004CC27E /* cross_icon2.png */,
 				58A226911E968E5D004CC27E /* plus_icon.png */,
 				58A226921E968E5D004CC27E /* plus_icon2.png */,
 				58A226931E968E5D004CC27E /* plus_icon@3x.png */,
@@ -917,6 +1340,9 @@
 		58B403191E55B624007D77DE /* Client Traimimg type */ = {
 			isa = PBXGroup;
 			children = (
+				5842911D1EA5F25100525099 /* nonselect-radio.png */,
+				5842911E1EA5F25100525099 /* nonselect-radio@2x.png */,
+				5842911F1EA5F25100525099 /* nonselect-radio@3x.png */,
 				58B403301E55C13A007D77DE /* listing@3x.png */,
 				58B4032C1E55C132007D77DE /* listing.png */,
 				58B4032D1E55C132007D77DE /* listing@2x.png */,
@@ -939,16 +1365,36 @@
 				58B403331E55CB63007D77DE /* ClientTrainingTypeController.swift */,
 				58B403351E55CC06007D77DE /* TrainingTypeCell.swift */,
 				589541E21E57168900E862D1 /* SelectedSkillCell.swift */,
+				584291231EA63C0800525099 /* SearchSkillCell.swift */,
 			);
 			name = "Client traing type";
+			sourceTree = "<group>";
+		};
+		58DBF3691EA0D529008BAE4B /* ClientFeedDetails */ = {
+			isa = PBXGroup;
+			children = (
+				58DBF36A1EA0D582008BAE4B /* ClientFeedDetailsView.swift */,
+			);
+			name = ClientFeedDetails;
+			sourceTree = "<group>";
+		};
+		58DBF36C1EA0EAA7008BAE4B /* Client Feed Comments */ = {
+			isa = PBXGroup;
+			children = (
+				58DBF36D1EA0EAD4008BAE4B /* ClientFeedCommentsView.swift */,
+			);
+			name = "Client Feed Comments";
 			sourceTree = "<group>";
 		};
 		58DE743A1E3F1AE100E4FA4A /* Client Home View */ = {
 			isa = PBXGroup;
 			children = (
+				589BFBCA1EA4A2320066BF9E /* FeedCell.xib */,
+				589BFBC81EA494A90066BF9E /* FeedCellTwo.xib */,
 				58CBA9201E5B308E008A5926 /* UIDropDown.swift */,
 				58DE743B1E3F1BAB00E4FA4A /* ClientHomeController.swift */,
 				58DE74741E3F751F00E4FA4A /* FeedCell.swift */,
+				583D22AD1E9E631C009ADD95 /* FeedCellTwo.swift */,
 			);
 			name = "Client Home View";
 			sourceTree = "<group>";
@@ -990,7 +1436,12 @@
 		58F0726E1E5DAA0900FB5F63 /* Book Now */ = {
 			isa = PBXGroup;
 			children = (
+				5819BF831EC04F3F00764271 /* Calender Source file */,
 				58F0726F1E5DAA5B00FB5F63 /* BookNowViewController.swift */,
+				58AEA82D1EBB609500DCEF8D /* BookNowNextView.swift */,
+				5885D7E51ED6FCD90056C46B /* dotNew.png */,
+				586F6A131EDEA6CB009608D7 /* rescedule.png */,
+				5885D7E31ED6FB3A0056C46B /* dot.png */,
 			);
 			name = "Book Now";
 			sourceTree = "<group>";
@@ -1011,6 +1462,23 @@
 			name = "Comment Image";
 			sourceTree = "<group>";
 		};
+		58F30B661EF9209B00AC34EB /* Notification View */ = {
+			isa = PBXGroup;
+			children = (
+				58F30B671EF9215100AC34EB /* NotificationViewController.swift */,
+				58F30B691EF9216F00AC34EB /* ClientNotificationController.swift */,
+			);
+			name = "Notification View";
+			sourceTree = "<group>";
+		};
+		58F4A2A51EA7A24E0038B598 /* Client Edit Profile */ = {
+			isa = PBXGroup;
+			children = (
+				58F4A2A31EA76B520038B598 /* ClientEditViewController.swift */,
+			);
+			name = "Client Edit Profile";
+			sourceTree = "<group>";
+		};
 		70C8B35920909A87D3AC0597 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1023,6 +1491,7 @@
 		A857568E086161932B4ECA4C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				589147A31E8542A300E6D2AC /* Trainer My Post */,
 				5858BAE21E8D4434008A3B16 /* CoreLocation.framework */,
 				5858BAE01E8D442C008A3B16 /* MapKit.framework */,
 				5890BE051E80069000CAD8F6 /* AVFoundation.framework */,
@@ -1044,9 +1513,23 @@
 		E82605E01E36300B0074E4FE = {
 			isa = PBXGroup;
 			children = (
+				582489041F0A76FF005959F5 /*  Client Invoice */,
+				58F30B661EF9209B00AC34EB /* Notification View */,
+				5865864E1EEED8C1007BF40D /* Messgae View */,
+				586F6A181EDF0674009608D7 /* Client Session List */,
+				586F6A151EDEEF83009608D7 /* Client My  Schedule */,
+				5801D9E71EDDB7EC00BA7F0F /* Reschedule Group */,
+				5801D9E11EDD524900BA7F0F /* Add Schedule Calender */,
+				58888A241EC1FB8A00858485 /* Trainer ScdeduleList */,
+				5819BFE81EC0AF5C00764271 /* TrainerMySchdule */,
+				58160AD11EB0714D00D935C7 /* Trainer Package Details */,
+				588E91DB1EA9F1D600912634 /* TrainerDetails by client */,
+				58F4A2A51EA7A24E0038B598 /* Client Edit Profile */,
+				58DBF36C1EA0EAA7008BAE4B /* Client Feed Comments */,
+				58DBF3691EA0D529008BAE4B /* ClientFeedDetails */,
+				587A04CD1E9791E500E94EA8 /* Work schdule */,
 				586F50F61E8BFD8700F54A7E /* Post Details */,
 				586849EA1E88EFAC00C3694C /* Trainer Create Feed */,
-				589147A31E8542A300E6D2AC /* Trainer My Post */,
 				5890BE021E7FBC4E00CAD8F6 /* Trainer About */,
 				585AF1371E728DC300220785 /* Extension File */,
 				580B72A11E645B1100DCF0D1 /* Facebook LoginKit */,
@@ -1086,9 +1569,9 @@
 				E82605EC1E36300D0074E4FE /* AppDelegate.swift */,
 				584D049D1E37539F0025755E /* SignUpViewController.swift */,
 				E826061A1E3630DA0074E4FE /* image */,
-				E82605F01E3630100074E4FE /* Main.storyboard */,
 				E82605F31E3630160074E4FE /* Assets.xcassets */,
 				E82605F51E3630170074E4FE /* LaunchScreen.storyboard */,
+				5819BF811EC04B3700764271 /* Main.storyboard */,
 				E82605F81E3630170074E4FE /* Info.plist */,
 			);
 			path = MyPerfectTrainer;
@@ -1115,6 +1598,12 @@
 		E826061A1E3630DA0074E4FE /* image */ = {
 			isa = PBXGroup;
 			children = (
+				583C07E91EF112CC0050D50C /* view-icon.png */,
+				583C07E71EF10BB90050D50C /* reply-icon.png */,
+				588B0D641ED82B980073F855 /* BOOKING */,
+				58888A271EC20D8500858485 /* Schedule list iage */,
+				58888A171EC1A39900858485 /* MyschduleIcon */,
+				58160AD41EB0B50900D935C7 /* TrainerMyPackage */,
 				58A2268D1E968E44004CC27E /* Work Schdule */,
 				586849ED1E88F97C00C3694C /* TrainerCreateFeed */,
 				589147A81E855E1A00E6D2AC /* Trainer My post */,
@@ -1301,42 +1790,54 @@
 				589065E91E4DD15C001BC5A3 /* massage@3x.png in Resources */,
 				5879036E1E532D0C004D9E6D /* Edit_profile@3x.png in Resources */,
 				589065DE1E4DD15C001BC5A3 /* edit-profile.png in Resources */,
+				5885D7E61ED6FCD90056C46B /* dotNew.png in Resources */,
+				5819BFE71EC0701F00764271 /* Info.plist in Resources */,
+				58888A2B1EC20DA300858485 /* Schdulelist_confirm.png in Resources */,
 				588031DD1E5478A8005D0A67 /* skill@3x.png in Resources */,
 				588047601E603789008ADBC6 /* radio-unselect@3x.png in Resources */,
 				584D04AE1E3762A70025755E /* Roboto-Bold.ttf in Resources */,
 				589065EA1E4DD15C001BC5A3 /* profileicon.png in Resources */,
 				589147AC1E855E2E00E6D2AC /* Trainer_post_plus_icon.png in Resources */,
 				58DE74681E3F392900E4FA4A /* location@2x.png in Resources */,
+				58ADD0191EAB7E3200D5DA85 /* instragram-hover.png in Resources */,
 				58F072811E5DB52000FB5F63 /* delete.png in Resources */,
 				58DE746C1E3F392900E4FA4A /* search@3x.png in Resources */,
 				58CBA91C1E5AEFCD008A5926 /* orengestar@3x.png in Resources */,
 				588047661E6037C9008ADBC6 /* edit_image@3x.png in Resources */,
 				58F0727C1E5DB52000FB5F63 /* arrow_right@2x.png in Resources */,
 				585AF12E1E727F2A00220785 /* instragram_connect.png in Resources */,
+				58ADD01D1EAB7E3200D5DA85 /* twitter_hover@2x.png in Resources */,
 				5879035E1E530DEA004D9E6D /* Trainer_profile_bg@2x.png in Resources */,
 				584D04AF1E3762A70025755E /* Roboto-BoldItalic.ttf in Resources */,
 				588047591E603789008ADBC6 /* blue-arrow@2x.png in Resources */,
+				58ADD01C1EAB7E3200D5DA85 /* twitter_hover.png in Resources */,
+				584291201EA5F25100525099 /* nonselect-radio.png in Resources */,
 				585AF12B1E727F2A00220785 /* facebook_connect.png in Resources */,
 				589065ED1E4DD15C001BC5A3 /* schedule.png in Resources */,
 				5879036D1E532D0C004D9E6D /* Edit_profile@2x.png in Resources */,
+				58BDB21C1E9F66AD00B154C2 /* Ok_new_btn.png in Resources */,
 				58A226A11E968E5D004CC27E /* video_img.jpg in Resources */,
 				584D04B01E3762A70025755E /* Roboto-Italic.ttf in Resources */,
-				58A2269A1E968E5D004CC27E /* cross_icon@3x.png in Resources */,
+				58A2269A1E968E5D004CC27E /* cross_icon2.png in Resources */,
 				58F0728D1E5DB88600FB5F63 /* edit_about.png in Resources */,
+				58888A1F1EC1A3B400858485 /* My_schdule_add.png in Resources */,
 				587903651E531F02004D9E6D /* post@3x.png in Resources */,
 				584D04B11E3762A70025755E /* Roboto-Light.ttf in Resources */,
 				589065E01E4DD15C001BC5A3 /* edit-profile@3x.png in Resources */,
 				58A2269B1E968E5D004CC27E /* plus_icon.png in Resources */,
 				584D04B21E3762A70025755E /* Roboto-LightItalic.ttf in Resources */,
 				584D03D51E5ECF71005F091E /* facebook_login.png in Resources */,
+				58160ADB1EB0B58E00D935C7 /* Package_delete.png in Resources */,
 				584D04B31E3762A70025755E /* Roboto-Medium.ttf in Resources */,
 				588031E71E54946D005D0A67 /* certification.png in Resources */,
+				58888A201EC1A3B400858485 /* My_schdule_group.png in Resources */,
 				586849F81E88FA7800C3694C /* Create_feed_Camera_Icon@2x.png in Resources */,
 				584D04B41E3762A70025755E /* Roboto-MediumItalic.ttf in Resources */,
 				58B4032F1E55C132007D77DE /* listing@2x.png in Resources */,
 				584D04B51E3762A70025755E /* Roboto-Regular.ttf in Resources */,
 				58DE744C1E3F212800E4FA4A /* bell@2x.png in Resources */,
 				588047651E6037C9008ADBC6 /* edit_image@2x.png in Resources */,
+				58888A2C1EC20DA300858485 /* schdulelist_message.png in Resources */,
 				584D04B61E3762A70025755E /* Roboto-Thin.ttf in Resources */,
 				58DE744D1E3F212800E4FA4A /* bell@3x.png in Resources */,
 				589065E51E4DD15C001BC5A3 /* logout@2x.png in Resources */,
@@ -1344,13 +1845,21 @@
 				5880474C1E600FDE008ADBC6 /* twiiter@3x.png in Resources */,
 				58A2269F1E968E5D004CC27E /* select-arrow@2x.png in Resources */,
 				E82606441E3631030074E4FE /* logo@2x.png in Resources */,
+				58888A231EC1A3B400858485 /* My_schdule_tandem.png in Resources */,
 				585AF12C1E727F2A00220785 /* facebook_connect@2x.png in Resources */,
 				58B4031D1E55B646007D77DE /* ic_arrow_drop_down_18pt_2x.png in Resources */,
+				58ADD0181EAB7E3200D5DA85 /* facebook-hover@3x.png in Resources */,
 				587903641E531F02004D9E6D /* post@2x.png in Resources */,
+				58888A1E1EC1A3B300858485 /* header-icon2.png in Resources */,
 				5890BE0E1E8022BA00CAD8F6 /* cross@2x.png in Resources */,
 				589065E61E4DD15C001BC5A3 /* logout@3x.png in Resources */,
 				5880475D1E603789008ADBC6 /* radio-select@3x.png in Resources */,
 				584D04AB1E3755680025755E /* Selected_image@3x.png in Resources */,
+				586F6A141EDEA6CB009608D7 /* rescedule.png in Resources */,
+				589BFBCB1EA4A2320066BF9E /* FeedCell.xib in Resources */,
+				5885D7E41ED6FB3A0056C46B /* dot.png in Resources */,
+				58ADD01E1EAB7E3200D5DA85 /* twitter_hover@3x.png in Resources */,
+				58ADD0161EAB7E3200D5DA85 /* facebook-hover.png in Resources */,
 				5879036F1E532D0C004D9E6D /* schedule_icon.png in Resources */,
 				58DE74731E3F6ECD00E4FA4A /* profile.png in Resources */,
 				58CBA91B1E5AEFCD008A5926 /* orengestar@2x.png in Resources */,
@@ -1373,17 +1882,24 @@
 				587903751E534456004D9E6D /* sky_like.png in Resources */,
 				58B4032E1E55C132007D77DE /* listing.png in Resources */,
 				586849F71E88FA7800C3694C /* Create_feed_Camera_icon.png in Resources */,
+				58415E251EF29A1100005B3A /* block-icon.png in Resources */,
+				58BDB21A1E9F651200B154C2 /* Ok_btn.png in Resources */,
 				587903711E532D0C004D9E6D /* schedule_icon@3x.png in Resources */,
+				58F8C9B61EFBCFE5005710D1 /* Waiting_image_gif.gif in Resources */,
 				58DE74691E3F392900E4FA4A /* location@3x.png in Resources */,
 				587903631E531F02004D9E6D /* post.png in Resources */,
+				58ADD01B1EAB7E3200D5DA85 /* instragram-hover@3x.png in Resources */,
 				585AF1361E727F2A00220785 /* twitter_connect@3x.png in Resources */,
 				588047441E600FDE008ADBC6 /* facebook_about.png in Resources */,
 				586849F21E88F98D00C3694C /* Create_feed_No_image@2x.png in Resources */,
 				588031E81E54946D005D0A67 /* certification@2x.png in Resources */,
+				588B0D661ED82BAB0073F855 /* booking-banner.jpg in Resources */,
 				5890BE0A1E80225200CAD8F6 /* cross@3x.png in Resources */,
 				58F072881E5DB7DE00FB5F63 /* comment_about@2x.png in Resources */,
 				588047581E603789008ADBC6 /* blue-arrow.png in Resources */,
 				585AF1351E727F2A00220785 /* twitter_connect@2x.png in Resources */,
+				583D49C51EB1DA0E008EAB2C /* My_package_cross.png in Resources */,
+				58F8C9BC1EFBEF56005710D1 /* plus-icon.png in Resources */,
 				58A2269E1E968E5D004CC27E /* select-arrow.png in Resources */,
 				58F072871E5DB7DE00FB5F63 /* comment_about.png in Resources */,
 				587903761E534456004D9E6D /* sky_like@2x.png in Resources */,
@@ -1395,42 +1911,55 @@
 				58A226991E968E5D004CC27E /* cross_icon@2x.png in Resources */,
 				E82606311E3631030074E4FE /* alfaicon.png in Resources */,
 				E82606341E3631030074E4FE /* fullnameicon.png in Resources */,
+				58AF587A1EE01E530022D861 /* reschedule-icon.png in Resources */,
 				58DE74531E3F212800E4FA4A /* grey-like_large.png in Resources */,
 				5879036C1E532D0C004D9E6D /* Edit_profile.png in Resources */,
 				58CBA91F1E5AEFCD008A5926 /* whitestar@3x.png in Resources */,
 				588047491E600FDE008ADBC6 /* instragram@3x.png in Resources */,
 				58A226A01E968E5D004CC27E /* select-arrow@3x.png in Resources */,
+				58160ADF1EB0B58E00D935C7 /* Package_edit@2x.png in Resources */,
 				58CBA91E1E5AEFCD008A5926 /* whitestar@2x.png in Resources */,
 				58908FFB1E8E5A2300846D21 /* Video_cross.png in Resources */,
+				58160AE51EB0BD0000D935C7 /* discount2x.png in Resources */,
 				589147AE1E855E2E00E6D2AC /* Trainer_post_plus_icon_new.png in Resources */,
 				589065E41E4DD15C001BC5A3 /* logout.png in Resources */,
 				58DE746F1E3F392900E4FA4A /* slick-arrow@3x.png in Resources */,
 				5880474B1E600FDE008ADBC6 /* twiiter@2x.png in Resources */,
 				E82606411E3631030074E4FE /* login-bg@2x.png in Resources */,
 				E82606451E3631030074E4FE /* logo@3x.png in Resources */,
+				58160ADD1EB0B58E00D935C7 /* Package_delete_large.png in Resources */,
 				5880474A1E600FDE008ADBC6 /* twiiter.png in Resources */,
+				58ADD0171EAB7E3200D5DA85 /* facebook-hover@2x.png in Resources */,
+				58888A221EC1A3B400858485 /* My_schdule_individual.png in Resources */,
 				58B403231E55BE84007D77DE /* select-radio.png in Resources */,
+				58888A2D1EC20DA300858485 /* Schedule_list_reschedule.png in Resources */,
 				58908FFC1E8E5A2300846D21 /* Video_cross@2x.png in Resources */,
 				58DE74651E3F392900E4FA4A /* arrow@2x.png in Resources */,
 				E82605F71E3630170074E4FE /* LaunchScreen.storyboard in Resources */,
 				58DE74551E3F212800E4FA4A /* menu@2x.png in Resources */,
 				588047461E600FDE008ADBC6 /* facebook_about@3x.png in Resources */,
+				589BFBC91EA494A90066BF9E /* FeedCellTwo.xib in Resources */,
 				5829DAAE1E8A723500E814C7 /* ic_delete.png in Resources */,
 				587903701E532D0C004D9E6D /* schedule_icon@2x.png in Resources */,
 				E852B0ED1E3730DC00EEBC83 /* facebook@2x.png in Resources */,
+				58160ADE1EB0B58E00D935C7 /* Package_edit.png in Resources */,
 				58908FFD1E8E5A2300846D21 /* Video_cross@3x.png in Resources */,
+				58AF587C1EE01E640022D861 /* message-icon.png in Resources */,
 				5880475B1E603789008ADBC6 /* radio-select.png in Resources */,
 				588047451E600FDE008ADBC6 /* facebook_about@2x.png in Resources */,
 				585AF1341E727F2A00220785 /* twitter_connect.png in Resources */,
 				588047481E600FDE008ADBC6 /* instragram@2x.png in Resources */,
 				E82606401E3631030074E4FE /* login-bg.png in Resources */,
+				58160AE61EB0BD0000D935C7 /* discount_large.png in Resources */,
 				58F072821E5DB52000FB5F63 /* delete@2x.png in Resources */,
 				58DE74671E3F392900E4FA4A /* location.png in Resources */,
+				58160AE01EB0B58E00D935C7 /* Package_edit_large.png in Resources */,
 				58F0727F1E5DB52000FB5F63 /* Comment_post@2x.png in Resources */,
 				58DE74641E3F392900E4FA4A /* arrow.png in Resources */,
 				58B403311E55C13A007D77DE /* listing@3x.png in Resources */,
 				589065E71E4DD15C001BC5A3 /* massage.png in Resources */,
 				588047471E600FDE008ADBC6 /* instragram.png in Resources */,
+				583C07EA1EF112CC0050D50C /* view-icon.png in Resources */,
 				58B4032B1E55C126007D77DE /* Client_location@3x.png in Resources */,
 				E82606331E3631030074E4FE /* alfaicon@3x.png in Resources */,
 				58DE74521E3F212800E4FA4A /* grey-like@2x.png in Resources */,
@@ -1438,18 +1967,23 @@
 				589065C01E4DC9A5001BC5A3 /* homeicon.png in Resources */,
 				58DE74571E3F212800E4FA4A /* sky-like.png in Resources */,
 				58B403291E55C126007D77DE /* Client_location.png in Resources */,
+				588B0D681ED82BBC0073F855 /* booking_tick.png in Resources */,
 				589065C81E4DCC11001BC5A3 /* ic_keyboard_arrow_right_white.png in Resources */,
 				58DE744B1E3F212800E4FA4A /* bell.png in Resources */,
 				589065E81E4DD15C001BC5A3 /* massage@2x.png in Resources */,
+				5819BF821EC04B3700764271 /* Main.storyboard in Resources */,
 				58B4032A1E55C126007D77DE /* Client_location@2x.png in Resources */,
+				583C07E81EF10BB90050D50C /* reply-icon.png in Resources */,
 				58F0727B1E5DB52000FB5F63 /* arrow_right.png in Resources */,
 				584D04A61E3755680025755E /* Non_selected_image.png in Resources */,
 				58DE74561E3F212800E4FA4A /* menu@3x.png in Resources */,
+				58DBF3721EA115D9008BAE4B /* no-img400x500-1.jpg in Resources */,
 				588031DB1E5478A8005D0A67 /* skill.png in Resources */,
 				58F0727E1E5DB52000FB5F63 /* Comment_post.png in Resources */,
 				E852B0EC1E3730DC00EEBC83 /* facebook.png in Resources */,
 				584D04A91E3755680025755E /* Selected_image.png in Resources */,
 				58F0728F1E5DB88600FB5F63 /* edit_about@3x.png in Resources */,
+				584291211EA5F25100525099 /* nonselect-radio@2x.png in Resources */,
 				5890BE0C1E80227900CAD8F6 /* cross.png in Resources */,
 				589065EF1E4DD15C001BC5A3 /* schedule@3x.png in Resources */,
 				584D03D61E5ECF71005F091E /* facebook_login@2x.png in Resources */,
@@ -1459,20 +1993,25 @@
 				588031E11E547BE2005D0A67 /* wheel.png in Resources */,
 				58F072831E5DB52000FB5F63 /* delete_new.png in Resources */,
 				E82605F41E3630160074E4FE /* Assets.xcassets in Resources */,
+				584291221EA5F25100525099 /* nonselect-radio@3x.png in Resources */,
 				58DE744F1E3F212800E4FA4A /* comment@2x.png in Resources */,
 				586849F11E88F98D00C3694C /* Create_feed_No_image.png in Resources */,
 				E826063E1E3631030074E4FE /* lockicon@2X.png in Resources */,
 				589065DF1E4DD15C001BC5A3 /* edit-profile@2x.png in Resources */,
 				58B403241E55BE84007D77DE /* select-radio@2x.png in Resources */,
 				588031E91E54946D005D0A67 /* certification@3x.png in Resources */,
+				58160ADC1EB0B58E00D935C7 /* Package_delete@2x.png in Resources */,
 				584D03D71E5ECF71005F091E /* facebook_login@3x.png in Resources */,
 				58DE746B1E3F392900E4FA4A /* search@2x.png in Resources */,
 				58CBA91D1E5AEFCD008A5926 /* whitestar.png in Resources */,
+				58DBF3701EA10E39008BAE4B /* no-img384x221-1.jpg in Resources */,
 				5880475A1E603789008ADBC6 /* blue-arrow@3x.png in Resources */,
 				584D04A81E3755680025755E /* Non_selected_image@3x.png in Resources */,
 				58DE74541E3F212800E4FA4A /* menu.png in Resources */,
 				58DE74711E3F6E5500E4FA4A /* banner.png in Resources */,
 				585AF12F1E727F2A00220785 /* instragram_connect@2x.png in Resources */,
+				58888A211EC1A3B400858485 /* My_schdule_icon.png in Resources */,
+				58AEA8271EBB342100DCEF8D /* BookNow_next.png in Resources */,
 				E82606351E3631030074E4FE /* fullnameicon@2x.png in Resources */,
 				589065C21E4DC9A5001BC5A3 /* homeicon@3x.png in Resources */,
 				58B4031E1E55B646007D77DE /* ic_arrow_drop_down_18pt_3x.png in Resources */,
@@ -1484,10 +2023,10 @@
 				E852B0EE1E3730DC00EEBC83 /* facebook@3x.png in Resources */,
 				5880475F1E603789008ADBC6 /* radio-unselect@2x.png in Resources */,
 				588031DC1E5478A8005D0A67 /* skill@2x.png in Resources */,
-				E82605F21E3630100074E4FE /* Main.storyboard in Resources */,
 				58CBA91A1E5AEFCD008A5926 /* orengestar.png in Resources */,
 				E82606321E3631030074E4FE /* alfaicon@2x.png in Resources */,
 				585AF1321E727F2A00220785 /* plusicon_connect@2x.png in Resources */,
+				58ADD01A1EAB7E3200D5DA85 /* instragram-hover@2x.png in Resources */,
 				589065C61E4DCC11001BC5A3 /* ic_keyboard_arrow_right_white_2x.png in Resources */,
 				58DE74501E3F212800E4FA4A /* comment_large.png in Resources */,
 				588031E31E547BE2005D0A67 /* wheel@3x.png in Resources */,
@@ -1495,6 +2034,8 @@
 				5880475C1E603789008ADBC6 /* radio-select@2x.png in Resources */,
 				58A226981E968E5D004CC27E /* cross_icon.png in Resources */,
 				58F072801E5DB52000FB5F63 /* Comment_post@3x.png in Resources */,
+				58F8C9BA1EFBD6AA005710D1 /* new_loader.gif in Resources */,
+				58160AE41EB0BD0000D935C7 /* discount.png in Resources */,
 				584D04AA1E3755680025755E /* Selected_image@2x.png in Resources */,
 				5879035F1E530DEA004D9E6D /* Trainer_profile_bg@3x.png in Resources */,
 				585AF1301E727F2A00220785 /* instragram_connect@3x.png in Resources */,
@@ -1581,34 +2122,79 @@
 				587CF9DC1E76A037003645CB /* CameraManager.swift in Sources */,
 				586849EC1E88EFDB00C3694C /* TrainerCreateFeedController.swift in Sources */,
 				584D049E1E37539F0025755E /* SignUpViewController.swift in Sources */,
+				587A04D31E97CA9500E94EA8 /* WorkSchduleCell.swift in Sources */,
+				5885E8D91EF3D5B60019F503 /* MessageDetailController.swift in Sources */,
 				58B7E7311E6D4BBF00AF88DD /* AdditionalSkillCell.swift in Sources */,
+				58DBF36E1EA0EAD4008BAE4B /* ClientFeedCommentsView.swift in Sources */,
 				58B403141E557F95007D77DE /* CertificateCell.swift in Sources */,
+				58DBF36B1EA0D582008BAE4B /* ClientFeedDetailsView.swift in Sources */,
+				5819BFE51EC0701F00764271 /* FSCalendarExtensions.m in Sources */,
+				58160AE81EB0C67500D935C7 /* DiscountCell.swift in Sources */,
 				58F072701E5DAA5C00FB5F63 /* BookNowViewController.swift in Sources */,
+				5819BFD91EC0701F00764271 /* FSCalendarCell.m in Sources */,
+				584291241EA63C0800525099 /* SearchSkillCell.swift in Sources */,
+				5819BFE21EC0701F00764271 /* FSCalendarConstants.m in Sources */,
+				58160AD31EB0B4C400D935C7 /* TrainerMyPackageController.swift in Sources */,
+				5801D9E61EDD532500BA7F0F /* AddScheduleViewController.swift in Sources */,
+				58F4A2A41EA76B520038B598 /* ClientEditViewController.swift in Sources */,
+				586F6A1A1EDF069F009608D7 /* ClientSessionListController.swift in Sources */,
+				583D22AE1E9E631C009ADD95 /* FeedCellTwo.swift in Sources */,
+				582489091F0A7A20005959F5 /* ClientInvoiceController.swift in Sources */,
 				5890BE041E7FBC8000CAD8F6 /* TrainerAboutController.swift in Sources */,
 				587903791E534DAE004D9E6D /* TrainerViewController.swift in Sources */,
+				5819BFE41EC0701F00764271 /* FSCalendarDelegationProxy.m in Sources */,
 				589147A71E8553AB00E6D2AC /* MyPostCell.swift in Sources */,
+				5819BFE61EC0701F00764271 /* FSCalendar+Deprecated.m in Sources */,
+				586F6A171EDEEFD5009608D7 /* ClientMyScheduleController.swift in Sources */,
 				58DBC0C41E6999B500121A01 /* SkillCell.swift in Sources */,
 				58B403181E55847F007D77DE /* VideoCell.swift in Sources */,
 				58B2F5C51E719F8E008EC988 /* UploadImageCell.swift in Sources */,
 				588560B81E5C603F00F8647B /* File.swift in Sources */,
+				5819BFDE1EC0701F00764271 /* FSCalendarStickyHeader.m in Sources */,
+				586586501EEED95F007BF40D /* MessageViewController.swift in Sources */,
+				58AEA82E1EBB609500DCEF8D /* BookNowNextView.swift in Sources */,
+				5819BFD71EC0701F00764271 /* FSCalendar.m in Sources */,
+				5819BFD81EC0701F00764271 /* FSCalendarAppearance.m in Sources */,
 				589541E31E57168A00E862D1 /* SelectedSkillCell.swift in Sources */,
+				5819BFDB1EC0701F00764271 /* FSCalendarCollectionViewLayout.m in Sources */,
 				58B403341E55CB63007D77DE /* ClientTrainingTypeController.swift in Sources */,
 				58CBA9211E5B308E008A5926 /* UIDropDown.swift in Sources */,
+				5819BFEA1EC0B02100764271 /* MySchduleController.swift in Sources */,
+				5819BFE01EC0701F00764271 /* FSCalendarTransitionCoordinator.m in Sources */,
+				58F30B681EF9215100AC34EB /* NotificationViewController.swift in Sources */,
+				5819BFDF1EC0701F00764271 /* FSCalendarWeekdayView.m in Sources */,
+				58888A261EC1FBC500858485 /* TrainerScheduleListView.swift in Sources */,
+				5819BFE11EC0701F00764271 /* FSCalendarCalculator.m in Sources */,
+				58F30B6A1EF9216F00AC34EB /* ClientNotificationController.swift in Sources */,
 				588031D61E543C99005D0A67 /* ClientAboutController.swift in Sources */,
+				586F6A121EDE9CDE009608D7 /* RescheduleCell.swift in Sources */,
+				58888A2F1EC2108600858485 /* SchedulelistCell.swift in Sources */,
 				58CBA9131E5AEBCE008A5926 /* FloatRatingView.swift in Sources */,
 				58714D9D1E4CAE8200AC3B5E /* KYEmbedDrawerControllerSegue.swift in Sources */,
+				5819BFDC1EC0701F00764271 /* FSCalendarHeaderView.m in Sources */,
 				589065BB1E4DA808001BC5A3 /* KYDrawerController.swift in Sources */,
+				5819BFE31EC0701F00764271 /* FSCalendarDelegationFactory.m in Sources */,
+				587A04CF1E97924B00E94EA8 /* WorkSchduleCreateView.swift in Sources */,
+				5801D9E91EDDB81400BA7F0F /* RescheduleViewController.swift in Sources */,
 				58B403161E558455007D77DE /* GalleryCell.swift in Sources */,
+				588E91DD1EA9F44B00912634 /* TrainerDetailsByClient.swift in Sources */,
 				58DE74751E3F751F00E4FA4A /* FeedCell.swift in Sources */,
+				587A04D11E97B09E00E94EA8 /* HADropDown.swift in Sources */,
 				58714D9E1E4CAE8200AC3B5E /* KYEmbedMainControllerSegue.swift in Sources */,
+				58F8C9B41EFBCF26005710D1 /* UIImage+Gif.swift in Sources */,
 				58DE743C1E3F1BAB00E4FA4A /* ClientHomeController.swift in Sources */,
 				589541E81E57435B00E862D1 /* CommentCell.swift in Sources */,
 				58B403361E55CC06007D77DE /* TrainingTypeCell.swift in Sources */,
 				E82605EF1E36300F0074E4FE /* ViewController.swift in Sources */,
+				58DC23881EEA8D1800275E28 /* ScheduleMemberController.swift in Sources */,
+				58888A161EC1A08E00858485 /* MySchduleCell.swift in Sources */,
+				58DC238A1EEA8D3200275E28 /* MemberCell.swift in Sources */,
+				5819BFDA1EC0701F00764271 /* FSCalendarCollectionView.m in Sources */,
 				586F50F81E8BFDD000F54A7E /* PostDetailsController.swift in Sources */,
 				589147A51E8542CB00E6D2AC /* TrainerMyPostController.swift in Sources */,
 				E82605ED1E36300D0074E4FE /* AppDelegate.swift in Sources */,
 				589541E61E57430600E862D1 /* CommentViewController.swift in Sources */,
+				5819BFDD1EC0701F00764271 /* FSCalendarScopeHandle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1644,14 +2230,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E82605F01E3630100074E4FE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E82605F11E3630100074E4FE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E82605F51E3630170074E4FE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1761,7 +2339,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MyPerfectTrainer/MyPerfectTrainer.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = S2AJB2BP34;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1774,6 +2352,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyPerfectTrainer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
